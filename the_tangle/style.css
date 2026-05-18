@@ -1,0 +1,45 @@
+
+/* Core */
+* {
+    box-sizing: border-box;
+    font-family: "Ubuntu Mono", sans-serif;
+    color: #FFCC22;
+}
+
+:root {
+    --panel-background: rgba(23, 23, 45, 80);
+    --panel-accent: #FFCC22;
+}
+
+body {
+    background: content-box linear-gradient(black, #222);
+}
+
+/* Sections */
+.title-box {
+    background-color: var(--panel-background);
+    border: 2px solid var(--panel-accent);
+}
+
+.title-box h1 {
+    text-align: center;
+}
+
+.title-box h3 {
+    text-align: center;
+}
+
+.handbook-section {
+    background-color: var(--panel-background);
+    border: 2px solid var(--panel-accent);
+    margin: 5%;
+    padding: 5%;
+}
+
+.core-directive {
+    border: 2px dashed #CCCCDD;
+}
+
+.operations-advice {
+    border: 2px dashed #44CC33;
+}
