@@ -1,0 +1,59 @@
+
+/* Core */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url("https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3FobzVpbzUzeDlmZWhuaGd5MWR2eWZjeHlhZGkwa25jMGhvMmN0OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3og0IFrHkIglEOg8Ba/giphy.gif");
+    color:aliceblue;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 4em;
+    text-align: center;
+
+}
+
+/* Marquee */
+.marquee-box {
+    width: 100%;
+    background: aquamarine;
+    overflow: hidden;
+}
+
+.marquee-text {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll 30s linear infinite;
+}
+
+.marquee-text-rev {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll-rev 30s linear infinite;
+}
+
+.marquee-box:hover * {
+    animation-play-state: paused;
+}
+
+/* Infinite scroll by going to 50% then snapping back again */
+@keyframes marquee-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+@keyframes marquee-scroll-rev {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
