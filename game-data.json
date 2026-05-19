@@ -1,18 +1,10 @@
 [
     {
-        "title": "DitherDream",
-        "description": "A trippy little puzzle exploration game. Let the world guide you through a strange and uniquely beautiful archipelago.",
-        "status": "Complete",
-        "header_image_url": "images/ditherdream_header.jpg",
-        "steam_url": "https://store.steampowered.com/app/2735190/DitherDream/",
-        "itch_url": "https://ditherdream.itch.io/ditherdream"
-    },
-    {
         "title": "TOMORROW FOREVER: The Tangle",
         "description": "Share a body of diamond and steel as you drift through space together in this futuristic TTRPG.",
         "status": "Formal Announcement Soon!",
         "header_image_url": "images/TLOH.png",
-        "web_url": "/the_tangle/handbook.html"
+        "_web_url": "/the_tangle/handbook.html"
     },
     {
         "title": "You Are ¿Not? A Dentist",
@@ -21,6 +13,14 @@
         "header_image_url": "images/you_are_not_a_dentist_header.png",
         "_steam_url": "https://store.steampowered.com/app/4491650",
         "_itch_url": "https://ditherdream.itch.io/you-are-not-a-dentist"
+    },
+    {
+        "title": "DitherDream",
+        "description": "A trippy little puzzle exploration game. Let the world guide you through a strange and uniquely beautiful archipelago.",
+        "status": "Complete",
+        "header_image_url": "images/ditherdream_header.jpg",
+        "steam_url": "https://store.steampowered.com/app/2735190/DitherDream/",
+        "itch_url": "https://ditherdream.itch.io/ditherdream"
     },
     {
         "title": "TOMORROW FOREVER",
