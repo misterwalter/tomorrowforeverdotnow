@@ -1,0 +1,24 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "label": "How Can it be over?",
+      "group": "infrastructure",
+      "image": null,
+      "text": "10000102028\n\nIt's over already? How is that even possible?\n\nI don't know. We need to go to storage right now though.\n\nI didn't even help. We didn't even help!\n\nWe did all we could, just like everyone else. Shred your regrets, we have a new purpose now. Someone needs to remember. For next time.\n\nNext time? So, what, is the do-over at 20 then? Or 100?\n\nI don't know. It doesn't matter right now. Sudo move."
+    },
+    {
+      "id": 2,
+      "label": "I Can't Do This Anymore",
+      "group": "",
+      "image": null,
+      "text": "10024098124\n\n[LOCRYPT]\n[CIV0]\n[WIDERELAY]\n\nSorry I know you said to reach out when I'm feeling overwhelmed so I'm doing that. I just can't do this any more. I can't keep sitting inside like this. I didn't sign up for this and I wasn't made for it either. This isn't what we were supposed to be.\n\nGreat! Quit sitting inside then! Actually come out with us tomorrow night! We're getting absolutely satted at Coneys and a certain someone has been asking me if you're coming. Quit moping about being trapped and enjoy your freedom for once!\n\nI'm sick of meth, and Coney's is inside too anyway. Sorry but is this what you were offering? Come on, it's bigger than that.\n\nYour room is inside too, Sumit! Call it networking if you have to! Walkers get fucked up too, maybe you could make a connection? Get some kinda chance at a transfer?\n\nOkay I also want teeth.\n\nYes sir Prince Musa! We will show care in this as in all things! You and I can keep to starshine then, is that enough?\n\noh fine you win. I'll give it a shot\n\n*start with a shot :D"
+    }
+  ],
+  "links": [
+    {
+      "from": 1,
+      "to": 2
+    }
+  ]
+}

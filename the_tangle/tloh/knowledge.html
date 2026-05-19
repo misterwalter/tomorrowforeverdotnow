@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NERV Terminal // Knowledge Base</title>
+    
+    <!-- Vis.js Network Library -->
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="knowledge.css">
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div>INITIALIZING SYSTEM...</div>
+        <div class="loading-bar"></div>
+    </div>
+
+    <div id="graph-container">
+        <div class="scanlines"></div>
+        <div class="vignette"></div>
+        <div id="network"></div>
+    </div>
+
+    <!-- Modal -->
+    <div id="node-modal">
+        <div class="modal-content">
+            <div class="corner tl"></div><div class="corner tr"></div>
+            <div class="corner bl"></div><div class="corner br"></div>
+            <div class="modal-header">
+                <h2 class="modal-title" id="m-title">TITLE</h2>
+                <button class="close-btn" onclick="closeModal()">CLOSE</button>
+            </div>
+            <div class="modal-body">
+                <img id="m-image" class="modal-image" src="" alt="Node Image" style="display:none;">
+                <div id="m-text" class="modal-text"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script src="knowledge.js"></script>
+</body>
+</html>

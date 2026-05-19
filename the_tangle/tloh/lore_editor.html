@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lore Tracker Editor</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: 'VT323', monospace; background: #050505; color: #ff9900; padding: 20px; margin: 0; }
+        h1, h2, h3 { margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 2px; }
+        h1 { border-bottom: 2px solid #ff9900; padding-bottom: 10px; }
+        
+        .container { display: flex; gap: 20px; flex-wrap: wrap; }
+        .panel { flex: 1; min-width: 400px; background: rgba(0,0,0,0.85); border: 2px solid #ff9900; padding: 15px; }
+        
+        table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+        th, td { border: 1px solid #ff9900; padding: 8px; text-align: left; }
+        th { background: rgba(255,153,0,0.15); }
+        tr:hover { background: rgba(255,153,0,0.1); }
+        
+        input, textarea, select { 
+            background: #000; color: #ff9900; border: 1px solid #ff9900; 
+            font-family: 'VT323', monospace; font-size: 1rem; padding: 8px; width: 100%;
+            margin-bottom: 10px;
+        }
+        textarea { height: 120px; resize: vertical; }
+        
+        button { 
+            background: #ff9900; color: #000; border: none; 
+            padding: 8px 16px; cursor: pointer; font-family: 'VT323', monospace;
+            font-size: 1rem; text-transform: uppercase; margin-right: 5px; margin-bottom: 5px;
+        }
+        button:hover { background: #fff; }
+        button.danger { background: #ff3333; }
+        button.danger:hover { background: #fff; }
+        
+        .actions { margin-top: 20px; padding: 15px; background: rgba(255,153,0,0.1); border: 1px solid #ff9900; }
+        .preview { margin-top: 20px; padding: 15px; background: #000; border: 1px solid #ff9900; max-height: 300px; overflow: auto; }
+        pre { margin: 0; font-size: 0.85rem; white-space: pre-wrap; word-break: break-all; }
+        
+        .editor-section { display: none; margin-top: 15px; padding: 15px; border: 1px dashed #ff9900; }
+        .editor-section.active { display: block; }
+        
+        .link-item { display: flex; justify-content: space-between; align-items: center; padding: 5px; border-bottom: 1px solid #ff9900; }
+        .link-item:last-child { border-bottom: none; }
+        
+        .badge { display: inline-block; padding: 2px 8px; background: #ff9900; color: #000; font-size: 0.8rem; }
+        .badge-group { background: #ff3333; }
+        
+        .status { padding: 10px; margin-bottom: 15px; }
+        .status.success { background: rgba(0,255,0,0.1); border: 1px solid #0f0; }
+        .status.error { background: rgba(255,0,0,0.1); border: 1px solid #f00; }
+    </style>
+</head>
+<body>
+    <h1>📡 Lore Tracker Editor</h1>
+    
+    <div id="status" class="status" style="display:none;"></div>
+    
+    <div class="container">
+        <!-- LEFT PANEL: NODES -->
+        <div class="panel">
+            <h2>Nodes</h2>
+            <table>
+                <thead><tr><th>ID</th><th>Label</th><th>Group</th><th>Links</th><th>Actions</th></tr></thead>
+                <tbody id="node-table"></tbody>
+            </table>
+            <button onclick="addNode()">+ Add Node</button>
+            <button onclick="exportJSON()">Export JSON</button>
+            <button onclick="document.getElementById('file-input').click()">Import JSON</button>
+            <input type="file" id="file-input" style="display:none" onchange="importJSON(this)">
+        </div>
+        
+        <!-- RIGHT PANEL: LINKS -->
+        <div class="panel">
+            <h2>Links</h2>
+            <div style="margin-bottom: 15px;">
+                <select id="link-from" style="width:48%; display:inline-block;"></select>
+                <span style="margin:0 5px;">→</span>
+                <select id="link-to" style="width:48%; display:inline-block;"></select>
+            </div>
+            <button onclick="addLink()">Create Link</button>
+            <button onclick="clearAllLinks()" class="danger">Clear All Links</button>
+            
+            <h3 style="margin-top: 20px;">Existing Links (<span id="link-count">0</span>)</h3>
+            <div id="links-list" style="max-height: 400px; overflow-y: auto;"></div>
+        </div>
+    </div>
+    
+    <!-- NODE EDITOR MODAL -->
+    <div id="node-editor" class="editor-section">
+        <h2>Edit Node</h2>
+        <input type="hidden" id="edit-id">
+        <label>Label:</label>
+        <input type="text" id="edit-label">
+        <label>Group:</label>
+        <select id="edit-group">
+            <option value="location">location</option>
+            <option value="facility">facility</option>
+            <option value="infrastructure">infrastructure</option>
+            <option value="classified">classified</option>
+        </select>
+        <label>Image Path:</label>
+        <input type="text" id="edit-image">
+        <label>Text/Description:</label>
+        <textarea id="edit-text"></textarea>
+        <button onclick="saveNode()">Save Node</button>
+        <button onclick="cancelNodeEdit()">Cancel</button>
+        <button onclick="deleteNode()" class="danger">Delete Node</button>
+    </div>
+    
+    <!-- JSON PREVIEW -->
+    <div class="preview">
+        <h3>JSON Preview</h3>
+        <pre id="json-preview"></pre>
+    </div>
+
+    <script>
+        let data = { nodes: [], links: [] };
+        let editingNodeId = null;
+        
+        // ========== DATA LOADING ==========
+        function loadData() {
+            fetch('knowledge.json?t=' + Date.now())
+                .then(r => {
+                    if (!r.ok) throw new Error('HTTP ' + r.status);
+                    return r.json();
+                })
+                .then(d => {
+                    // Handle old format (just array) or new format (object with nodes/links)
+                    if (Array.isArray(d)) {
+                        data = { nodes: d, links: [] };
+                        migrateOldFormat();
+                    } else {
+                        data = d;
+                    }
+                    render();
+                    showStatus('Loaded ' + data.nodes.length + ' nodes, ' + data.links.length + ' links', 'success');
+                })
+                .catch(err => {
+                    showStatus('Error loading knowledge.json: ' + err.message, 'error');
+                });
+        }
+        
+        function migrateOldFormat() {
+            // Old format had random links generated in JS - we're starting fresh with empty links
+            // User can rebuild connections manually
+            console.log('Detected old format. Links array initialized empty.');
+        }
+        
+        // ========== RENDERING ==========
+        function render() {
+            renderNodes();
+            renderLinks();
+            renderLinkSelects();
+            updatePreview();
+            document.getElementById('link-count').textContent = data.links.length;
+        }
+        
+        function renderNodes() {
+            const tbody = document.getElementById('node-table');
+            tbody.innerHTML = '';
+            data.nodes.forEach(node => {
+                const linkCount = countNodeLinks(node.id);
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${node.id}</td>
+                    <td>${escapeHtml(node.label)}</td>
+                    <td><span class="badge badge-group">${node.group || 'default'}</span></td>
+                    <td><span class="badge">${linkCount}</span></td>
+                    <td>
+                        <button onclick="openNodeEditor(${node.id})">Edit</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+        
+        function renderLinks() {
+            const container = document.getElementById('links-list');
+            container.innerHTML = '';
+            
+            if (data.links.length === 0) {
+                container.innerHTML = '<div style="padding:20px; text-align:center; opacity:0.5;">No links defined. Create connections between nodes above.</div>';
+                return;
+            }
+            
+            data.links.forEach((link, idx) => {
+                const fromNode = data.nodes.find(n => n.id === link.from);
+                const toNode = data.nodes.find(n => n.id === link.to);
+                const div = document.createElement('div');
+                div.className = 'link-item';
+                div.innerHTML = `
+                    <span>
+                        <strong>${fromNode ? fromNode.label : '???'}</strong> 
+                        <span style="color:#ff3333">→</span> 
+                        <strong>${toNode ? toNode.label : '???'}</strong>
+                    </span>
+                    <button onclick="deleteLink(${idx})" class="danger" style="padding:4px 8px;">×</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        function renderLinkSelects() {
+            const fromSel = document.getElementById('link-from');
+            const toSel = document.getElementById('link-to');
+            fromSel.innerHTML = '';
+            toSel.innerHTML = '';
+            
+            data.nodes.forEach(node => {
+                const opt1 = document.createElement('option');
+                opt1.value = node.id;
+                opt1.textContent = `${node.id}: ${node.label}`;
+                fromSel.appendChild(opt1);
+                
+                const opt2 = document.createElement('option');
+                opt2.value = node.id;
+                opt2.textContent = `${node.id}: ${node.label}`;
+                toSel.appendChild(opt2);
+            });
+        }
+        
+        function updatePreview() {
+            document.getElementById('json-preview').textContent = JSON.stringify(data, null, 2);
+        }
+        
+        function countNodeLinks(nodeId) {
+            return data.links.filter(l => l.from === nodeId || l.to === nodeId).length;
+        }
+        
+        // ========== NODE OPERATIONS ==========
+        function openNodeEditor(id) {
+            const node = data.nodes.find(n => n.id === id);
+            if (!node) return;
+            
+            editingNodeId = id;
+            document.getElementById('edit-id').value = id;
+            document.getElementById('edit-label').value = node.label;
+            document.getElementById('edit-group').value = node.group || 'default';
+            document.getElementById('edit-image').value = node.image || '';
+            document.getElementById('edit-text').value = node.text || '';
+            
+            document.getElementById('node-editor').classList.add('active');
+            document.getElementById('node-editor').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function saveNode() {
+            const id = parseInt(document.getElementById('edit-id').value);
+            const node = data.nodes.find(n => n.id === id);
+            if (node) {
+                node.label = document.getElementById('edit-label').value;
+                node.group = document.getElementById('edit-group').value;
+                node.image = document.getElementById('edit-image').value || null;
+                node.text = document.getElementById('edit-text').value;
+                render();
+                showStatus('Node #' + id + ' saved', 'success');
+            }
+            cancelNodeEdit();
+        }
+        
+        function cancelNodeEdit() {
+            editingNodeId = null;
+            document.getElementById('node-editor').classList.remove('active');
+        }
+        
+        function addNode() {
+            const newId = Math.max(...data.nodes.map(n => n.id), 0) + 1;
+            data.nodes.push({ id: newId, label: "NEW NODE", group: "default", image: null, text: "" });
+            render();
+            openNodeEditor(newId);
+            showStatus('Created node #' + newId, 'success');
+        }
+        
+        function deleteNode() {
+            const id = parseInt(document.getElementById('edit-id').value);
+            if (!confirm(`Delete node #${id} and all its links?`)) return;
+            
+            data.nodes = data.nodes.filter(n => n.id !== id);
+            data.links = data.links.filter(l => l.from !== id && l.to !== id);
+            render();
+            cancelNodeEdit();
+            showStatus('Deleted node #' + id, 'success');
+        }
+        
+        // ========== LINK OPERATIONS ==========
+        function addLink() {
+            const from = parseInt(document.getElementById('link-from').value);
+            const to = parseInt(document.getElementById('link-to').value);
+            
+            if (from === to) {
+                showStatus('Cannot link a node to itself', 'error');
+                return;
+            }
+            
+            // Check if link already exists (either direction for bidirectional)
+            const exists = data.links.some(l => 
+                (l.from === from && l.to === to) || (l.from === to && l.to === from)
+            );
+            
+            if (exists) {
+                showStatus('Link already exists between these nodes', 'error');
+                return;
+            }
+            
+            data.links.push({ from, to });
+            render();
+            showStatus('Created link: ' + from + ' → ' + to, 'success');
+        }
+        
+        function deleteLink(idx) {
+            const link = data.links[idx];
+            if (!confirm(`Delete link: ${link.from} → ${link.to}?`)) return;
+            
+            data.links.splice(idx, 1);
+            render();
+            showStatus('Deleted link', 'success');
+        }
+        
+        function clearAllLinks() {
+            if (!confirm('Delete ALL links? This cannot be undone.')) return;
+            data.links = [];
+            render();
+            showStatus('All links cleared', 'success');
+        }
+        
+        // ========== IMPORT/EXPORT ==========
+        function exportJSON() {
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'knowledge.json';
+            a.click();
+            showStatus('JSON downloaded', 'success');
+        }
+        
+        function importJSON(input) {
+            const file = input.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = e => {
+                try {
+                    const parsed = JSON.parse(e.target.result);
+                    if (Array.isArray(parsed)) {
+                        data = { nodes: parsed, links: [] };
+                        showStatus('Imported old format (no links)', 'success');
+                    } else if (parsed.nodes && Array.isArray(parsed.nodes)) {
+                        data = parsed;
+                        showStatus('Imported ' + data.nodes.length + ' nodes, ' + (data.links?.length || 0) + ' links', 'success');
+                    } else {
+                        throw new Error('Invalid format');
+                    }
+                    render();
+                } catch(err) {
+                    showStatus('Invalid JSON: ' + err.message, 'error');
+                }
+            };
+            reader.readAsText(file);
+            input.value = '';
+        }
+        
+        // ========== UTILITIES ==========
+        function showStatus(msg, type) {
+            const el = document.getElementById('status');
+            el.textContent = msg;
+            el.className = 'status ' + type;
+            el.style.display = 'block';
+            setTimeout(() => { el.style.display = 'none'; }, 3000);
+        }
+        
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+        
+        // Initialize
+        loadData();
+    </script>
+</body>
+</html>
