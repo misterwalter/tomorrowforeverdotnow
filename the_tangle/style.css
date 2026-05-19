@@ -37,7 +37,12 @@ body {
 }
 
 .core-directive {
+    padding: 5%;
     border: 2px dashed #CCCCDD;
+}
+
+.core-directive h3 {
+    text-align: center;
 }
 
 .operations-advice {

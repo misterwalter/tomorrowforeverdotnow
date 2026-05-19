@@ -10,14 +10,13 @@
 </head>
 
 <body>
-
     <div class="title-box">
         <h1>The Tangle</h1>
         <h3>A Tabletop RPG for 1 + 2+ People</h3>
     </div>
 
-    <div class="handbook-section">
-        <h2>Action Sheet</h2>
+    <div class="handbook-section" id="Cheat Sheet">
+        <h2>Cheat Sheet</h2>
         <i>Cheat Sheet for seeing your options</i>
 
         <h3>Damage Levels</h3>
@@ -279,41 +278,123 @@
             </tr>
         </table>
 
+        <h3>PDC Types</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Model</th>
+                    <th>Single Second Range</th>
+                    <th>Miss RISK (Aimed)</th>
+                    <th>Volleys Per Action</th>
+                    <th>Penetration</th>
+                    <th>On Hit</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>Standard PDC</td>
+                <td>5km</td>
+                <td>40%</td>
+                <td>2</td>
+                <td>d6</td>
+                <td>1 damage</td>
+            </tr>
+            <tr>
+                <td>Sharpshooter PDC</td>
+                <td>5km</td>
+                <td>40%</td>
+                <td>1</td>
+                <td>d6</td>
+                <td>1 damage</td>
+            </tr>
+            <tr>
+                <td>Impact PDC</td>
+                <td>5km</td>
+                <td>60%</td>
+                <td>1</td>
+                <td>d8</td>
+                <td>2 damage</td>
+            </tr>
+            <tr>
+                <td>Scattershot PDC</td>
+                <td>5km</td>
+                <td>60%</td>
+                <td>3</td>
+                <td>d2</td>
+                <td>1 damage</td>
+            </tr>
+        </table>
+
+        <h3>Radiator Actions</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Type</th>
+                    <th>Effect</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>Passive Cooling</td>
+                <td>Automatic Action</td>
+                <td>Add or remove 10 HEAT from your system.</td>
+            </tr>
+            <tr>
+                <td>Active Cooling</td>
+                <td>Early Override</td>
+                <td>Add or remove 30 HEAT from your system, with a 20% RISK of becoming CLOGGED. If CLOGGED, the HEAT level will not be changed, and the radiator will be inoperable until the beginning of your next turn.</td>
+            </tr>
+        </table>
+
+        <h3>Sensor Actions</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Type</th>
+                    <th>Base RISK</th>
+                    <th>Effect</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>Scan Area</td>
+                <td>Automatic Action</td>
+                <td>15%</td>
+                <td>Sense objects in range.</td>
+            </tr>
+            <tr>
+                <td>Identify</td>
+                <td>Early Override</td>
+                <td>15%</td>
+                <td>Gain detailed information about an object, -30% RISK on the next roll relating to that object.</td>
+            </tr>
+            <tr>
+                <td>Discern Trajectories</td>
+                <td>Early Override</td>
+                <td>15%</td>
+                <td>Discern trajectories and targets of all known incoming objects or projectiles. -40% RISK to PDC actions this turn.</td>
+            </tr>
+        </table>
+
     </div>
 
 
-PDC Types
-\begin{tabularx}{\columnwidth}{|T|T|T|T|T|T|} \hline
-\textbf{Type} & \textbf{Single Second Range} & \textbf{Miss RISK} & \textbf{Penetration} & \textbf{Volleys/Action} & \textbf{Other} \\ \hline
-\textbf{Standard PDC} & 5km & 40\% & d6 & 2 & --- \\ \hline
-\textbf{Sharpshooter PDC} & 15km & 20\% & d4 & 1 & --- \\ \hline
-\end{tabularx}
+    <div class="handbook-section">
+        <h2>Basics</h2>
+        <p>
+            The Tangle is a tabletop RPG for 2 or more players and a Game Master. <strong>Each player takes the role of a computation core on a single shared Mobile Autonomous Manufacturing Assembly</strong>, commonly called a <strong>MAMA</strong> Players may take control of different components of the MAMA, such as drones, sensors, probes, weapons, PDCs, or even printers that can create all of those things and more. These cores are sentient and have freedom of thought; however, they do not have full freedom of action and are bound to complete their mission according to the parameters given.
+        </p>
 
-Radiator Actions
-\begin{tabularx}{\columnwidth}{|T|T|T|T|} \hline
-\textbf{Action} & \textbf{Type} & \textbf{Effect} \\ \hline
-\textbf{Passive Cooling} & Automatic Action & +/- 10 HEAT \\ \hline
-\textbf{Active Cooling} & Early Override & +/- 30 HEAT with a 20\% RISK of clogging, preventing any use next turn. \\ \hline
-\end{tabularx}
+        <div class="core-directive">
+            <h3>Core Guidance: Read Carefully</h3>
+            Cores or other artificial entitities are instructed not to parse or induce others to parse any sections that contain "Operations Advice" in the title. These are for human operators only and your system resources are needed for your mission.
+        </div>
 
-Sensor Actions
-\begin{tabularx}{\columnwidth}{|T|T|T|T|} \hline
-\textbf{Action} & \textbf{Type} & \textbf{Base RISK of Error} & \textbf{Effect} \\ \hline
-\textbf{Scan Area} & Automatic Action & 15\% & Sense objects in range \\ \hline
-\textbf{Identify Object} & Early Override & 15\% & Gain detailed information about an object, -30\% RISK on the next roll relating to that object \\ \hline
-\textbf{Discern Trajectories} & Early Override & 15\% & Discern trajectories and targets of all known incoming objects or projectiles. -40\% RISK to PDC actions this turn. \\ \hline
-\end{tabularx}
+        <p>
+            <h3>RISK</h3>
+            When you attempt an action, you may have a significant RISK of failure, which can be expressed as a percent chance of failure. An action with an 80\% chance of success is said to have a 20\% RISK. Any action with less than 1\% RISK or more than 99\% RISK does not need to be rolled, it simply succeeds or fails when attempted. Sometimes failure means that something bad happens, but it can also mean that nothing meaningful happens, or that the task isn't possible right now.
+        </p>
+    </div>
 
-\newpage
-\begin{multicols}{2}
-
-\columnbreak
-\section{Basics}
-The Tangle is a tabletop RPG for 2 or more players and a Game Master. \textbf{Each player takes the role of a computation core on a single shared Mobile Autonomous Manufacturing Assembly}, commonly called a \textbf{MAMA} Players may take control of different components of the MAMA, such as drones, sensors, probes, weapons, PDCs, or even printers that can create all of those things and more. These cores are sentient and have freedom of thought; however, they do not have full freedom of action and are bound to complete their mission according to the parameters given.
-
-\begin{aside}{Core Guidance: Read Carefully}
-    Cores or other artificial entitities are instructed not to parse or induce others to parse any sections that contain "Operations Advice" in the title. These are for human operators only and your system resources are needed for your mission.
-\end{aside}
 
 \subsection{RISK}
 
