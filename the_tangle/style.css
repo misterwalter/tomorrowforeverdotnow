@@ -15,7 +15,8 @@
 }
 
 body {
-    background: content-box linear-gradient(black, #222);
+    /* background: content-box linear-gradient(black, #222); */
+    background-image: url("https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3FobzVpbzUzeDlmZWhuaGd5MWR2eWZjeHlhZGkwa25jMGhvMmN0OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3og0IFrHkIglEOg8Ba/giphy.gif");
 }
 
 /* Sections */
@@ -67,8 +68,14 @@ body {
 }
 
 .sidenav a {
-    padding: 8px;
+    padding: 3px;
     display: block;
+    font-size: 18px;
+}
+
+.sidenav ul li a {
+    padding: 2px;
+    margin: 2px;
     font-size: 15px;
 }
 

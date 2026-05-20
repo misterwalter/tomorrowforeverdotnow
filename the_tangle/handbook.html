@@ -56,12 +56,18 @@
         <a href="#Power">Power</a>
         <a href="#Drones">Drones</a>
         <a href="#Utilities">Utilities</a>
+        <ul>
+            <li><a href="#Tethers">Tethers</a></li>
+            <li><a href="#Radiators">Radiators</a></li>
+            <li><a href="#Repair Systems">Repair Systems</a></li>
+            <li><a href="#Misc">Misc</a></li>
+        </ul>
     </div>
 
     <div class="title-box">
         <h1>The Tangle</h1>
         <h3>A Tabletop RPG for 1 Controller and 2+ Cores</h3>
-        <h3>By Walter Verburg</h3>
+        <h3>Currently in active development by Walter Verburg</h3>
     </div>
 
     <div class="handbook-section" id="Cheat Sheet">
@@ -106,7 +112,7 @@
                     <td>Override</td>
                     <td>1s</td>
                     <td>15</td>
-                    <td>Restore Functionality to a component without reducing damage.</td>
+                    <td>Restore functionality to a DISRUPTED or DESTROYED component. It is still DISRUPTED OR DESTROYED, but can act as if it was not until it is damaged again.</td>
                 </tr>
                 <tr>
                     <td>Rectify</td>
@@ -120,7 +126,14 @@
                     <td>Override</td>
                     <td>10 Minutes</td>
                     <td>25</td>
-                    <td>Restore a DESTROYED component to NOMINAL.</td>
+                    <td>Restore a DESTROYED component to DISRUPTED.</td>
+                </tr>
+                <tr>
+                    <td>Fine Tune</td>
+                    <td>Override</td>
+                    <td>1s</td>
+                    <td>5</td>
+                    <td>Give a component +d20 on all RISK rolls until the start of your next turn.</td>
                 </tr>
                 <tr>
                     <td>Pluck</td>
@@ -1360,7 +1373,7 @@
             There are a variety of tools that fill other specialized roles.
         </p>
 
-        <h3>Tethers</h3>
+        <h3 id="Tethers">Tethers</h3>
         <p>
             Close maneuvers are tough, and passing digital or physical materials between bodies can be extremely dangerous. Tethers allow these operations to take place with some safety, though one should never take any maneuver for granted until it is complete.
         </p>
@@ -1375,7 +1388,7 @@
             Connects the user to another object, allowing for rapid, secure, and voluntary transfer of data, filaments, and other cargos. Also secures the physical connection until either side chooses to release it, or the teather itself is DESTROYED.
         </p>
 
-        <h3>Radiators</h3>
+        <h3 id="Radiators">Radiators</h3>
         <p>
             HEAT is generated constantly, radiators can provide a way for that heat to exit the system.
         </p>
@@ -1386,17 +1399,11 @@
             <strong>Durable:</strong> 60%
         </p>
 
-        <h3>Repair Systems</h3>
+        <h3 id="Repair Systems">Repair Systems</h3>
         <p>
-            Damage happens, and it's good to have an economical means of dealing with it. There are several different actions that repair systems can take:
+            Damage happens, and it's good to have an economical means of dealing with it. There are several different actions that repair systems can take, see the <a href="#Cheat Sheet">Cheat Sheet</a> for details.
         </p>
-        <ul>
-            <li><strong>Patch:</strong> Restore functionality to a DISRUPTED or DESTROYED component. It is still DISRUPTED OR DESTROYED, but can act as if it was not.</li>
-            <li><strong>Rectify:</strong> Restore a DISRUPTED component to NOMINAL.</li>
-            <li><strong>Rebuild:</strong> Take ten minutes to restore a DESTROYED component to NOMINAL.</li>
-            <li><strong>Fine Tune:</strong> Give a component +d20 on all RISK rolls until the start of your next turn.</li>
-            <li><strong>Pluck:</strong> Remove a crawler from a component. Most can be safely hurled into space and will be unable to return, but you may crush it, move it to storage, or take other actions if you wish.</li>
-        </ul>
+
 
         <h4>Repair Arm</h4>
         <p>
@@ -1404,7 +1411,7 @@
             <strong>Repair:</strong> Can perform repair actions on components within 100 meters.
         </p>
 
-        <h3>Misc</h3>
+        <h3 id="Misc">Misc</h3>
         <p>
             Sometimes, there are other things!
         </p>
