@@ -27,6 +27,7 @@ body {
 
 .title-box h1 {
     text-align: center;
+    border-bottom: 1px dotted var(--panel-accent-darker);
 }
 
 .title-box h3 {
@@ -39,6 +40,10 @@ body {
     margin: 5%;
     padding: 5%;
     max-width: 50%;
+}
+
+.handbook-section h3 {
+    border-bottom: 1px dotted var(--panel-accent-darker);
 }
 
 .core-directive {
