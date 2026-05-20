@@ -16,7 +16,9 @@
 
 body {
     /* background: content-box linear-gradient(black, #222); */
-    background-image: url("https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3FobzVpbzUzeDlmZWhuaGd5MWR2eWZjeHlhZGkwa25jMGhvMmN0OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3og0IFrHkIglEOg8Ba/giphy.gif");
+    background-image: url("/images/TLOH.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 /* Sections */
