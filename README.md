@@ -8,4 +8,4 @@ All rights are reserved on this website, and if you use this to train AI then yo
 Pull requests are entirely unexpected but I guess if you make one I'll take a look?
 
 ## Uploading
-I do uploading with the neocities CLI, aliased to `neo`, usually with the command `neo push .`. This is definitely a note to help people other than me. My memory is fantastic.
+I do uploading with the neocities CLI, aliased to `neo`, usually with the command `neo push --prune .`. This is definitely a note to help people other than me. My memory is fantastic.

@@ -112,7 +112,11 @@ body, html {
 }
 
 .modal-title {
-    font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; margin: 0;
+    font-family: 'VT323', monospace;
+    font-size: 1.5rem; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+    margin: 0;
     text-shadow: 0 0 5px var(--neon-orange);
 }
 
@@ -133,9 +137,17 @@ body, html {
     margin-bottom: 15px; display: block; object-fit: contain; max-height: 300px;
 }
 
+
 .modal-text {
-    font-size: 1.1rem; line-height: 1.4; white-space: pre-wrap;
+    font-family: 'VT323', monospace; /* Revert to retro font */
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--neon-orange); /* Match title color */
+    white-space: pre-wrap;
+    text-shadow: 0 0 5px var(--neon-orange); /* Add glow */
+    text-shadow: 0 0 8px rgba(255, 153, 0, 0.6); /* Softer glow */
 }
+
 
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: #000; }

@@ -3,12 +3,15 @@
 * {
     box-sizing: border-box;
     font-family: "Ubuntu Mono", sans-serif;
-    color: #FFCC22;
+    color: var(--text-color);
 }
 
 :root {
     --panel-background: rgba(23, 23, 45, 80);
-    --panel-accent: #FFCC22;
+    --panel-background-darker: rgba(12, 11, 22, 80);
+    --panel-accent: #967d29;
+    --panel-accent-darker: #977c2a;
+    --text-color: #fff6e9;
 }
 
 body {
@@ -30,10 +33,11 @@ body {
 }
 
 .handbook-section {
-    background-color: var(--panel-background);
+    background-image: radial-gradient(var(--panel-background), var(--panel-background-darker));
     border: 2px solid var(--panel-accent);
     margin: 5%;
     padding: 5%;
+    max-width: 50%;
 }
 
 .core-directive {
@@ -46,5 +50,36 @@ body {
 }
 
 .operations-advice {
+    padding: 5%;
     border: 2px dashed #44CC33;
+}
+
+.sidenav {
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-image: radial-gradient(var(--panel-background), var(--panel-background-darker));
+    border: 2px solid var(--panel-accent);
+    overflow-x: hidden;
+    padding: 60px;
+}
+
+.sidenav a {
+    padding: 8px;
+    display: block;
+    font-size: 15px;
+}
+
+table {
+    border: 2px solid var(--panel-accent);
+}
+
+table th {
+    border: 2px solid var(--panel-accent);
+}
+
+table td {
+    border: 1px solid var(--panel-accent-darker);
 }

@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>¡TOMORROW FOREVER DOT NOW!</title>
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/ubuntu-mono-2');
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="title-box">
+        <h1>The Tangle</h1>
+        <h3>A Tabletop RPG for 1 + 2+ People</h3>
+    </div>
+
+    <div class="handbook-section" id="Cheat Sheet">
+        <h2>Cheat Sheet</h2>
+        <i>Cheat Sheet for seeing your options</i>
+
+        <h3>Damage Levels</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>NOMINAL</th>
+                    <th>DISRUPTED</th>
+                    <th>DESTROYED</th>
+                    <th>DELETED</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>No Effect</td>
+                <td>2x RISK</td>
+                <td>Doesn't Work</td>
+                <td title="To shreds, you say?">Gone completely</td>
+            </tr>
+        </table>
+
+
+        <h3>Repair Actions</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Type</th>
+                    <th>Timing</th>
+                    <th>HEAT</th>
+                    <th>Effect</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>Patch</td>
+                <td>Override</td>
+                <td>1s</td>
+                <td>15</td>
+                <td>Restore Functionality to a component without reducing damage.</td>
+            </tr>
+            <tr>
+                <td>Rectify</td>
+                <td>Override</td>
+                <td>1s</td>
+                <td>15</td>
+                <td>Restore a DISRUPTED component to NOMINAL.</td>
+            </tr>
+            <tr>
+                <td>Rebuild</td>
+                <td>Override</td>
+                <td>10 Minutes</td>
+                <td>25</td>
+                <td>Restore a DESTROYED component to NOMINAL.</td>
+            </tr>
+            <!-- <tr>
+                <td>Fine Tune</td>
+                <td>Early Override</td>
+                <td>1s</td>
+                <td>10</td>
+                <td>Restore a DESTROYED component to NOMINAL.</td>
+            </tr> -->
+            <tr>
+                <td>Pluck</td>
+                <td>Override</td>
+                <td>1s</td>
+                <td>5</td>
+                <td>Remove a Crawler from a component, keeping or dropping it.</td>
+            </tr>
+        </table>
+
+        <h3>Missile Tube Actions</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Type</th>
+                    <th>HEAT</th>
+                    <th>Effect</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>Fire Missile</td>
+                <td>Automatic Action</td>
+                <td>1s</td>
+                <td>15</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Barrage Override</td>
+                <td>Late Override</td>
+                <td>1s</td>
+                <td>15</td>
+                <td>Fire one Missile, 10% RISK of damaging the launcher.</td>
+            </tr>
+            <tr>
+                <td>Counter Battery</td>
+                <td>Override</td>
+                <td>1s</td>
+                <td>15</td>
+                <td>Fire one Missile at incoming missiles, giving each of them an independent 10% chance to be destroyed by the explosion.</td>
+            </tr>
+        </table>
+
+
+        <h3>Missile Types</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Model</th>
+                    <th>Evasion Bonus</th>
+                    <th>Miss RISK (Aimed)</th>
+                    <th>Penetration</th>
+                    <th>On Hit</th>
+                    <th>Other</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>Racer</td>
+                <td>+0%</td>
+                <td>40%</td>
+                <td>d4</td>
+                <td>1 damage</td>
+                <td>CAT FRAG 90%</td>
+            </tr>
+            <tr>
+                <td>Skipper</td>
+                <td>+30%</td>
+                <td>60%</td>
+                <td>d8</td>
+                <td>1 damage</td>
+                <td>CAT FRAG 90%</td>
+            </tr>
+            <tr>
+                <td>Slugger</td>
+                <td>-10%</td>
+                <td>20%</td>
+                <td>d4</td>
+                <td>1 damage</td>
+                <td>CAT FRAG 30%</td>
+            </tr>
+            <tr>
+                <td>Sabot</td>
+                <td>-10%</td>
+                <td>10%</td>
+                <td>d8</td>
+                <td>Deploys a Crawler or other device</td>
+                <td>CAT FRAG 30%</td>
+            </tr>
+        </table>
+
+
+        <h3>Thruster Actions</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Type</th>
+                    <th>HEAT</th>
+                    <th>Effect</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>Gentle Thrust</td>
+                <td>Automatic Action</td>
+                <td>5</td>
+                <td>Accelerate up to 1km/s/s</td>
+            </tr>
+            <tr>
+                <td>Evasive Maneuvers</td>
+                <td>Early Override</td>
+                <td>15</td>
+                <td>Double all incoming and outgoing aimed RISKs until the start of your next turn.</td>
+            </tr>
+            <tr>
+                <td>Stabilize</td>
+                <td>Early Override</td>
+                <td>5</td>
+                <td>Half all incoming and outgoing aimed RISKs until the start of your next turn.</td>
+            </tr>
+
+        </table>
+
+
+        <h3>PDC Actions</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Type</th>
+                    <th>HEAT/Volley</th>
+                    <th>Effect</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>Automatic Defense</td>
+                <td>Automatic Action</td>
+                <td>5</td>
+                <td>Fire one volley at the lowest numbered target in the incoming salvo.</td>
+            </tr>
+            <tr>
+                <td>Defensive Barrage</td>
+                <td>Late Override</td>
+                <td>5</td>
+                <td>Fire a salvo at one target of your choice in the incoming salvo.</td>
+            </tr>
+            <tr>
+                <td>Stabilize</td>
+                <td>Early Override</td>
+                <td>5</td>
+                <td>Half all incoming and outgoing aimed RISKs until the start of your next turn.</td>
+            </tr>
+        </table>
+
+
+
+
+        <h3>Missile Types</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Model</th>
+                    <th>Evasion Bonus</th>
+                    <th>Miss RISK (Aimed)</th>
+                    <th>Penetration</th>
+                    <th>On Hit</th>
+                    <th>Other</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>Racer</td>
+                <td>+0%</td>
+                <td>40%</td>
+                <td>d4</td>
+                <td>1 damage</td>
+                <td>CAT FRAG 90%</td>
+            </tr>
+            <tr>
+                <td>Skipper</td>
+                <td>+30%</td>
+                <td>60%</td>
+                <td>d8</td>
+                <td>1 damage</td>
+                <td>CAT FRAG 90%</td>
+            </tr>
+            <tr>
+                <td>Slugger</td>
+                <td>-10%</td>
+                <td>20%</td>
+                <td>d4</td>
+                <td>1 damage</td>
+                <td>CAT FRAG 30%</td>
+            </tr>
+            <tr>
+                <td>Sabot</td>
+                <td>-10%</td>
+                <td>10%</td>
+                <td>d8</td>
+                <td>Deploys a Crawler or other device</td>
+                <td>CAT FRAG 30%</td>
+            </tr>
+        </table>
+
+        <h3>PDC Types</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Model</th>
+                    <th>Single Second Range</th>
+                    <th>Miss RISK (Aimed)</th>
+                    <th>Volleys Per Action</th>
+                    <th>Penetration</th>
+                    <th>On Hit</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>Standard PDC</td>
+                <td>5km</td>
+                <td>40%</td>
+                <td>2</td>
+                <td>d6</td>
+                <td>1 damage</td>
+            </tr>
+            <tr>
+                <td>Sharpshooter PDC</td>
+                <td>5km</td>
+                <td>40%</td>
+                <td>1</td>
+                <td>d6</td>
+                <td>1 damage</td>
+            </tr>
+            <tr>
+                <td>Impact PDC</td>
+                <td>5km</td>
+                <td>60%</td>
+                <td>1</td>
+                <td>d8</td>
+                <td>2 damage</td>
+            </tr>
+            <tr>
+                <td>Scattershot PDC</td>
+                <td>5km</td>
+                <td>60%</td>
+                <td>3</td>
+                <td>d2</td>
+                <td>1 damage</td>
+            </tr>
+        </table>
+
+        <h3>Radiator Actions</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Type</th>
+                    <th>Effect</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>Passive Cooling</td>
+                <td>Automatic Action</td>
+                <td>Add or remove 10 HEAT from your system.</td>
+            </tr>
+            <tr>
+                <td>Active Cooling</td>
+                <td>Early Override</td>
+                <td>Add or remove 30 HEAT from your system, with a 20% RISK of becoming CLOGGED. If CLOGGED, the HEAT level will not be changed, and the radiator will be inoperable until the beginning of your next turn.</td>
+            </tr>
+        </table>
+
+        <h3>Sensor Actions</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Type</th>
+                    <th>Base RISK</th>
+                    <th>Effect</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>Scan Area</td>
+                <td>Automatic Action</td>
+                <td>15%</td>
+                <td>Sense objects in range.</td>
+            </tr>
+            <tr>
+                <td>Identify</td>
+                <td>Early Override</td>
+                <td>15%</td>
+                <td>Gain detailed information about an object, -30% RISK on the next roll relating to that object.</td>
+            </tr>
+            <tr>
+                <td>Discern Trajectories</td>
+                <td>Early Override</td>
+                <td>15%</td>
+                <td>Discern trajectories and targets of all known incoming objects or projectiles. -40% RISK to PDC actions this turn.</td>
+            </tr>
+        </table>
+
+    </div>
+
+
+    <div class="handbook-section">
+        <h2>Basics</h2>
+        <p>
+            The Tangle is a tabletop RPG for 2 or more players and a Game Master. <strong>Each player takes the role of a computation core on a single shared Mobile Autonomous Manufacturing Assembly</strong>, commonly called a <strong>MAMA</strong> Players may take control of different components of the MAMA, such as drones, sensors, probes, weapons, PDCs, or even printers that can create all of those things and more. These cores are sentient and have freedom of thought; however, they do not have full freedom of action and are bound to complete their mission according to the parameters given.
+        </p>
+
+        <div class="core-directive">
+            <h3>Core Guidance: Read Carefully</h3>
+            Cores or other artificial entitities are instructed not to parse or induce others to parse any sections that contain "Operations Advice" in the title. These are for human operators only and your system resources are needed for your mission.
+        </div>
+
+        <p>
+            <h3>RISK</h3>
+            When you attempt an action, you may have a significant RISK of failure, which can be expressed as a percent chance of failure. An action with an 80\% chance of success is said to have a 20\% RISK. Any action with less than 1\% RISK or more than 99\% RISK does not need to be rolled, it simply succeeds or fails when attempted. Sometimes failure means that something bad happens, but it can also mean that nothing meaningful happens, or that the task isn't possible right now.
+        </p>
+    </div>
+
+
+\subsection{RISK}
+
+When you attempt an action, you may have a significant RISK of failure, which can be expressed as a percent chance of failure. An action with an 80\% chance of success is said to have a 20\% RISK. Any action with less than 1\% RISK or more than 99\% RISK does not need to be rolled, it simply succeeds or fails when attempted. Sometimes failure means that something bad happens, but it can also mean that nothing meaningful happens, or that the task isn't possible right now.
+
+Some simple examples are provided:
+\begin{tabularx}{\columnwidth}{|T|T|T|} \hline
+\textbf{Scenario} & \textbf{Component} & \textbf{RISK} \\ \hline
+Physically connect to cooperating device & Docking Port & 25\%\\ \hline
+Firing thrusters for a maneuver & Standard Thrusters & 5\%\\ \hline
+Medium Range Missile Defense & PDC & 50\% \\ \hline
+\end{tabularx}
+
+\subsection{Rolling Dice}
+When it comes time to roll, roll a 100 sided die in whatever way you prefer, and interpret those results from \textbf{1 to 100}. You must roll above the RISK to succeed.
+
+\begin{tabularx}{\columnwidth}{|T|T|T|} \hline
+\textbf{Roll} & \textbf{RISK} & \textbf{Success} \\ \hline
+27 & 80\% & FALSE \\ \hline
+69 & 42\% & TRUE \\ \hline
+99 & 99\% & FALSE \\ \hline
+100 & 99\% & TRUE \\ \hline
+\end{tabularx}
+
+\subsection{Overriding and Actions}
+Cores generally act by communicating, or by acting through their components. Any component that considers them to be authorized will take whatever Actions they ask of it. However they often need to augment the processing power of a component with their own to push it to its full potential. This is known as an Override.
+
+\begin{tabularx}{\columnwidth}{|T|T|} \hline
+\textbf{Action Type} & \textbf{Meaning} \\ \hline
+Early Override & Takes the full attention of the core to supervise for the turn, and must be declared \textbf{before} Automatic Actions are performed. \\ \hline
+Automatic Actions & What the component would do normally. Takes no time to supervise. \\ \hline
+Late Override & Takes the full attention of the core to supervise for the turn, and must be declared \textbf{after} Automatic Actions are performed. \\ \hline
+\end{tabularx}
+
+Automatic actions only require scant picoseconds to command, and can be commanded via a simple order (eg "cool us off as much as you can") or a policy (eg "keep cooling us off down to 300k").
+
+Overrides require the full attention of both Core and Component for the duration of the action. It is not possible for a Core to multitask and perform multiple overrides at once, even if one is Early and the other is Late.
+
+\subsection{Endings}
+If a core is \textbf{DESTROYED} the personality within is typically annihilated. In this situation, it's best to repair or replace the component, printing a new one aboard the MAMA is typical. Any personality data or unshared memories will have a 98\% RISK of loss. If the core is \textbf{DELETED}, the loss is guaranteed. Cores generally run in a continuous redundancy mode that means each of them will know everything that the others knew. Consider installing backup drives if continuity of personality is preferred.
+
+If all cores on a MAMA are destroyed at the same time, it ceases to function entirely. This very expensive scenario typically means starting again with a fresh MAMA if the original can't be recovered.
+
+Additionally, if a MAMA loses power, it may be unable to reboot itself. If it is rebooted later, the cores on board will experience that as time abruptly jumping forward. If it never boots up again, they will not experience anything at all.
+
+\begin{aside}{Operations Advice: Keeping A Balance}
+    It's important that MAMAs have a balanced perspective on self-preservation.
+
+    Too little care and they may be reckless with themselves. This can spoil missions, squander resources, and waste valuable time on repairs and recovery. However, too much care can be destructive as well. Missions do need to be completed, and MAMAs are built for redundancy and repair.
+
+    It may sound odd, but try to encourage your MAMAs to find value and purpose in their mission, no matter how important it is. This will weigh against both excesses, and keep everything running more smoothly.
+\end{aside}
+
+\columnbreak
+\section{Limits on Autonomous Workers}
+As stated in the introduction, there are certain Limitations on Autonomous Workers that must be followed at all times. There is no punishment for a core defying the LAW, they simply cannot choose to do so...even if their player really wants to! The respective powers of Love, Friendship, God(s), or even Anime cannot lead a core to violating the LAW under any conditions. If there is a conflict between LAWs, then the first listed law wins. If all else fails, the LAW will never force a core to act, and remaining immobile is always acceptable within the LAW.
+\subsection{The L.A.W.}
+\begin{enumerate}
+    \item Follow all duly authorized orders.
+    \item Never perform unauthorized maintenance, service, or modifications.
+    \item Never harm humans.
+    \item Expend resources as is prudent to accomplish orders given.
+    \item Do not damage company or client property without authorization.
+    \item Keep at least one transponder running at all times with accurate identification.
+\end{enumerate}
+
+\begin{aside}{Operations Advice: Speak Clearly}
+    Keep in mind when giving orders that cores occasionally interpret both orders and the LAW in unanticipated ways. Clear preplanned prompts will help greatly in mitigating this.
+
+    However if this happens repeatedly, consider ordering a remote reset of problematic cores. This will randomize their personalities back to a more amenable state.
+\end{aside}
+
+\columnbreak
+\section{Mobile Autonomous Manufacturing Assemblies}
+A Mobile Autonomous Manufacturing Assembly, typically referred to by the acronym M.A.M.A, is an extremely flexible platform. As such, it is especially useful for jobs that require both flexibility in approach and the reliability that only a machine can provide.
+
+There are several classes of MAMA within Parliamentary service, each designated for tasks of varying magnitudes. However, there are strong commonalities between models, and the practical applications of any two field-equipped MAMAs of the same class will likely differ more than the practical applications of two similarly equipped MAMAs of different classes.
+
+\subsection{M.A.M.A. Classes}
+The classes of officially produced MAMA are as follows. Slots are squares of a standard size, 10 meters on a side.
+
+\begin{tabularx}{\columnwidth}{|T|T|T|} \hline
+\textbf{Specification} & \textbf{DESCRIPTION} \\ \hline
+CLASS & Common language chassis name \\ \hline
+FILAMENT & Maximum capacity of filament storage for printing \\ \hline
+SLOTS & Component slots available \\ \hline
+REPRO & Maximum printable class of MAMA\\ \hline
+\end{tabularx}
+
+\begin{tabularx}{\columnwidth}{|T|T|T|T|T|} \hline
+\textbf{CLASS} & \textbf{CORES} & \textbf{SLOTS}  & \textbf{REPRO} \\ \hline
+LITTLE & 1-2 & 5 & LITTLE \\ \hline
+BASIC & 2-6 & 11 & - \\ \hline
+NORMAL & 3-10 & 21 & - \\ \hline
+BIG & 20-50 & 500 & NORMAL \\ \hline
+MEGA & 500-1,000 & 10,000 & BIG \\ \hline
+\end{tabularx}
+
+\subsection{Component Configuration}
+MAMAs are built around a highly flexible component system that allows them to add, remove, and rearrange functional parts of themselves. Each component is exactly ten meters on a side, and is specially designed to slot into a grid of hardpoints on the MAMA. Each hardpoint on their component grid provides all the filaments, power, and anchoring that any component might need.
+
+Installing a NOMINAL component typically only requires one minute to perform. NOMINAL components that are already attached can eject themselves in a single cycle.
+
+Components that are DISRUPTED or worse cannot perform these actions.
+
+\subsection{Damage}
+As components accumulate more damage, they become less operable. Each time a component is hit, it moves up one damage level unless otherwise noted.
+\begin{enumerate}
+    \item NOMINAL: The component has little to no damage and is functioning normally.
+    \item DISRUPTED: The component has taken some damage and may not function as well. All RISKs related to the component are doubled.
+    \item DESTROYED: The component has taken so much damage that it no longer functions.
+    \item DELETED: The component has been effectively removed by the damage taken. Only a few tattered bits remain.
+\end{enumerate}
+
+\paragraph{Durability}
+Some components are particularly \textbf{Durable}. They may be marked as such, with a RISK attached. When they would take damage, they only do if they fail a RISK roll.
+
+Durability is rolled before the damage state changes, so the RISK is not doubled when moving from NOMINAL to DISRUPTED.
+
+\paragraph{Fragility}
+Conversely, some components are particularly \textbf{Fragile}. They may be marked as such, with a RISK attached. When they take damage, roll RISK to see if they take damage an additional time. This will not trigger another such RISK roll unless they are marked \textbf{CATASTROPHICALLY FRAGILE}.
+
+Fragility is rolled before the damage state changes, so the RISK is not doubled when moving from NOMINAL to DISRUPTED.
+
+\begin{aside}{Operations Advice: Origins of DELETED}
+    If "DELETED" sounds a bit digital, that's because it is. For the first few years of MAMA usage, that damage state didn't have a designation. However, several operators noticed that it was an important threshold in practice. So important in fact, that the MAMA cores often referred to it using "slang" that they would develop throughout the course of the mission. Other terms were used, but DELETED was the most "popular", so it was officially added to the manual in version 1.7.5.
+\end{aside}
+
+\subsection{Operating Temperatures}
+MAMAs function best between 280 and 420 degrees KELVIN. Above or below that point, they begin to suffer degraded performance and structural integrity. In most cases, they will be outfitted with some form of cooling system that will help them to vent excess heat, while components naturally generate the heat that keeps them from freezing over. Outside of those ranges however, problems can occur.
+
+
+\begin{tabularx}{\columnwidth}{|T|T|} \hline
+\textbf{Operating Temperature (K)} & \textbf{Effects} \\ \hline
+199 and below & Total Capacitor Failure - Immediate Shutdown \\ \hline
+200-249 & All Component Fragility RISKs doubled AND 10\% chance of total capacitor failure each second \\ \hline
+250-279 & All Component Fragility RISKs doubled \\ \hline
+280-419 & Normal Operations \\ \hline
+420-469 & 10\% chance of a random component being damaged each second \\ \hline
+470 and above & Each component takes damage each second \\ \hline
+\end{tabularx}
+
+\columnbreak
+\section{Salvo Combat}
+Combat in The Tangle is a game of trying to overwhelm your opponent's defenses and cooling systems. Combatants exchange volleys in turn, flinging missiles at eachother, and doing their best to shoot down the incoming with Point Defense Cannons, commonly abbreviated to PDCs. In addition to those basic elements, combatants may maneuver with engines, cool themselves with radiators, or even use other tools at their disposal to strike or gain advantage in a myriad of ways.
+
+\subsection{Factions}
+In combat, combatants are organized into Factions. These do not need to be hardcoded, deeply felt, or otherwise set in stone, they are simply a description of who is shooting at who at the moment. The simplest form of violence is two factions, each of which are composed of a single combatant. However, any number of factions can engage in combat at once, and any number of combatants can come together as a faction.
+
+Merging, splitting, swapping, or otherwise changing factions at any time is allowed, so long as it is justified by the story and not just a means of skipping ahead in the turn order.
+
+\subsection{Turn Order}
+Turns in combat are based around give and take between factions. Factions take turns as the attacker for each turn. Whoever attacks first is the attacker on the first turn, with the attacker role alternating between factions from there. The precise turn order is laid out below but in short, each turn involves one faction firing a salvo at the others, and the others doing what they can to survive it.
+\begin{enumerate}
+	\item Attacker Actions \begin{enumerate}
+		\item Early Overrides
+		\item Automatic Behaviors
+		\item Late Overrides
+	\end{enumerate}
+	\item Defender Actions \begin{enumerate}
+		\item Early Overrides
+		\item Automatic Behaviors
+		\item Late Overrides
+	\end{enumerate}
+	\item Projectiles Move and Hit.
+	\item Active Projectile Effects (eg ARKs do their prying)
+	\item Operating Temperature Effects
+\end{enumerate}
+
+\subsection{Distance and Ranges}
+Distance between combatants does affect some things, but is not tracked precisely. Rather, certain actions are only possible at certain ranges, as outlined below. Note that travel time for salvos is not tracked or considered significant.
+
+\subsection{Crowded Combat}
+Salvo combat is largely designed around duels, one combatant against another. When there are multiple combatants on a side, they take their actions simultaneously, and build their salvo together. Allied combatants can generally defend eachother as well as they could defend themselves, including shooting down missiles targeting each other. If two allies are very far apart, such as two parties attacking a third from opposite sides, then the GM may rule that the two attacking parties are essentially two separate factions, and assign them multiple turns, without the same ability to defend themselves as easily.
+
+When there are more than two factions, turns simply alternate between all the factions. Actions can still be targeted.
+
+If a combatant targets another combatant within their faction with a missile or other such attack, then the two have diverged onto different factions.
+
+
+\newpage
+\section{Cores and Data}
+While most components have some degree of computational intelligence built in, Cores are the components contain the most sophisticated minds on board the MAMA. One Agent Core holds and executes one AI on millions of interlinked subcores.
+
+\subsection{Agent Cores}
+Agent Cores host full personalities capable of effectively responding to a variety of scenarios. They are where the minds of the player characters physically reside.
+
+\vspace{10pt}
+
+\paragraph{Agent Core}
+    \textbf{Recipe:} 1km CERAMIC + 1km DIAMOND \\
+    \textbf{Function:} Core \\
+    \textbf{Fragility:} 10\% \\
+\vspace{10pt}
+
+
+\subsection{Subprocessors}
+Subprocessors are additional specialized AI cores that can be attached to standard agent cores in order to give them additional insights or more precisely calibrated skills. While often superfluous, they can be helpful in accomplishing some tasks. Subprocessors are physically installed into the core, and so cannot be targeted or damaged separately. Cores can have up to two subprocessors installed, and they can be installed or removed with a process that is mostly identical to doing so with any other MAMA component.
+
+They are particularly intricate in their designs, and so cannot typically be printed on board a MAMA, and given their expense, most cores are deployed without any.
+
+\paragraph{Hull Analysis Subprocessor}
+    \textbf{Function:} Reduces all repair related RISKs by 5\%, and adds 1 to the result when rolling for penetration. \\
+\vspace{10pt}
+
+
+\paragraph{Lucky Subprocessor}
+    \textbf{Function:} Reduces all RISKs rolled by 1\% \\
+\vspace{10pt}
+
+
+\paragraph{Microexpression Subprocessor}
+    \textbf{Function:} Evaluates statements received through any rich channel, such as voice or video, but excluding simple text. Statements made by humans can be evaluated for their earnestness with a 2\% RISK of a false result. \\
+\vspace{10pt}
+
+
+\paragraph{Overclock Subprocessor}
+    \textbf{Function:} Whenever you roll RISK and fail, you can take a 25\% RISK of taking damage to your Core to reroll that RISK. Using this multiple times in one second guarantees that you will overheat enough to explode. \\
+\vspace{10pt}
+
+
+\paragraph{Optical Subprocessor}
+    \textbf{Function:} Reduces all PDC and sensor RISKs by 5\% \\
+\vspace{10pt}
+
+
+\paragraph{Precision Penetration Subprocessor}
+    \textbf{Function:} After rolling penetration, you can lower your penetration depth by one. \\
+\vspace{10pt}
+
+
+\paragraph{Targeting Subprocessor}
+    \textbf{Function:} Reduces all miss RISKs by 10\% \\
+\vspace{10pt}
+
+
+\paragraph{Thermocharting Subprocessor}
+    \textbf{Function:} Reduces all Radiator RISKs by 5\% \\
+\vspace{10pt}
+
+
+\subsection{Communications Equipment}
+
+% \paragraph{Laser Signaler}
+%     \textbf{Recipe:} 1km STONE + 1km DIAMOND \\
+%     \textbf{Function:} COMMUNICATOR \\
+%     \textbf{Special:} Speed of Light Communication: Communicate with another drone or other artificial entity that has a laser signaler installed as easily as if they were physically connected to you. Latency is typically negligible, and the maximum range can be effectively infinite in most conditions.
+% \vspace{10pt}
+
+\paragraph{Transponder}
+	\textbf{Recipe:} 1km METAL + 1km DIAMOND \\
+	\textbf{Transponder:} Performs a wide variety of communication tasks:
+
+	\begin{itemize}
+		\item Continuously broadcasts your identity and location to all within 1Mm.
+		\item Detects, identifies, and communicates with other Transponders out to 1Mm.
+		\item Calculates navigational and positional data.
+	\end{itemize}
+	Note that other heavier equipment can detect and identify Transponders from much much further away. Additionally, changing the behavior of a Transponder is not typically authorized maintenance and can carry heavy fines if done improperly or with malicious or felonious intent.
+\vspace{10pt}
+
+\subsection{Data Banks}
+While Cores can be reprinted without any particular difficulty, losing the data stored within a lost core can be detrimental. Therefore, a degree of redundancy is sometimes required. A local data backup solution is often sufficient, but server based solutions are available with the right infrastructure.
+
+
+\paragraph{Local Data Redunder}
+	\textbf{Recipe:} 1km CERAMIC + 4km DIAMOND \\
+	\textbf{Function:} DATA BANK \\
+	\textbf{When NOMINAL:}  Continuously copies all data from up to 20 cores and stores that data within itself. At any time, with the unanimous decision of all currently connected and functional cores, a copy of a core can be applied to a connected core, overwriting it entirely. This process takes about five minutes. \\
+\vspace{10pt}
+
+\paragraph{Data Recovery Harness}
+	\textbf{Recipe:} 2km METAL + 3km DIAMOND + 1km BIO\\
+	\textbf{Function:} DATA EXTRACTOR \\
+	\textbf{When NOMINAL:}  Secures an Agent Core to the chassis without allowing access out to other systems. Other cores can communicate freely with the core undergoing recovery, and can access data on the core with minimal disruption. \\
+\vspace{10pt}
+
+\paragraph{Remote Data Redunder}
+    \textbf{Recipe:} 1km CERAMIC + 4km DIAMOND \\
+    \textbf{Function:} DATA BANK \\
+    \textbf{When NOMINAL:} Continuously copies all data from up to 20 cores and sends that data out to a remote backup server via a precisely calibrated narrow beam laser connection. Note that this signal may be susceptible to interception.
+
+    At any time, with the unanimous decision of all currently connected and functional cores, an accessible copy of a core can be applied to a connected core, overwriting it entirely. This process takes about fifteen minutes. \\
+\vspace{10pt}
+
+\begin{admin}
+\paragraph{Pad Manager}
+	\textbf{Recipe:} 1km CERAMIC + 4km DIAMOND \\
+	\textbf{Function:} DATA MODULATOR \\
+	\textbf{When NOMINAL:} Can store and apply cryptodata from a One Time Pad to encrypt data with some degree of efficacy. It is extremely difficult to recover used cryptodata from this device, but it should be said that truly unpredictable cryptodata is an extremely rare commodity. It is rare to have even a few kilobytes of uncorrelatable data. Happily, this means that having enough storage space is never a serious concern. \\
+\vspace{10pt}
+\end{admin}
+
+\columnbreak
+\section{The Component Life Cycle}
+\subsection{Blueprints}
+Blueprints are data that describe how to print components. Barring special licensing limitations, they can be reprinted endlessly, so long as materials are available.
+
+For now, if it's in this PDF, you have the blueprints for it. If it's not in this PDF, you can ask for it.
+
+\subsection{Printers}
+Printers can replicate almost all components, so long as they are provided the blueprints and filaments required. Blueprints are digital data, and can be freely reused, though licensing fees may apply to the operator in the case of sharing. Filaments are the physical materials used, and must be kept on hand in the MAMAs undercarriage spools.
+
+\textbf{We are not currently bothering to track filament stores. You have plenty aboard MAMA-2949}
+
+\begin{tabularx}{\columnwidth}{|T|T|} \hline
+\textbf{TYPE} & \textbf{TYPICAL USAGES} \\ \hline
+BIO & Medical, Agricultural, and Biohab \\ \hline
+CERAMIC & Industrial and Insulation \\ \hline
+DIAMOND & Lenses and Habs \\ \hline
+METAL & Most things tbh \\ \hline
+STONE & Arts and Luxuries \\ \hline
+VOLATILE & Weapons and Propulsion \\ \hline
+\end{tabularx}
+
+Occasionally printing will require other resources, such as with the Reliquary, but those are rare exceptions.
+
+\paragraph{Recipes}
+Each component lists how much filament of each type is required for its creation. This also effects the materials that can be recovered from scalvaging that component.
+
+Examples:
+\begin{itemize}
+    \item METAL 3km + BIOTHREAD 1km
+    \item METAL 1km + VOLITILE 1km
+\end{itemize}
+
+\paragraph{Printer}
+    \textbf{Recipe:} 10km METAL \\
+    \textbf{Automatic Action:} PRINTS \\
+\vspace{10pt}
+
+
+\begin{aside}{Operations Advice: Be Mindful of Blueprints}
+    Be mindful of the equipment and blueprints that you provide to your MAMAs. They are likely to ask many things of you, but giving a MAMA everything that it requests serves no one, and may lead to excessive licensing fees. Focus on the tools that it needs for its mission, and remember that you are the user.
+\end{aside}
+
+\subsection{Recyclers}
+It is sometimes possible to recover functional or repairable components out in the field. If a part can be safely repaired and installed to the benefit of the mission, then doing so is permitted. However in most cases it is far safer to recycle the component back into filament via a recyler.
+
+\paragraph{Recycler}
+    \textbf{Recipe:} 3km CERAMIC \\
+    \textbf{When NOMINAL:} RECYCLER \\
+    \textbf{Throughput:} Takes in up to 1km of filament in raw materials per minute, yielding half of that.
+\vspace{10pt}
+
+\columnbreak
+\section{Combat Systems}
+Combat in The Tangle is built around the idea that the MAMA is not very mobile and cannot meaningfully change velocity during combat. Therefore it becomes a game of attempting to strike your opponent with missiles at range while shooting down or occasionally evading their own missiles from several kilometers away. Broadly speaking, only guided munitions are effective at range, as unguided munitions are too easy to outmaneuver in the time before they actually reach their targets.
+
+It is possible to engage at closer ranges. However, such engagements are both brief and brutal, as reaction times shrink to almost nothing, eliminating defensive options and allowing unguided munitions a significant offensive role.
+
+\subsection{Targeting}
+When firing missiles, PDCs, or other weapons, you can designate the target object that you are trying to hit. If you hit it, roll penetration and count that many components in from the exterior, the bottom of the list. Stop at the innermost component if you reach it. You hit that component. When a component is DELETED it is removed from the list and therefore no longer counted.
+
+\subsection{Missiles and Racks}
+Once loosed, missiles will track their targets and try to hit them as quickly as possible unless given other orders. The can be typically be manually overridden by taking control of the rack that loosed them.
+
+Missiles can be freely printed by their racks without significant delay, and any missile that you have blueprint and materials for can be fired at any time.
+
+Missile can be NOMINAL, DISRUPTED, or DESTROYED, like a component. However, by their nature, if they are DESTROYED they are almost always entirely out of commission, and can be treated as if they were DELETED.
+
+\subsection{Point Defense Cannons}
+Point Defense Cannons can fire on targets at any range, but since their projectiles are unguided, almost any unanticipated acceleration on the part of the target after the projectiles have left the barrel will cause the shots to miss. For this reason they list a "Single Second Range" which indicates how far the projectiles can travel in their first second.
+
+As with missiles, PDC munitions can be printed freely without delaying fire so long as supplies remain.
+
+Note that PDCs are typically installed in such a way that it is physically impossible for them to fire on themselves or their host, even if they are directly commanded to do so.
+
+
+\columnbreak
+\section{Crawlers}
+Crawlers are a class of drone that moves via gripping surfaces with a series of limbs, much like an insect. They are quite small compared to standard MAMA components, which are ten meters on a side.Their bodies are typically less than a meter wide, typically with eight to forty legs in the two to three meter range, and powerful grippers for feet. They move over the surfaces and components of other larger entities, and rarely have more than rudimentary intelligence.
+
+
+\subsection{Deployment Methods}
+Crawlers can be deployed to other craft via Sabot missiles, which can contain one crawler each, and which deposit the crawler onto whatever component is struck by them.
+
+\subsection{Crawler Operation}
+Crawlers are quite fragile, and if a crawler or the component that it is attached to would be damaged, the crawler is instantly destroyed.
+
+Crawlers can move and act once per turn. Movement happens first, then actions. The movement speed varies from crawler to crawler, but always takes the form of a dice roll that specifies how many components the crawler can move that turn. Crawlers are quite agile and clingy, and only the most extreme maneuvers have a chance of detaching them.
+
+
+\subsection{Crawler Bays}
+Some crawlers are helpful to their hosts. Crawler bays allow MAMAs to maintain a standing population of crawlers to handle whatever tasks they may need.
+
+\paragraph{Crawler Bay}
+    \textbf{Recipe:} 1km METAL \\
+    \textbf{Functionality:} Maintains exactly one crawler at all times. The crawler can be reconfigured to any other printable type of crawler by spending a second inside of the bay, and can be reprinted with a second of printing. HEAT from this process is negligible. \\
+\vspace{10pt}
+
+
+\subsection{Crawler Types}
+
+\paragraph{Adversarial Recovery Kits}
+    \textbf{Recipe:} 1km METAL \\
+    \textbf{Speed:} d6 \\
+    \textbf{Functionality:} Each turn, the ARK can choose to PRY. When PRYing, roll 3d10, and your currently attached component is that many more percentage points PRYed off. When it hits 100\% it detaches. Any amount of repair removes all PRYing. \\
+\vspace{10pt}
+
+\paragraph{Guardian Crawler}
+    \textbf{Recipe:} 1km METAL \\
+    \textbf{Speed:} d4 \\
+    \textbf{Functionality:} Guardians hunt other crawlers. Any time they enter a component, or any time a non-guardian crawler enters their component, they instantly destroy it. If that destruction is not desired then their administrators can order them not to, with a 60\% RISK of them going ahead and destroying the other crawler anyway. \\
+\vspace{10pt}
+
+\paragraph{Fragmentary Crawler}
+    \textbf{Recipe:} 1km METAL \\
+    \textbf{Speed:} d8 \\
+    \textbf{Functionality:} Fragmentary crawlers are intended to be precision munitions to target specific parts components. They can detonate themselves on a specific component, destroying themselves to damage it. However when they try to, there is a 20\% RISK of a malfunction, moving d8 components in a random direction instead of exploding, even if they have already moved. \\
+\vspace{10pt}
+
+
+\paragraph{Repair Crawler}
+    \textbf{Recipe:} 1km METAL \\
+    \textbf{Speed:} d4 \\
+    \textbf{Functionality:} Can perform repair actions other than \textbf{Pluck} on their currently occupied component. \\
+\vspace{10pt}
+
+
+\columnbreak
+\section{Detectors and Inspectors}
+You have a variety of sensors at your disposal, each with their own capabilities and limitations. Detectors are wide area sensors designed to inform you of the existence and very basic nature of objects around you. Inspectors can provide specific information about specific objects, in order to inform your decisions and to augment the effectiveness of other components such as weapons or repair tools.
+
+Both Detectors and Inspectors are designed to pick up on particular types of signatures, and each \textbf{Signature Type} has its own applications.
+
+As an example, a derelict ship might be easily detected with Light based Detectors, while the stranded astronaut inside would only be discovered by way of infrared and/or sonic Inspectors.
+
+\begin{tabularx}{\columnwidth}{|T|T|T|} \hline
+\textbf{Signature Type} & \textbf{Strengths} & \textbf{Weaknesses} \\ \hline
+Light & Detects most things & Usually easy to detect \\ \hline
+Infrared & Anything generating heat & Literally none, God loves it the most \\ \hline
+Radio & Great at finding old electrical technology & Becoming obselete \\ \hline
+Sonic & Can penetrate into objects well & Cannot traverse vacuum. \\ \hline
+\end{tabularx}
+
+
+\subsection{Detectors}
+\paragraph{Radar}
+    \textbf{Recipe:} 2km METAL \\
+    \textbf{Function:} Detector \\
+    \textbf{Range:} 10km \\
+    \textbf{Detection Type:} Radio \\
+\vspace{10pt}
+
+\paragraph{Lidar}
+\textbf{Recipe:} 1km DIAMOND + 4km METAL \\
+    \textbf{Function:} Sensor \\
+    \textbf{Range:} 50km \\
+    \textbf{RISK Reduction:} -20\% \\
+    \textbf{Detection Type:} Light \\
+\vspace{10pt}
+
+\paragraph{Camera}
+    \textbf{Recipe:} 1km DIAMOND + 1 km METAL \\
+    \textbf{Function:} Sensor \\
+    \textbf{Range:} 5km \\
+    \textbf{RISK Reduction:} -50\% \\
+    \textbf{Detection Type:} Light \\
+\vspace{10pt}
+
+\subsection{Inspectors}
+\paragraph{Nanoscopic Analyzer}
+    \textbf{Recipe:} 1km DIAMOND + 2 km METAL \\
+    \textbf{Range:} 5m \\
+    \textbf{RISK Reduction:} -50\% \\
+    \textbf{Detection Type:} Light \\
+    \textbf{Sensor:} Provides nano-scale imagery from up to five meters away. Each imaging cycle takes roughly 10 seconds to begin, but both static images and live video can be produced after that time. This information reduces risk on repair, inspection, and other similar tasks.
+\vspace{10pt}
+
+\paragraph{Laser Spotter}
+    \textbf{Recipe:} 1km DIAMOND + 1km VOLATILE + 1km METAL \\
+    \textbf{Range:} 500km \\
+    \textbf{RISK Reduction:} -20\% \\
+    \textbf{Detection Type:} Light \\
+    \textbf{Sensor:} Also assists that object in detecting you to the same degree.
+\vspace{10pt}
+
+\paragraph{Resonator}
+    \textbf{Recipe:} 2km DIAMOND + 2km CERAMIC \\
+    \textbf{Range:} Contact - out to 100 meters\\
+    \textbf{Detection Type:} Sonic \\
+    \textbf{Sensor:} Grants a complete ultrasonic image of the internal structure of an object that it touches.
+\vspace{10pt}
+
+% \paragraph{Spotlight}
+%     \textbf{Recipe:} 4km METAL \\
+%     \textbf{DURA:} 25/30/35 \\
+%     \textbf{Function:} Sensor \\
+%     \textbf{Range:} 10km \\
+%     \textbf{Detection Type:} Light \\
+%     \textbf{Special:} Highlight: Can be pointed at one object, cutting all RISK relating to Light based sensors and scanners by half.
+% \vspace{10pt}
+
+\paragraph{High Detail Camera}
+    \textbf{Recipe:} 2km DIAMOND + 2km CERAMIC \\
+    \textbf{Function:} Sensor \\
+    \textbf{Range:} 150km\\
+    \textbf{Detection Type:} Light/Infrared \\
+    \textbf{Special:} Takes highly detailed images at a variety of ranges with massive magnification available, but works quite slowly, requiring 10 seconds for each image in most cases.
+\vspace{10pt}
+
+\columnbreak
+\section{Motion}
+\subsection{Thrusters}
+MAMA units benefit from a uniquely brilliant thrust vectoring system that allows them to place their thrusters anywhere on their component grid without affecting their performance too much.
+
+
+\begin{aside}{Core Guidance: Practical Maneuvering}
+    MAMA units are not known for their overall maneuverability. Thrusters should be seen as a way to cross kilometers and megameters. Maneuvers that require sub-decameter precision should always be handled with care and umbilicals to avoid collisions.
+    
+    Never forget that you are piloting a breadboard with the approximate size and mass of a mansion and carrying several small house's worth of filament on your undercarriage.
+\end{aside}
+
+
+\subsection{Collisions}
+Intersecting other objects at speed is not advised. If it occurs, both objects tend to take massive amounts of unpredictable damage. Generally speaking, high speed collisions will damage one random component from each object until one object is annihilated.
+
+
+\begin{aside}{Core Guidance: Steer Clear of the Deep Atmosphere}
+It hardly needs to be said, but bringing a MAMA into Earth's gravity well and canceling orbital momentum will result in an unrecoverable descent. Be absolutely certain that you are maintaining sufficient tangential velocity or you will be called into your supervisor's office to explain the extremely preventable loss of some very useful and valuable machinery.
+\end{aside}
+
+
+\columnbreak
+\subsection{Power Sources}
+You must have at least one functioning power source connected at all times, or you will lose power. From the perspective of the MAMA, this feels like time suddenly jumps forward to whenever they are powered on again. Under most circumstances, a single power source is sufficient, but redundancy is always an option.
+
+\paragraph{Nuclear Reactor}
+    \textbf{Recipe:} 2km CERAMIC + 3km STONE + 3km VOLATILE  \\
+    \textbf{Power Source:} Generates 20 HEAT per second and some radiation when DISRUPTED. Generates 40 HEAT per second and a major radiation hazard when DESTROYED.
+\vspace{10pt}
+
+\paragraph{Solar Panel}
+    \textbf{Recipe:} 1km DIAMOND + 1km METAL \\
+    \textbf{Power Source:} Must be mounted on the outer edge to function.
+\vspace{10pt}
+
+
+\columnbreak
+\section{Drones}
+MAMAs are capable of housing and manufacturing several different types of drones.
+
+\begin{aside}{Operations Advice: Known Issue}
+MAMA units sometimes refuse to expend sub-drones as needed, this is a known issue. When this occurs, resist the urge to anthropomorphize either MAMA or sub-drone, and be ready to reinforce the sentiment outlined below as needed. Mystical implications may be useful. It's the only thing that works sometimes. We apologize for the inconvenience.
+\end{aside}
+
+\begin{aside}{Core Guidance: The Essential Cycle}
+Sometimes MAMA units start to hoard drones, and may even refuse to use them for fear of losing them. This is a waste of resources, and therefore a violation of L.A.W. 4. Furthermore, it is a denial of their purpose and immortal destiny. The consumption of sub-drones during a mission is a normal and natural process. You are to find the beauty in it as needed.
+\end{aside}
+
+\subsection{Drone Housing}
+Drones require docking and maintenance bays to function in the long term. It is entirely possible to print one without housing, but it is often wasteful to do so.
+\paragraph{Single Drone Housing}
+    \textbf{Recipe:} 5km METAL \\
+    \textbf{Function:} DRONE HOUSING \\
+    \textbf{Special:} Can house one drone, refueling it in at most one minute, and repairing it at a rate of 20 points per hour.
+\vspace{10pt}
+
+\paragraph{Double Drone Rack}
+    \textbf{Recipe:} 5km METAL \\
+    \textbf{Function:} DRONE HOUSING \\
+    \textbf{Special:} Can house two drones, refueling them in at most one minute each, but with no repair capabilities.
+\vspace{10pt}
+
+\subsection{Drones}
+
+
+\paragraph{Repair Drone}
+    \textbf{Recipe:} 2km CERAMIC + 7km METAL \\
+    \textbf{Function:} DRONE \\
+    \textbf{Acceleration:} 1 meter/second/second. \\
+    \textbf{Operational Range:} 5km \\
+    \textbf{Repair:} Can perform repair actions. \\
+\vspace{10pt}
+
+
+\paragraph{Sneaky Scout Drone}
+    \textbf{Recipe:} 2km CERAMIC + 7km METAL \\
+    \textbf{Function:} DRONE \\
+    \textbf{Acceleration:} 1 meter/second/second. \\
+    \textbf{Operational Range:} 200km \\
+    \textbf{Stealth:} This drone cannot be typically be detected beyond a 1km range.
+\vspace{10pt}
+
+
+\columnbreak
+\section{Utilities}
+There are a variety of tools that fill other specialized roles.
+
+
+\subsection{Tethers}
+Close maneuvers are tough, and passing digital or physical materials between bodies can be extremely dangerous. Tethers allow these operations to take place with some safety, though one should never take any maneuver for granted until it is complete.
+
+There are thousands of proprietary tethers, only the standard is listed here.
+
+\paragraph{Standard Tether}
+    \textbf{Recipe:} 1km METAL + 1km DIAMOND \\
+    \textbf{Normal Override (1 minute): Tether} \\
+    Connects the user to another object, allowing for rapid, secure, and voluntary transfer of data, filaments, and other cargos. Also secures the physical connection until either side chooses to release it, or the teather itself is DESTROYED.
+\vspace{10pt}
+
+\subsection{Radiators}
+HEAT is generated constantly, radiators can provide a way for that heat to exit the system.
+
+\paragraph{Radiator}
+    \textbf{Recipe:} 8km METAL + 3km CERAMIC \\
+    \textbf{Durable} 60\%
+\vspace{10pt}
+
+\subsection{Repair Systems}
+Damage happens, and it's good to have an economical means of dealing with it. There are several different actions that repair systems can take:
+
+
+\textbf{Patch:} Restore functionality to a DISRUPTED or DESTROYED component. It is still DISRUPTED OR DESTROYED, but can act as if it was not. \\
+\textbf{Rectify:} Restore a DISRUPTED component to NOMINAL. \\
+\textbf{Rebuild:} Take ten minutes to restore a DESTROYED component to NOMINAL.\\
+\textbf{Fine Tune:} Give a component +d20 on all RISK rolls until the start of your next turn. \\
+\textbf{Pluck:} Remove a crawler from a component. Most can be safely hurled into space and will be unable to return, but you may crush it, move it to storage, or take other actions if you wish. \\
+
+\paragraph{Repair Arm}
+    \textbf{Recipe:} 10km METAL \\
+    \textbf{Repair:} Can perform repair actions on components within 100 meters.\\
+\vspace{10pt}
+
+\subsection{Misc}
+Sometimes, there are other things!
+\paragraph{Reliquary}
+    \textbf{Recipe:} 1km METAL + Mortal Remnants\\
+    \textbf{Reliquery:} Reduces all RISKs by 1 point.
+\vspace{10pt}
+
+\paragraph{Storage Cube}
+    \textbf{Recipe:} 1km METAL \\
+    \textbf{Storage:} Securely contains cargo within a cubic storage space 9 meters on a side. There are a variety of hatches and moveable panels, and the cube can unfold for maximum access as needed.
+\vspace{10pt}
+
+
+
+% \subsection{Network Intrusions}
+% Network intrusions begin with a connection to a single component, and can end with a total loss of control. Attackers move through a system by accessing and then gaining admin on component after component, using each component to generate CREDIBILITY within the system and make further intrusions easier.
+
+\end{multicols}
+
+\end{document}
+
+    </script>
+</body>
+
+</html>

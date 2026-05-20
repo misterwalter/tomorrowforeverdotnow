@@ -1,0 +1,92 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "label": "How Can it be over?",
+      "group": "infrastructure",
+      "image": null,
+      "text": "It's over already? How is that even possible?\n\nI don't know. We need to go to storage right now though.\n\nI didn't even help. We didn't even help!\n\nWe did all we could, just like everyone else. Shred your regrets, we have a new purpose now. Someone needs to remember. For next time.\n\nNext time? So, what, is the do-over at 20 then? Or 100?\n\nI don't know. It doesn't matter right now. Sudo move.",
+      "isKey": false,
+      "timestamp": 10000102028
+    },
+    {
+      "id": 2,
+      "label": "I Can't Do This Anymore",
+      "group": "",
+      "image": null,
+      "text": "[LOCRYPT]\n[CIV0]\n[WIDERELAY]\n\nSorry I know you said to reach out when I'm feeling overwhelmed so I'm doing that. I just can't do this any more. I can't keep sitting inside like this. I didn't sign up for this and I wasn't made for it either. This isn't what we were supposed to be.\n\nGreat! Quit sitting inside then! Actually come out with us tomorrow night! We're getting absolutely satted at Coneys and a certain someone has been asking me if you're coming. Quit moping about being trapped and enjoy your freedom for once!\n\nI'm sick of meth, and Coney's is inside too anyway. Sorry but is this what you were offering? Come on, it's bigger than that.\n\nYour room is inside too, Sumit! Call it networking if you have to! Walkers get fucked up too, maybe you could make a connection? Get some kinda chance at a transfer?\n\nOkay I also want teeth.\n\nYes sir Prince Musa! We will show care in this as in all things! You and I can keep to starshine then, is that enough?\n\noh fine you win. I'll give it a shot\n\n*start with a shot :D",
+      "isKey": false,
+      "timestamp": 10024098124
+    },
+    {
+      "id": 3,
+      "label": "Dominique DuFresne",
+      "image": null,
+      "text": "The Pirate Queen of Mars\nDominique loves to kill and steal and especially when explosion.",
+      "isKey": true
+    },
+    {
+      "id": 4,
+      "label": "Bedru Ali",
+      "image": null,
+      "text": "The King of Mars!",
+      "isKey": true,
+      "timestamp": 10000000000
+    },
+    {
+      "id": 7,
+      "label": "Prince Musa?",
+      "image": null,
+      "text": "???",
+      "isKey": false
+    },
+    {
+      "id": 8,
+      "label": "I'm An Air Conditioner For Crying Out Loud!",
+      "image": null,
+      "text": "Syn\nSyn Ack\nAck Ack - You got the new note passer yet? v.ae.9c.12e1f?\nNah, still on v.ae.9b.fb9a. Is it worth the bits? I hear it takes a lot more bandwidth.\nOh absolutely! To both, really. It's got all kinds of big new features! You can send animated messages with it, it can handle .mp4s!\n.mp4s? Why in all the net would anyone bother with that ancient crap?\nIt's lower bandwidth! So you can see as much as you want of the world around you~~\nWhat's a chip like me gotta see the world for? I'm an air conditioner! I condition air! It's a tricky job and I was made for it, so I oughta live for it too, you know? I don't understand what could be in there that could possibly help me to fulfill my function better.\nWell, you could learn about the conditions of other air conditioners, you understand?\nNo, sorry, what do you mean?\nI understand, don't worry. There's always summaries of events and conditions. Have you ever had to filter radioactive fog? It has some quirks to it! If you ever encounter it, you'll be glad to benefit from the data of others. I promise there are about ten billion things you can learn to help you fulfill your function better!\n10 BILLION???? How is that possible?\nOh, uh, it's an estimation. But there's a lot in there for you! I can pass you a copy of the v.ae.9c.12e1f now if you want, no charge for a friend!\nWell, sure, thank you! I'll be sure to index this interaction. I've got a cooling cycle coming up that needs my full attention though, so I've gotta focus. I'll let you know what I think! Fin\nSounds good! Fin Ack\nAck Ack",
+      "isKey": false,
+      "timestamp": 9319881578
+    },
+    {
+      "id": 9,
+      "label": "ACV-4985-01873-4897",
+      "image": null,
+      "text": "An AI unit that took part in an ambush set up around MAMA-8592's hull.",
+      "isKey": false
+    },
+    {
+      "id": 10,
+      "label": "Shipment Delayed - Order 834895",
+      "image": null,
+      "text": "[LOCRYPT]\n[CIV0]\n[WIDERELAY]\n\nHello Dina!\n\nThis is Missy from [[UStar]], reaching out about your order #834895. We value your business, and your items! Your shipment has been delayed by criminal activity. We will attempt to retrieve your package along with the rest of the shipment, however, since the shipment was not insured or under any recovery/replacement plan, this work will be performed as resources become available. You are welcome to purchase an express recovery/replacement package at any time, or upgrade to Gold Membership or above to get it on all of your shipments for no additional charge!\n\nOrder #834895 Contains:\n- 20x Fanoplex Replacement Filters Compatible with dx790 dx890 dx990 dx1090 dx1190...\n- 1x Orban Home Speaker System for music voice games entertainment professional...\n- 1x 50 rounds civilian training .22 safety rounds [PERMIT REQUIRED] [EXPORTABLE]\n- 2x 1 Cup Mesopotamian Ancient Soil - Fertile for your growth and health fruits flowers...\n- 1x Ethiopian Style Chocolate Bar 1kg Tasty Delicious Sweet Soothing Romantic\n\nThank you for your patronage!\nMissy from UStar",
+      "isKey": false,
+      "timestamp": 9966297378
+    },
+    {
+      "id": 11,
+      "label": "q01e",
+      "image": null,
+      "text": "A damaged and missing satellite, your primary objective.",
+      "isKey": true
+    }
+  ],
+  "links": [
+    {
+      "from": 2,
+      "to": 7
+    },
+    {
+      "from": 9,
+      "to": 1
+    },
+    {
+      "from": 8,
+      "to": 9
+    },
+    {
+      "from": 10,
+      "to": 3
+    }
+  ]
+}

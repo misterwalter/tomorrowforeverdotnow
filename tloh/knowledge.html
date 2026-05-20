@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>NERV Terminal // Knowledge Base</title>
+    <title>Knowledge Base</title>
     
     <!-- Vis.js Network Library -->
     <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
@@ -33,11 +33,16 @@
             <div class="corner tl"></div><div class="corner tr"></div>
             <div class="corner bl"></div><div class="corner br"></div>
             <div class="modal-header">
-                <h2 class="modal-title" id="m-title">TITLE</h2>
+                <div>
+                    <h2 class="modal-title" id="m-title">TITLE</h2>
+                    <!-- New Timestamp Element -->
+                    <div id="m-timestamp" style="font-size: 0.9rem; color: #ff9900; margin-top: 5px; display: none;"></div>
+                </div>
                 <button class="close-btn" onclick="closeModal()">CLOSE</button>
             </div>
             <div class="modal-body">
                 <img id="m-image" class="modal-image" src="" alt="Node Image" style="display:none;">
+                <!-- Text area with improved readability font -->
                 <div id="m-text" class="modal-text"></div>
             </div>
         </div>
