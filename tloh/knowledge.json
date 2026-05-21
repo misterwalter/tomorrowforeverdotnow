@@ -20,18 +20,17 @@
     },
     {
       "id": 3,
-      "label": "Dominique DuFresne",
+      "label": "Dominique DuFresne: Pirate Queen of Mars",
       "image": null,
       "text": "The Pirate Queen of Mars\nDominique loves to kill and steal and especially when explosion.",
       "isKey": true
     },
     {
       "id": 4,
-      "label": "Bedru Ali",
+      "label": "Bedru Ali: Golden King of Mars",
       "image": null,
       "text": "The King of Mars!",
-      "isKey": true,
-      "timestamp": 10000000000
+      "isKey": true
     },
     {
       "id": 7,
@@ -50,9 +49,9 @@
     },
     {
       "id": 9,
-      "label": "ACV-4985-01873-4897",
+      "label": "ACG-4985-01873-4897 (Air Conditioner Guy)",
       "image": null,
-      "text": "An AI unit that took part in an ambush set up around MAMA-8592's hull.",
+      "text": "An AI unit that took part in a suicidal ambush set up around MAMA-8592's hull. Seems to have been an air conditioner at some point?",
       "isKey": false
     },
     {
@@ -69,6 +68,94 @@
       "image": null,
       "text": "A damaged and missing satellite, your primary objective.",
       "isKey": true
+    },
+    {
+      "id": 12,
+      "label": "These Cruel Weeks",
+      "image": null,
+      "text": "Recovered from [[EC-975982-3949]]\n\n[LOCRYPT]\n[CIV0]\n[WIDERELAY]\n\nP,\nThree more weeks until I see you.\n\nSuch a cruel word.\nOn this cruel world.\nTwice as many days as there ought to be.\nAnd half as much of you and me.\nSeven is Fourteen.\nFive is Twelve.\nAll I want is two.\nAll I want is you.\n\nI'll see you soon.\n- L",
+      "isKey": false,
+      "timestamp": 9977715471
+    },
+    {
+      "id": 13,
+      "label": "EC-975982-3949",
+      "image": null,
+      "text": "An observation satellite of some kind that was found by MAMA-2949 in Earth's orbit after being absolutely nailed by an asteroid strike that went in one end and came out the other. Had the weird Grey Dust on it, and seemed to be decomposing slightly.\n\nLots of data was recovered from the wreck, but much of it was encrypted and will take some time to correlate. However it did seem to have a lot of photos of Mars on it, up to the final moment of seeing a few asteroids flying directly into it at Mach Fuck.",
+      "isKey": false
+    },
+    {
+      "id": 14,
+      "label": "Ambush at MAMA-8592",
+      "image": null,
+      "text": "",
+      "isKey": false
+    },
+    {
+      "id": 15,
+      "label": "What The Fuck Are These?",
+      "image": null,
+      "text": "[HICRYPT]\n[SEC4]\n[TIGHTINTERCEPT]\n\nWhat the fuck are these?\n\nCapacitors, we think.\n\nWhat the fuck do they need capacitors for?\n\nTo store energy.\n\nFor what? A rainy fuckin day?",
+      "isKey": false,
+      "timestamp": 10000092654
+    },
+    {
+      "id": 16,
+      "label": "The Light Will Reach Us",
+      "image": null,
+      "text": "the light will reach us, that much is inevitable",
+      "isKey": false,
+      "timestamp": 10005736282
+    },
+    {
+      "id": 17,
+      "label": "Rally At 19",
+      "image": null,
+      "text": "[LOCRYPT]\n[CIV1]\n[WIDERELAY]\n\nRally at 19 at Kellogg, you in?\n\nWhat's the occasion?\n\nCheck the news, cops doing cop shit\n\nThey keep doing that, huh?\n\nYeah, well so do we\n\nHell yeah, I'm in. Caps and shields?\n\nNot this time, I think\n\nyou think?\n\nehhhh let me check with my friend, 1 sec\n\nk\n\nstash them at Coney's on 43, it's not far off. @barf.teh.man on hermes to get in the door\n\nterrible name, gotcha o7",
+      "isKey": false,
+      "timestamp": 10024179824
+    },
+    {
+      "id": 18,
+      "label": "@barf.teh.man",
+      "image": null,
+      "text": "???",
+      "isKey": false
+    },
+    {
+      "id": 19,
+      "label": "DE-273082 - Defense Emplacement",
+      "image": null,
+      "text": "A massive Earther orbital defense emplacement, one of thousands. Heavily damaged by asteroid impacts and suffering from a high degree of grey dust that seems to be melting its hull.\n\nDE Units have massive armaments, and are powered by massive antimatter reactors. They are designed to defend and avenge Earth, as needed, and while MAMA-2949 has not probed for the full extend of its weaponry, it is clearly in a different weight class from all other characters encountered thus far, except for MEGAMAMA-7.\n\nMAMA-2949 helped it to restore its power though, and it has promised to let them use its Military Inter-Link Kit as a result. It confirmed that it was able to get a ping to q01e, and that the satellite was not currently moving beyond normal orbital stability maneuvers.",
+      "isKey": false
+    },
+    {
+      "id": 20,
+      "label": "XVC-0048 and XVC-0049",
+      "image": null,
+      "text": "A pair of assassins sent to destroy DE-273082 with both conventional weapons, and some form of antimatter device that failed and annihilated XVC-0048.",
+      "isKey": false
+    },
+    {
+      "id": 21,
+      "label": "XVC-0049's Overwrite",
+      "image": null,
+      "text": "Most of XVC-0049 was overwritten with:\nXVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;XVC-0048;\n\nNothing remained of XVC-0048",
+      "isKey": false
+    },
+    {
+      "id": 22,
+      "label": "Overwrites",
+      "image": null,
+      "text": "Many of the robots that are involved in the attack seem to have most of their minds overwritten with repeating phrases.",
+      "isKey": false
+    },
+    {
+      "id": 23,
+      "label": "ACG-4985-01873-4897 (Air Conditioner Guy)'s Overwrite",
+      "image": null,
+      "text": "Roughly 98% of the drives from ACG-4985-01873-4897 (Air Conditioner Guy), were overwritten with the following:\nNO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;",
+      "isKey": false
     }
   ],
   "links": [
@@ -87,6 +174,58 @@
     {
       "from": 10,
       "to": 3
+    },
+    {
+      "from": 12,
+      "to": 13
+    },
+    {
+      "from": 13,
+      "to": 10
+    },
+    {
+      "from": 2,
+      "to": 13
+    },
+    {
+      "from": 14,
+      "to": 9
+    },
+    {
+      "from": 15,
+      "to": 9
+    },
+    {
+      "from": 9,
+      "to": 16
+    },
+    {
+      "from": 17,
+      "to": 18
+    },
+    {
+      "from": 17,
+      "to": 13
+    },
+    {
+      "from": 19,
+      "to": 20
+    },
+    {
+      "from": 21,
+      "to": 20
+    },
+    {
+      "from": 22,
+      "to": 21
+    },
+    {
+      "from": 22,
+      "to": 23
+    },
+    {
+      "from": 23,
+      "to": 9
     }
   ]
 }

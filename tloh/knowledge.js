@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mTitle.innerText = data.label;
             
             if (data.timestamp) {
-                const d = new Date(data.timestamp);
+                const d = new Date(data.timestamp*1000);
                 const utcStr = d.toUTCString();
                 mTimestamp.style.display = 'block';
                 mTimestamp.innerText = `TIMESTAMP: ${data.timestamp} ms | ${utcStr}`;
