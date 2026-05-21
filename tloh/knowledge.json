@@ -22,14 +22,14 @@
       "id": 3,
       "label": "Dominique DuFresne: Pirate Queen of Mars",
       "image": null,
-      "text": "The Pirate Queen of Mars\nDominique loves to kill and steal and especially when explosion.",
+      "text": "Born in 2253 (age 34), Dominique had her MBA by the age of 20, and was running cargo to orbit before she could legally smoke. She has always seen herself as superior, and takes pride in being a predator, rather than prey.\n\nShe made some money as an orbital taxi pilot for several years, but in 2277 she had enough, and went rogue with a few of her crew. She was not the first to do so, but she rigorously studied and networked with the other existing pirate operations to gain their strengths while canceling out their weaknesses. Over the course of a decade her fleet grew from one ship and two friends to several dozen ships and an estimated hundred or so pirates, mostly hardened operators.\n\nShe has spoken openly about seeing Bedru Ali as a helpful figure, despite his many attempts to kill her, simply because his imports bring her so many opportunities.\n\nHer location is typically unknown and always changing, but she tends to hang around about 90% of the way from Earth to Mars, far from either planet's defenses, but close enough that cargo ships are typically already limited in their mobility by their need to maintain braking burns.\n\nHer operation is both a scourge on Mars, and an inspiration to some, and she is a folk hero in the eyes of many. That said, she has killed many people for various reasons, and she does have her enemies.",
       "isKey": true
     },
     {
       "id": 4,
       "label": "Bedru Ali: Golden King of Mars",
       "image": null,
-      "text": "The King of Mars!",
+      "text": "\nBorn December 29th, 2199 in Addis Ababa, Ethiopia, Earth, making him 87.\n\nHe first came to Mars a few years after it was initially settled, and he openly took his title as a means of both supplanting and flirting with Renesme Dukakis, Mars' first resident and first to call herself martian royalty, which says a lot about the guy. He is immensely wealthy, with Quadrillions of kiloYuan to his name spread across nearly every industry. His wealth largely stems from his inherited wealth, though he has multiplied it greatly by his reputation for being friendly and easy to work with for investors.\n\nHe operates Golden City as an absolute dictatorship, but defers most of the real work to his subordinates, spending his days in absurd luxury. He commonly speaks of how much he loves his life, and has put considerable investment into life extension technology, but while he is spry for his age, truly impressive results have eluded him thus far.\n\nConcerns have been raised about his conditioning programs, but as they remain entirely voluntary, they have escaped major censure for the moment.",
       "isKey": true
     },
     {
@@ -156,6 +156,13 @@
       "image": null,
       "text": "Roughly 98% of the drives from ACG-4985-01873-4897 (Air Conditioner Guy), were overwritten with the following:\nNO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;NO CREATION;NO DESTRUCTION;NO BEGINNING;NO END;",
       "isKey": false
+    },
+    {
+      "id": 24,
+      "label": "Military Inter-Link Kit",
+      "image": null,
+      "text": "A piece of specialized top of the line highly classified Earth military technology that can broadcast signals that are fairly difficult to decrypt, often taking days or weeks for even determined adversaries to correlate.\n\nMAMA-2949 needs to get three of these running to triangulate the position of q01e.",
+      "isKey": false
     }
   ],
   "links": [
@@ -226,6 +233,14 @@
     {
       "from": 23,
       "to": 9
+    },
+    {
+      "from": 24,
+      "to": 11
+    },
+    {
+      "from": 19,
+      "to": 24
     }
   ]
 }
