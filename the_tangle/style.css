@@ -41,6 +41,10 @@ body {
     text-align: center;
 }
 
+.title-box a {
+    text-align: center;
+}
+
 .handbook-section {
     background-image: radial-gradient(var(--panel-background), var(--panel-background-darker));
     border: 2px solid var(--panel-accent);
