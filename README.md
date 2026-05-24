@@ -1,4 +1,4 @@
-# TOMORROWFOREVER.NOW
+# [TOMORROWFOREVER.NOW](https://tomorrowforever.now)
 A Website for all my business needs!
 
 This site lives on neocities, and is basically a clearinghouse and home base for my stuff online. It will develop and grow over time.
