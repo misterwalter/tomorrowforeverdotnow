@@ -49,6 +49,10 @@ body {
     max-width: 50%;
 }
 
+.handbook-section h2 {
+    border-bottom: 2px dotted var(--panel-accent-darker);
+}
+
 .handbook-section h3 {
     border-bottom: 1px dotted var(--panel-accent-darker);
 }
