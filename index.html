@@ -50,10 +50,15 @@
                 widget.className = "game-widget";
 
                 // Core Widget
-                widget.innerHTML = `
-                    <div class="game-header">
+                var header_image = "";
+                if ("header_image_url" in gameData) {
+                    header_image = `<div class="game-header">
                         <img src="${gameData.header_image_url}" alt="${gameData.title}">
-                    </div>
+                    </div>`;
+                }
+
+                widget.innerHTML = `
+                    ${header_image}
                     <h1 class="game-title">${gameData.title}</h1>
                     <div class="game-status">${gameData.status}</div>
                     <div class="game-description">${gameData.description}</div>
