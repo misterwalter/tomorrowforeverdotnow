@@ -1,0 +1,112 @@
+
+/* Core */
+* {
+    box-sizing: border-box;
+    font-family: "Ubuntu Mono", sans-serif;
+    color: var(--text-color);
+}
+
+:root {
+    --panel-background: rgba(23, 23, 45, 80);
+    --panel-background-darker: rgba(12, 11, 22, 80);
+    --panel-accent: #967d29;
+    --panel-accent-darker: #977c2a;
+    --text-color: #fff6e9;
+}
+
+body {
+    /* background: content-box linear-gradient(black, #222); */
+    background-image: linear-gradient(black, rgb(70, 22, 56), maroon);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: black;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+/* Sections */
+.title-box {
+    background-color: var(--panel-background);
+    border: 2px solid var(--panel-accent);
+}
+
+.title-box h1 {
+    text-align: center;
+    border-bottom: 1px dotted var(--panel-accent-darker);
+}
+
+.title-box h3 {
+    text-align: center;
+}
+
+.title-box a {
+    text-align: center;
+}
+
+.handbook-section {
+    background-image: radial-gradient(var(--panel-background), var(--panel-background-darker));
+    border: 2px solid var(--panel-accent);
+    margin: 5%;
+    padding: 5%;
+    max-width: 50%;
+}
+
+.handbook-section h2 {
+    border-bottom: 2px dotted var(--panel-accent-darker);
+}
+
+.handbook-section h3 {
+    border-bottom: 1px dotted var(--panel-accent-darker);
+}
+
+.core-directive {
+    padding: 5%;
+    border: 2px dashed #CCCCDD;
+}
+
+.core-directive h3 {
+    text-align: center;
+}
+
+.operations-advice {
+    padding: 5%;
+    border: 2px dashed #44CC33;
+}
+
+.sidenav {
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-image: radial-gradient(var(--panel-background), var(--panel-background-darker));
+    border: 2px solid var(--panel-accent);
+    overflow-x: hidden;
+    padding: 60px;
+}
+
+.sidenav a {
+    padding: 3px;
+    display: block;
+    font-size: 18px;
+}
+
+.sidenav ul li a {
+    padding: 2px;
+    margin: 2px;
+    font-size: 15px;
+}
+
+table {
+    border: 2px solid var(--panel-accent);
+}
+
+table th {
+    border: 2px solid var(--panel-accent);
+}
+
+table td {
+    border: 1px solid var(--panel-accent-darker);
+}

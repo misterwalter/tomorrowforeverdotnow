@@ -28,5 +28,11 @@
         "status": "Canceled - Reincarnating",
         "header_image_url": "images/tomorrow_forever_header.gif",
         "itch_url": "https://ditherdream.itch.io/tomorrow-forever"
+    },
+    {
+        "title": "Imperial Dawn",
+        "description": "A vibrant and flexible Tabletop RPG. Step into a strange world saturated with wild magic and dominated by a feudal theocracy.",
+        "status": "Complete",
+        "web_url": "/imperial_dawn/imperial_dawn.html"
     }
 ]
