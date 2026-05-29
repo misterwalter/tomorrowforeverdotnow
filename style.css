@@ -25,9 +25,10 @@ h1 {
 /* Marquee */
 .marquee-box {
     width: 100%;
-    background: aquamarine;
+    background: linear-gradient(90deg, aquamarine, pink, aquamarine, pink);
     overflow: hidden;
     border: 2px solid pink;
+    box-shadow: 0 0 10px aquamarine;
 }
 
 .marquee-text {
