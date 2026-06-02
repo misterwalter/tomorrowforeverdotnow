@@ -39,7 +39,7 @@
         async function loadGameList() {
             if (!gameListContainer) return;     // The Game List Was Borked From The Start
 
-            const response = await fetch("game-data.json");
+            const response = await fetch("game_data.json");
             if (!response.ok) throw new Error("Could not load game-data.json");
 
             const rawData = await response.json();
