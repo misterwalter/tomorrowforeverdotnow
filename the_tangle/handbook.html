@@ -10,6 +10,68 @@
 </head>
 
 <body>
+    <!-- HTML: Drop this anywhere in your <body> -->
+<a href="/" class="neo-home-btn" aria-label="Back to Home">
+  <!-- Home Icon (SVG) -->
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0392 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z"/>
+    <path d="M9 22V12H15V22"/>
+  </svg>
+</a>
+
+<!-- CSS: Add this to your style.css or inside a <style> tag -->
+<style>
+  .neo-home-btn {
+    /* Positioning: Fixed top-left, high z-index to stay on top */
+    position: fixed;
+    top: 25px;
+    left: 25px;
+    z-index: 9999; 
+    
+    /* Layout */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px; /* Square box, comfortable click area */
+    height: 44px;
+    
+    /* Aesthetic: Matches your --panel_background but slightly darker for contrast */
+    background-color: rgba(15, 25, 50, 0.9); 
+    backdrop-filter: blur(4px); /* Frosted glass effect */
+    
+    /* Borders & Glow: Matches your aquamarine/pink theme */
+    border: 2px solid aquamarine;
+    border-radius: 8px;
+    box-shadow: 0 0 10px aquamarine, inset 0 0 5px rgba(127, 255, 212, 0.3);
+    
+    /* Typography & Icon */
+    color: #ffffff; /* High contrast white */
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  /* Hover State: Switch to Pink glow */
+  .neo-home-btn:hover {
+    border-color: pink;
+    box-shadow: 0 0 15px pink, inset 0 0 8px rgba(255, 192, 203, 0.4);
+    transform: scale(1.1) rotate(-5deg); /* Fun little tilt */
+    background-color: rgba(20, 30, 60, 1);
+  }
+
+  /* Active State: Press down effect */
+  .neo-home-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 5px aquamarine;
+  }
+
+  /* Ensure the SVG inherits the color and size */
+  .neo-home-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    filter: drop-shadow(0 0 2px rgba(255,255,255,0.5)); /* Extra pop */
+  }
+</style>
     <div class="sidenav">
         <a href="#Cheat Sheet">Cheat Sheet</a>
         <a href="#Basics">Basics</a>
