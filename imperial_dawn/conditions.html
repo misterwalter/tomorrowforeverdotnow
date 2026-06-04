@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>¡Imperial Dawn! - Conditions</title>
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/ubuntu-mono-2');
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<!-- HTML: Drop this anywhere in your <body> -->
+<a href="/" class="neo-home-btn" aria-label="Back to Home">
+  <!-- Home Icon (SVG) -->
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0392 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z"/>
+    <path d="M9 22V12H15V22"/>
+  </svg>
+</a>
+
+
+<!-- CSS: Add this to your style.css or inside a <style> tag -->
+<style>
+  .neo-home-btn {
+    /* Positioning: Fixed top-left, high z-index to stay on top */
+    position: fixed;
+    top: 25px;
+    left: 25px;
+    z-index: 9999; 
+    
+    /* Layout */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px; /* Square box, comfortable click area */
+    height: 44px;
+    
+    /* Aesthetic: Matches your --panel_background but slightly darker for contrast */
+    background-color: rgba(15, 25, 50, 0.9); 
+    backdrop-filter: blur(4px); /* Frosted glass effect */
+    
+    /* Borders & Glow: Matches your aquamarine/pink theme */
+    border: 2px solid aquamarine;
+    border-radius: 8px;
+    box-shadow: 0 0 10px aquamarine, inset 0 0 5px rgba(127, 255, 212, 0.3);
+    
+    /* Typography & Icon */
+    color: #ffffff; /* High contrast white */
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  /* Hover State: Switch to Pink glow */
+  .neo-home-btn:hover {
+    border-color: pink;
+    box-shadow: 0 0 15px pink, inset 0 0 8px rgba(255, 192, 203, 0.4);
+    transform: scale(1.1) rotate(-5deg); /* Fun little tilt */
+    background-color: rgba(20, 30, 60, 1);
+  }
+
+  /* Active State: Press down effect */
+  .neo-home-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 5px aquamarine;
+  }
+
+  /* Ensure the SVG inherits the color and size */
+  .neo-home-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    filter: drop-shadow(0 0 2px rgba(255,255,255,0.5)); /* Extra pop */
+  }
+</style>
+
+    <div class="sidenav">
+        <a href="#Conditions">Conditions</a>
+        <a href="#Basic Effects">Basic Effects</a>
+        <a href="#Static Effects">Static Effects</a>
+        <ul>
+            <li><a href="#Airborne">Airborne</a></li>
+            <li><a href="#Blinded">Blinded</a></li>
+            <li><a href="#Choking">Choking</a></li>
+            <li><a href="#Dying">Dying</a></li>
+            <li><a href="#Grappled">Grappled</a></li>
+            <li><a href="#Helpless">Helpless</a></li>
+            <li><a href="#Prone">Prone</a></li>
+            <li><a href="#Rooted">Rooted</a></li>
+        </ul>
+        <a href="#Progressive Effects">Progressive Effects</a>
+        <ul>
+            <li><a href="#Blisters">Blisters</a></li>
+            <li><a href="#Bleeding">Bleeding</a></li>
+            <li><a href="#Burning">Burning</a></li>
+            <li><a href="#Dazed">Dazed</a></li>
+            <li><a href="#Staggered">Staggered</a></li>
+            <li><a href="#Stasis">Stasis</a></li>
+        </ul>
+        <a href="#Afflictions">Afflictions</a>
+        <ul>
+            <li><a href="#Initial Exposure">Initial Exposure</a></li>
+            <li><a href="#Recurrence and Strength">Recurrence and Strength</a></li>
+            <li><a href="#Transmission">Transmission</a></li>
+            <li><a href="#Ablenor">Ablenor</a></li>
+            <li><a href="#Cottonblood">Cottonblood</a></li>
+            <li><a href="#Candle Rash">Candle Rash</a></li>
+            <li><a href="#The Shrinks">The Shrinks</a></li>
+            <li><a href="#Wildflower">Wildflower</a></li>
+        </ul>
+    </div>
+
+    <div class="title-box">
+        <h1>Imperial Dawn</h1>
+        <h3>Conditions Reference</h3>
+        <h3>
+            <a href="/imperial_dawn/imperial_dawn.html">Home</a>
+            <a href="/imperial_dawn/player_rules.html">Player Rules</a>
+            <a href="/imperial_dawn/gm_rules.html">GM Rules</a>
+            <a href="/imperial_dawn/conditions.html">Conditions</a>
+            <a href="/imperial_dawn/gear.html">Quality & Gear</a>
+        </h3>
+    </div>
+
+    <div id="Conditions" class="handbook-section">
+        <h1>Conditions</h1>
+        <p>
+            There are many conditions that can beset an character in Imperial Dawn, and not all are listed here. Some abilities describe their own conditions, and some characters or items may have their own as well. You must have at least as many points of the condition as the threshold to take the effect specified for that threshold, and if you meet multiple thresholds for one Condition, you take all of those effects. The exception to that is that when the Threshold is "N/A", that means that the Status does not stack, and characters are only ever considered to have one point of it.
+        </p>
+    </div>
+
+    <div id="Basic Effects" class="handbook-section">
+        <h1>Basic Effects</h1>
+        <p>
+            Exhaustion, Stress, and Wounds are the three broadest and most foundational conditions in Imperial Dawn. They represent wear, tear, and damage taken by characters, and the basic ability to cope with damage that has already been inflicted on them.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Basic Effect</th>
+                    <th>Threshold</th>
+                    <th>Effects</th>
+                    <th>Recovery</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Exhaustion</strong></td>
+                    <td>1+</td>
+                    <td>Consider your Wounds, and by extension Stress, to be one point higher for each point of Exhaustion that you have, with the exception that Exhaustion does not count towards death from Wounds.</td>
+                    <td>Heal one point of Exhaustion for every two hours of sleep or similar rest.</td>
+                </tr>
+                <tr>
+                    <td><strong>Stress</strong></td>
+                    <td>3x Grit</td>
+                    <td>You are unable to think clearly enough to use any non-trait abilities that have prerequisites. Affected stances end, affected passives have no effect until you recover. Additionally, you lose your edge even when performing simple tasks, and lose one die on all rolls as a result.</td>
+                    <td>Heal Grit points of Stress each day that you spend resting.</td>
+                </tr>
+                <tr>
+                    <td><strong>Wounds</strong></td>
+                    <td>1+</td>
+                    <td>Consider your Stress to be one point higher for each point of Wounds that you have.</td>
+                    <td>Heal Vigor points of Wounds each day that you spend resting.</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>2x Vigor</td>
+                    <td>You are Helpless.</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>3x Vigor</td>
+                    <td>You are Dying. You cannot do, perceive, or think anything. At the end of your turn, you die.</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="Static Effects" class="handbook-section">
+        <h1>Static Effects</h1>
+        <p>
+            Static effects are conditions that are either affecting a character or not, unlike the rest of the Conditions, they have no point values. Typically they carry their own methods or requirements for being removed, but an ability that applies a static effect may have its own rules for when the effect expires.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Status Name</th>
+                    <th>Effects of the Status</th>
+                    <th>Recovery</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="Airborne"><strong>Airborne</strong></td>
+                    <td>You soar through the air. Whenever you take Knockback, you are knocked twice as far. Whenever you would roll dice, you are so disoriented that you reroll all successes once.</td>
+                    <td>You fall Prone at the start of your next turn, and cease to be Airborne.</td>
+                </tr>
+                <tr>
+                    <td id="Blinded"><strong>Blinded</strong></td>
+                    <td>You cannot see anything, and so you cannot directly target anything that you are not already touching. You can attempt to do something in the direction of a sound, or at the location where you believe something to be, but when you do, you must roll Luck instead of whatever other trait you would normally roll. Additionally, movement is challenging, and whenever you attempt to move, you must first declare your move, and then roll Agility. If you do not roll one success for every meter that you attempt to cover, you trip and fall prone after traveling X meters, ending your movement.</td>
+                    <td>Recovery depends on how Blindness was inflicted.</td>
+                </tr>
+                <tr>
+                    <td id="Choking"><strong>Choking</strong></td>
+                    <td>You cannot breathe or speak, and as a result you cannot cast spells or say prayers. If you are Choking for a number of turns greater than your Vigor, you must roll a Vigor save at the end of each turn. If that save is not greater than the number of turns, counting this one, that you have had to roll that save, you pass out.</td>
+                    <td>Recovery depends on how Choking was inflicted.</td>
+                </tr>
+                <tr>
+                    <td id="Dying"><strong>Dying</strong></td>
+                    <td>You cannot do, perceive, or think anything. At the end of your turn, you die.</td>
+                    <td>You cease Dying when you have fewer than 3xVigor Wounds.</td>
+                </tr>
+                <tr>
+                    <td id="Grappled"><strong>Grappled</strong></td>
+                    <td>You are being grabbed or held down by another character. You cannot move, and you roll half as many dice rounded down whenever you roll.</td>
+                    <td>You can spend a major action to clash on Vigor or Agility with one character that is grappling you. If you succeed, you are free of their grapple.</td>
+                </tr>
+                <tr>
+                    <td id="Helpless"><strong>Helpless</strong></td>
+                    <td>You are mostly conscious, but can take no effective actions beyond spending your entire turn crawling one meter. You fall Prone unless you have something to lean on or cling to.</td>
+                    <td>Recovery depends on how Helpless was inflicted.</td>
+                </tr>
+                <tr>
+                    <td id="Prone"><strong>Prone</strong></td>
+                    <td>You are on the ground, and you become easier to hit for adjacent attackers. You must reroll all successes once on Agility saves against attacks made by adjacent attackers. However if an attacker is further than that, you can reroll all failures on Agility saves against them. You exit any stances that you are in, and cannot enter another until you stop being prone. When you take a move action, you can only go half as far.</td>
+                    <td>You can end this condition by standing up with a minor action.</td>
+                </tr>
+                <tr>
+                    <td id="Rooted"><strong>Rooted</strong></td>
+                    <td>You are firmly attached to the ground in some way that prevents you from walking or otherwise moving normally. You can still stand up if you become prone, but you cannot otherwise use the move action.</td>
+                    <td>Recovery depends on how Rooted was inflicted.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="Progressive Effects" class="handbook-section">
+        <h1>Progressive Effects</h1>
+        <p>
+            Characters accumulate points of Progressive Effects, suffering greater debilitation the more points they have.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Status Name</th>
+                    <th>Threshold</th>
+                    <th>Effects of the Status</th>
+                    <th>Recovery</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="Blisters"><strong>Blisters</strong></td>
+                    <td>1+</td>
+                    <td>Whenever you take Wounds, you take an additional point of Wounds, and a point of Bleeding.</td>
+                    <td>At the end of each hour, you heal from one point of Blisters.</td>
+                </tr>
+                <tr>
+                    <td id="Bleeding"><strong>Bleeding</strong></td>
+                    <td>1+</td>
+                    <td>At the end of your turn, take one Wound for each point of Bleeding that you have.</td>
+                    <td>Characters can spend a major action to bandage themselves or a non-resisting adjacent character, and therefore reduce their Bleeding by one point.</td>
+                </tr>
+                <tr>
+                    <td id="Burning"><strong>Burning</strong></td>
+                    <td>1+</td>
+                    <td>Your flesh melts, your skin peels, and your organs. At the end of your turn, you take a point of Wounds for every point of Burning you have, and then you take an additional point of Burning.</td>
+                    <td>You or someone adjacent to you can spend a major action to attempt to extinguish yourself with an Agility roll. If you do, you can remove one point of Burning for each success.</td>
+                </tr>
+                <tr>
+                    <td id="Dazed"><strong>Dazed</strong></td>
+                    <td>1+</td>
+                    <td>You lose one die on all rolls.</td>
+                    <td>At the end of each of your turns, you can heal from one point of Dazed.</td>
+                </tr>
+                <tr>
+                    <td id="Staggered"><strong>Staggered</strong></td>
+                    <td>1×Vigor</td>
+                    <td>You are off-balance and having trouble coordinating movement. You reroll successes on all attack rolls you make. If you're knocked back or moved against your will, you fall prone after that movement.</td>
+                    <td>When you end your turn without gaining any points of Staggered, you lose all points of Staggered.<br><br>You can also use a minor action to make a Vigor check which reduces your points of Staggered by the number of successes.</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>3×Vigor</td>
+                    <td>Completely over-balanced, you fall prone and lose all points of Staggered.</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td id="Stasis"><strong>Stasis</strong></td>
+                    <td>1+</td>
+                    <td>You begin to lag behind the rest of the world just slightly, and you lose a die on all rolls.</td>
+                    <td>You slowly come back into line with the rest of reality though, and you lose a point of Stasis at the start of each of your turns.</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>2×Luck</td>
+                    <td>You freeze in time, and until you drop below this level, you can take no actions, nor do you gain or lose any conditions other than Stasis. In fact, you cannot be harmed or affected in any way, and you do not move when pressed with any amount of force. Your velocity is preserved however, and resumes as soon as you become unfrozen. You are totally unaware of the passage of time, and everything that you wear and carry is similarly immutable.</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="Afflictions" class="handbook-section">
+        <h1>Afflictions</h1>
+        <p>
+            Afflictions are poisons and diseases, typically experienced over longer periods of time.
+        </p>
+
+        <h3 id="Initial Exposure">Initial Exposure</h3>
+        <p>
+            The manner in which you are first exposed to an affliction determines how many points of it you start off with. An item or ability might be able to apply X points of an affliction to a character, or an affliction might have rules for when and how it can spread on its own.
+        </p>
+
+        <h3 id="Recurrence and Strength">Recurrence and Strength</h3>
+        <p>
+            Most diseases have a tendency to worsen over time, while most poisons do not. Each has a Recurrence which specifies how often the affliction has a chance to better or worsen. Once per the specified period, the afflicted character gains as many points of the affliction as is specified, and simultaneously rolls a Save that reduces the number of points of the affliction that they have by one point per success.
+        </p>
+        <p>
+            Afflictions specify ranges of points, showing the range of Strengths that different strains or versions of afflictions may have. Once contracted, they will not change strength of their own accord, and they can only be cleared by reducing their points to zero unless otherwise specified.
+        </p>
+
+        <h3 id="Transmission">Transmission</h3>
+        <p>
+            Many afflictions can be transmitted from one character to another, but each transmits in a different way. Knowing how an affliction transmits can be the difference between one character suffering and the entire party struggling to survive. However, tools and abilities exist that can spread an affliction, so be aware that the source may not be as obvious as one might think.
+        </p>
+
+        <h4 id="Ablenor">Ablenor</h4>
+        <p>
+            <strong>Recurrence:</strong> Vigor reducing; 0 points per day.<br>
+            <strong>Transmission:</strong> Ingestion: Roughly one tablespoon of sticky oily liquid delivering five points
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Threshold</th>
+                    <th>Effects</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1+</td>
+                    <td>You become deeply nauseous, and you always have at least one point of Dazed.</td>
+                </tr>
+                <tr>
+                    <td>1xVigor</td>
+                    <td>Your skin reddens and flushes with blood, and you always have at least one point of Blisters.</td>
+                </tr>
+                <tr>
+                    <td>3xVigor</td>
+                    <td>You lose control of your body, becoming Helpless.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4 id="Cottonblood">Cottonblood</h4>
+        <p>
+            <strong>Recurrence:</strong> Vigor reducing; 1-4 points per day.<br>
+            <strong>Transmission:</strong> Spores (see 15+): Spores deliver points of Cottonblood equal to the Strength of the Cottonblood that created them.
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Threshold</th>
+                    <th>Effects</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1+</td>
+                    <td>A steadily growing patch of your skin begins to froth and bubble painfully. At the start of each day, take one point of Stress for each point of Cottonblood that you have, reduced by one for each success you roll on a Grit check.</td>
+                </tr>
+                <tr>
+                    <td>10+</td>
+                    <td>The frothing skin begins to inflate and solidify. The floating fluffy orb greatly impedes your movements, causing you to roll only half as many dice as you would on all Agility rolls. Additionally the tuft is exceptionally easy to grab, meaning that you also roll half as many dice on all attempts to avoid being Grappled.</td>
+                </tr>
+                <tr>
+                    <td>15+</td>
+                    <td>The cotton orb that you developed tears itself free and floats away. Within a day it will begin dropping small Cottonblood spores down from the skies, but for now it has left with a large chunk of the skin that it was rooted to, and perhaps a few organs besides. Roll Vigor to reduce C points of Wounds. After detachment you are cured, and you heal from every point of Cottonblood that you have.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4 id="Candle Rash">Candle Rash</h4>
+        <p>
+            <strong>Recurrence:</strong> Luck reducing; 1-4 points per day.<br>
+            <strong>Transmission:</strong> Touch: Directly touching the rash directly causes immediate points of Candle Rash at the point of contact equal to the Strength of the Candle Rash that was touched.
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Threshold</th>
+                    <th>Effects</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1+</td>
+                    <td>The burns on your body are hot to the touch, and edged with coals. The Candle Rash thirsts for air, and if you ever have fewer Wounds than points of Candle Rash, it will burn its way out to breathe, inflicting one irreducible point of Wounds each turn until your points of Wounds are at least equal to your points of Candle Rash.</td>
+                </tr>
+                <tr>
+                    <td>3+</td>
+                    <td>The rash begins to sizzle and burn in earnest, and gives off a distinctly horrifying scent and smoke.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4 id="The Shrinks">The Shrinks</h4>
+        <p>
+            <strong>Recurrence:</strong> Luck reducing; 1-4 points per day.<br>
+            <strong>Transmission:</strong> Fate, Whimsy, and Unraveling
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Threshold</th>
+                    <th>Effects</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1+</td>
+                    <td>You seem a few fingers shorter than usual.</td>
+                </tr>
+                <tr>
+                    <td>1×Vigor</td>
+                    <td>You have shrunk by enough to be reduced by one size category. If you become smaller than Miniature, you might be lost, never to be seen again.</td>
+                </tr>
+                <tr>
+                    <td>2×Vigor</td>
+                    <td>You have shrunk by enough to be reduced by two full size categories. If you become smaller than Miniature, you might be lost, never to be seen again.</td>
+                </tr>
+                <tr>
+                    <td>3×Vigor</td>
+                    <td>You have shrunk by enough to be reduced by three full size categories. If you become smaller than Miniature, you might be lost, never to be seen again.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            The pattern continues endlessly.
+        </p>
+
+        <h4 id="Wildflower">Wildflower</h4>
+        <p>
+            <strong>Recurrence:</strong> Luck reducing; 1-4 points per day.<br>
+            <strong>Transmission:</strong> Touch: Contact with Victim's blooms
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Threshold</th>
+                    <th>Effects</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1+</td>
+                    <td>A small bouquet of flowers bursts from some part of your body. They are quite pretty, and smell pleasant. The more points of Wildflower you have, the more flowers you have. Others that come into contact with your Wildflower blooms are immediately seeded with two points of Wildflower of the same Strength of your own. Cutting off the flowers causes them to grow back a few inches away from where they were cut within a few minutes.</td>
+                </tr>
+                <tr>
+                    <td>3+</td>
+                    <td>You are clearly visibly infected, and most people will keep a good three or four meters between you and them. You will no longer be welcome in many establishments.</td>
+                </tr>
+                <tr>
+                    <td>4×Agility</td>
+                    <td>You are overburdened by a true abundance of Wildflowers, and you cannot stand as steadily as before. Your Agility is lowered by one point.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Example</h3>
+        <p>
+            Tor buys a vial of Ablenor to poison their enemies. Doubting its potency, they take a small sip, imbibing 5 points worth of the poison. Because they have a Vigor of four, they immediately become deeply nauseous, and break out in blisters, but they do not die. The next day they roll Vigor and recover from two points of Ablenor. Now that their Vigor of four is greater than their three points of Ablenor, they no longer suffer from Blisters but still have a point of Dazed. Over the next few days (and Vigor rolls) Tor cleared the rest of the poison out of their system.
+        </p>
+    </div>
+
+</body>
+</html>

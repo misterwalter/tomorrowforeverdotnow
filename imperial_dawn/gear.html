@@ -1,0 +1,623 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>¡Imperial Dawn! - Quality & Gear</title>
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/ubuntu-mono-2');
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<!-- HTML: Drop this anywhere in your <body> -->
+<a href="/" class="neo-home-btn" aria-label="Back to Home">
+  <!-- Home Icon (SVG) -->
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0392 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z"/>
+    <path d="M9 22V12H15V22"/>
+  </svg>
+</a>
+
+
+<!-- CSS: Add this to your style.css or inside a <style> tag -->
+<style>
+  .neo-home-btn {
+    /* Positioning: Fixed top-left, high z-index to stay on top */
+    position: fixed;
+    top: 25px;
+    left: 25px;
+    z-index: 9999; 
+    
+    /* Layout */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px; /* Square box, comfortable click area */
+    height: 44px;
+    
+    /* Aesthetic: Matches your --panel_background but slightly darker for contrast */
+    background-color: rgba(15, 25, 50, 0.9); 
+    backdrop-filter: blur(4px); /* Frosted glass effect */
+    
+    /* Borders & Glow: Matches your aquamarine/pink theme */
+    border: 2px solid aquamarine;
+    border-radius: 8px;
+    box-shadow: 0 0 10px aquamarine, inset 0 0 5px rgba(127, 255, 212, 0.3);
+    
+    /* Typography & Icon */
+    color: #ffffff; /* High contrast white */
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  /* Hover State: Switch to Pink glow */
+  .neo-home-btn:hover {
+    border-color: pink;
+    box-shadow: 0 0 15px pink, inset 0 0 8px rgba(255, 192, 203, 0.4);
+    transform: scale(1.1) rotate(-5deg); /* Fun little tilt */
+    background-color: rgba(20, 30, 60, 1);
+  }
+
+  /* Active State: Press down effect */
+  .neo-home-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 5px aquamarine;
+  }
+
+  /* Ensure the SVG inherits the color and size */
+  .neo-home-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    filter: drop-shadow(0 0 2px rgba(255,255,255,0.5)); /* Extra pop */
+  }
+</style>
+
+    <div class="sidenav">
+        <a href="#Quality">Quality</a>
+        <a href="#Focuses">Focuses</a>
+        <ul>
+            <li><a href="#What can a focus do">What can a focus do?</a></li>
+            <li><a href="#Example Focuses">Example Focuses</a></li>
+        </ul>
+        <a href="#Carry Capacity">Carry Capacity</a>
+        <a href="#Gear for Sale">Gear for Sale</a>
+        <a href="#Storage">Storage</a>
+        <a href="#Tools and Material">Tools and Material</a>
+        <a href="#Armor and Protective Gear">Armor and Protective Gear</a>
+        <ul>
+            <li><a href="#Armor Reduces Damage">Armor Reduces Damage</a></li>
+            <li><a href="#Armor Must Be Maintained">Armor Must Be Maintained</a></li>
+            <li><a href="#Wearing Armor">Wearing Armor</a></li>
+            <li><a href="#Shields">Shields</a></li>
+            <li><a href="#Construction">Construction</a></li>
+            <li><a href="#Protection">Protection</a></li>
+            <li><a href="#Recovery">Recovery</a></li>
+            <li><a href="#Example Armors">Example Armors</a></li>
+        </ul>
+        <a href="#Example Weapons">Example Weapons</a>
+    </div>
+
+    <div class="title-box">
+        <h1>Imperial Dawn</h1>
+        <h3>Quality, Gear & Equipment</h3>
+        <h3>
+            <a href="/imperial_dawn/imperial_dawn.html">Home</a>
+            <a href="/imperial_dawn/player_rules.html">Player Rules</a>
+            <a href="/imperial_dawn/gm_rules.html">GM Rules</a>
+            <a href="/imperial_dawn/conditions.html">Conditions</a>
+            <a href="/imperial_dawn/gear.html">Quality & Gear</a>
+        </h3>
+    </div>
+
+    <div id="Quality" class="handbook-section">
+        <h1>Quality</h1>
+        <p>
+            All items have Quality, which is a number that represents how helpful the item is when used properly. When the item is used properly, the user can add one die for each point of Quality to their roll, though the underlying Trait is not affected. Only one item's Quality can affect any given roll.
+        </p>
+    </div>
+
+    <div id="Focuses" class="handbook-section">
+        <h1>Focuses</h1>
+        <p>
+            Just like real life, characters in Imperial Dawn benefit greatly from channeling their magical powers through items that can enhance or alter their effects. Each character typically starts with a single focus item that is specific and personal to them. Over time, they may enhance or replace their original focus. Attuning oneself to a new focus requires two weeks spent with it, and while any object can be a focus, most people customize their focuses to match their own personal style. Focuses are almost never traded, as their powers only function for their owners. If one was to steal a powerful focus, or even if it was given freely, it would need to be attuned to normally like any other item. While an item can technically be multiple people's focus, this almost never happens for practical reasons.
+        </p>
+
+        <h3 id="What can a focus do">What can a focus do?</h3>
+        <p>
+            Focuses all have a Quality, and most have at least one perk. The Quality is a number, typically in the range of one to three. While characters out in the world could have just about anything as a perk, only the following perks are commonly available to characters starting their journeys.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Benefit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Brilliant</strong></td>
+                    <td>Whenever you channel through this focus it lets out a flash of light, inflicting a point of Dazed on whatever you hit.</td>
+                </tr>
+                <tr>
+                    <td><strong>Featherlight</strong></td>
+                    <td>Whenever you use a non-passive ability, you can catch the wind and blow yourself one meter in any direction.</td>
+                </tr>
+                <tr>
+                    <td><strong>Shining</strong></td>
+                    <td>Whenever you like, this focus can become as bright as a torch.</td>
+                </tr>
+                <tr>
+                    <td><strong>Skyseeing</strong></td>
+                    <td>This focus reacts to weather about a day before it happens. It will become damp when rain approaches, frosty when cold comes, and it will otherwise change to foretell what weather will come.</td>
+                </tr>
+                <tr>
+                    <td><strong>Streamlined</strong></td>
+                    <td>Whenever you take a move action, you can move one meter further than you otherwise would have.</td>
+                </tr>
+                <tr>
+                    <td><strong>Taut-Woven</strong></td>
+                    <td>This focus reacts to the presence of Unraveling in some distinctive way that gives a general sense of the intensity and flavor of the local Unraveling, such as twisting itself into letters that form vague warnings, or discoloring itself into blurry images.</td>
+                </tr>
+                <tr>
+                    <td><strong>Tear-Snatching</strong></td>
+                    <td>Whenever your target a character who has Stress with an ability, you can take one point of their Stress onto yourself.</td>
+                </tr>
+                <tr>
+                    <td><strong>Thirsting</strong></td>
+                    <td>Whenever you inflict Wounds on an adjacent character, inflict an additional point of Bleeding</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 id="Example Focuses">Example Focuses</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Quality</th>
+                    <th>Perks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>A small stone dagger</td>
+                    <td>2</td>
+                    <td>Thirsting</td>
+                </tr>
+                <tr>
+                    <td>A robe which sheds insects that are sensitive to Unraveling</td>
+                    <td>3</td>
+                    <td>Featherlight, Taut-Woven</td>
+                </tr>
+                <tr>
+                    <td>Sandals Made of slippery wax</td>
+                    <td>1</td>
+                    <td>Streamlined</td>
+                </tr>
+                <tr>
+                    <td>A monocle through which tomorrow's weather can be seen.</td>
+                    <td>1</td>
+                    <td>Skyseeing</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="Carry Capacity" class="handbook-section">
+        <h1>Carry Capacity</h1>
+        <p>
+            Characters have a limit to how much weight they can carry, comfortably and otherwise. Your own body weight does not count towards these limits, but your clothing, armor, and of course the rest of your carried inventory does. Encumbered and overencumbered are both status effects, and are also listed on the Conditions page.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Threshold</th>
+                    <th>Effect</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Unencumbered</strong></td>
+                    <td>Up to 10 × Vigor Kilograms</td>
+                    <td>You can move comfortably and normally</td>
+                </tr>
+                <tr>
+                    <td><strong>Encumbered</strong></td>
+                    <td>10 × Vigor Kilograms and above</td>
+                    <td>You move at half the speed that you otherwise would.</td>
+                </tr>
+                <tr>
+                    <td><strong>Over-encumbered</strong></td>
+                    <td>10 × Vigor plus 5 × Grit Kilograms and above</td>
+                    <td>You fall prone and cannot stand until you unload.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            It's fairly common for groups to choose to ignore encumbrance rules, and doing so will not completely break the game. We include them here for those who wish to use them.
+        </p>
+    </div>
+
+    <div id="Gear for Sale" class="handbook-section">
+        <h1>Gear for Sale</h1>
+        <p>
+            Dromas are the currency of the world of Imperial Dawn. They are typically cloth bills or stone coins, and each is marked with a sort of magical signature from the Regent that created them. This signature is related to Truthspeak, and is essentially impossible to fake or duplicate, though some try anyway. If you need to estimate prices for items not listed, consider that the value of a single Droma is roughly equal to the value of a single United States Dollar in 1894.
+        </p>
+        <p>
+            For all the struggles of the world, most basic materials and foodstuffs are extremely cheap and easy to reproduce. It's common for a trustworthy seeming traveler to be invited in for a meal without any expectation of financial payment. A less trusted traveler might still have food put out for them as a courtesy, or in hopes of appeasing them. Inns and Restaurants still exist, but tend to either charge for other amenities like rooms or produce truly exceptional meals.
+        </p>
+    </div>
+
+    <div id="Storage" class="handbook-section">
+        <h1>Storage</h1>
+        <p>
+            Before you get anything, you'll need a way to carry it.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Cost (D)</th>
+                    <th>Weight</th>
+                    <th>Effect</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Light Pack</strong></td>
+                    <td>1D</td>
+                    <td>1kg</td>
+                    <td>You can carry 10kg more than usual. You can only equip one backpack.</td>
+                </tr>
+                <tr>
+                    <td><strong>Heavy Pack</strong></td>
+                    <td>5D</td>
+                    <td>2kg</td>
+                    <td>You can carry 20kg more than usual. You can only equip one backpack.</td>
+                </tr>
+                <tr>
+                    <td><strong>Wheelbarrow</strong></td>
+                    <td>8D</td>
+                    <td>20kg</td>
+                    <td>You can use a wheelbarrow to move up to triple the weight that would otherwise make you Overencumbered. However, you can only move it at half of your normal movement speed.</td>
+                </tr>
+                <tr>
+                    <td><strong>Haulercart</strong></td>
+                    <td>200D</td>
+                    <td>50kg</td>
+                    <td>Haulercarts are expanded on the inside to allow for up to 500kg of gear and even characters to be stored in such a way that does not increase the overall weight of the cart. However they are Large and bulky, and so are usually pulled by beasts of burden.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="Tools and Material" class="handbook-section">
+        <h1>Tools and Material</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Cost (D)</th>
+                    <th>Weight</th>
+                    <th>Effect</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Pack of 10 Bandages</strong></td>
+                    <td>5D</td>
+                    <td>1kg</td>
+                    <td>Using a Bandage on an adjacent character with a major action allows you to roll Wits, and reduce their Bleeding by one point for each success on your roll.</td>
+                </tr>
+                <tr>
+                    <td><strong>Cuffs</strong></td>
+                    <td>5D*Quality</td>
+                    <td>1kg</td>
+                    <td>Cuffs can be applied to a non-resisting character with a major action. Doing so causes them to spring around all of the character's limbs and bind them together awkwardly. This requires a Vigor check of more than twice the cuff's quality to break free of.<br><br>Cuffs can be sealed by a variety of mechanisms, typically they are sealed by a simple handprint. A user presses their palm against the cuffs to seal them, and their palm must be pressed against the cuffs again to unseal them.</td>
+                </tr>
+                <tr>
+                    <td><strong>Rope</strong></td>
+                    <td>1D per 3m</td>
+                    <td>1kg per 6m</td>
+                    <td>Standard Rope is light enough to carry, and strong enough to hold up to 1000kg. Additionally, a quick whip of the rope will cause most knots to come undone, allowing for easy retrieval when the job is done but only when there is no significant weight hanging on it.</td>
+                </tr>
+                <tr>
+                    <td><strong>Scrap</strong></td>
+                    <td>10D</td>
+                    <td>10kg</td>
+                    <td>Scrap is potentially useful debris. Any gear that has a Quality rating can be broken down into scrap, and some characters can make good use of scrap to make new things. Any character that can physically break an item to the point where it no longer functions can consider that item to be one scrap.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="Armor and Protective Gear" class="handbook-section">
+        <h1>Armor and Protective Gear</h1>
+        <p>
+            Armor is any protective layer on a character. Protective gear has a Quality score, and when in good condition, a single piece of protective gear grants one point of armor for each point of Quality that it has, the type of protections are allocated during the armor's creation. Most protective gear only protects against Wounds, though armor can be made to protect against any number of conditions, provided that one has the skills and resources. Unlike other items with Quality, protective gear does not bestow extra dice on any rolls.
+        </p>
+
+        <h3 id="Armor Reduces Damage">Armor Reduces Damage</h3>
+        <p>
+            Whenever a character takes points of a condition, two things happen in order:
+        </p>
+        <ol>
+            <li>The incoming points of the condition are reduced by one for each point of applicable armor that the character has, to a minimum of zero.</li>
+            <li>The character chooses one piece of gear that protected them, and marks it as having lost one point of armor.</li>
+        </ol>
+
+        <h3 id="Armor Must Be Maintained">Armor Must Be Maintained</h3>
+        <p>
+            When protective gear is used, it takes damage, and must be restored. The method of restoration depends on the type of armor.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Armor Type</th>
+                    <th>Example</th>
+                    <th>Restoration Method</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Artificial</strong></td>
+                    <td>Chainmail or a Wooden Shield</td>
+                    <td>Restore by repairing. Professionally made artificial armor is often enchanted to self-repair over time.</td>
+                </tr>
+                <tr>
+                    <td><strong>Bodily</strong></td>
+                    <td>Scales or crystalline skin.</td>
+                    <td>Restore by healing Wounds. Whenever you do, you can choose to heal one less Wound to restore a point of armor instead.</td>
+                </tr>
+                <tr>
+                    <td><strong>Warded</strong></td>
+                    <td>A lucky trinket or a forcefield</td>
+                    <td>Restore by Charging. Whenever you do, points of Charge turn into points of Armor. Many wards have their own methods of self-restoration as well.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 id="Wearing Armor">Wearing Armor</h3>
+        <p>
+            Characters can effectively wear up to two pieces of artificial armor, and two pieces of warded armor, and a shield. Anything beyond that is too clunky for them to gain any advantage from. Additional training, such as taking certain abilities in the Dreadnought tree, can grant the ability to effectively employ more armor. Basic sense should be applied to if particular pieces of armor can be worn at the same time. Wearing multiple warded necklaces is not likely to be an issue, wearing multiple helmets, or pairs of boots, is not likely to be possible.
+        </p>
+
+        <h3 id="Shields">Shields</h3>
+        <p>
+            Shields are a kind of handheld armor. When held by untrained characters, shields only grant their protection against threats coming from the front of the wielder. Shields do not require a stance to use, and can be purchased according to the same rules as other armor.
+        </p>
+
+        <h3 id="Construction">Construction</h3>
+        <p>
+            Artificial armor consists of conspicuous plates of hardened material laid over padding, which is much simpler and more obvious than warded armor. Warded armor comes from enchantments that can be placed on nearly anything, and so doesn't need to look anything like armor. This concealment, as well as the additional difficulty in creating warded protective gear, makes it much more expensive. Bodily protection cannot be purchased, it is simply a part of your body, or not. If you have harvested the bodily protection of another character, it now counts as artificial gear.
+        </p>
+
+        <h3 id="Protection">Protection</h3>
+        <p>
+            Gear can protect against as many conditions as the builder can provide for, but each increases the cost by a factor. Additionally, protective techniques may not have been developed for some afflictions, or may not be known to many. Some afflictions may require artificial gear, some may require warded gear.
+        </p>
+
+        <h3 id="Recovery">Recovery</h3>
+        <p>
+            Professionally made protective gear can self-repair under various circumstances. While it is possible to acquire gear that does not, such things are seen as useless liabilities, like buying a canteen with a hole in it.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Recovery Name</th>
+                    <th>Condition</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>No Recovery</strong></td>
+                    <td>The gear does not self-repair, making it dramatically less useful in the long term.</td>
+                </tr>
+                <tr>
+                    <td><strong>Daily Mending</strong></td>
+                    <td>The gear recovers one point of armor per day, at the same time of day.</td>
+                </tr>
+                <tr>
+                    <td><strong>Daily Recovery</strong></td>
+                    <td>The gear recovers all points of armor at the same time every day.</td>
+                </tr>
+                <tr>
+                    <td><strong>Quick-sealing</strong></td>
+                    <td>The gear recovers one point of armor every hour.</td>
+                </tr>
+                <tr>
+                    <td><strong>Unwavering</strong></td>
+                    <td>The gear recovers one point of armor at the start of each of the wearer's turns.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 id="Example Armors">Example Armors</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Armor Type</th>
+                    <th>Cost</th>
+                    <th>Construction</th>
+                    <th>Protection</th>
+                    <th>Recovery</th>
+                    <th>Rare Trait</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Metal Chestplate</td>
+                    <td>40 D</td>
+                    <td>Artificial</td>
+                    <td>Wounds: 4</td>
+                    <td>Daily Mending</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Stone Helmet</td>
+                    <td>40 D</td>
+                    <td>Artificial</td>
+                    <td>Wounds: 3<br>Dazed: 3</td>
+                    <td>Daily Mending</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Rock Leather</td>
+                    <td>50 D</td>
+                    <td>Artificial</td>
+                    <td>Wounds: 5</td>
+                    <td>No Recovery</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Seal of the Scab</td>
+                    <td>80 D</td>
+                    <td>Warded</td>
+                    <td>Bleeding: 3</td>
+                    <td>Daily Recovery</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Asbestos Armor</td>
+                    <td>9 D</td>
+                    <td>Artificial</td>
+                    <td>Burning: 5</td>
+                    <td>No Recovery</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>'Sheer Willpower"</td>
+                    <td>200 D</td>
+                    <td>Warded</td>
+                    <td>Wounds:1</td>
+                    <td>Quick-sealing</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Dagomon's Horse Skin Armor</td>
+                    <td>Not For Sale, go out and find it, champ!</td>
+                    <td>Artificial</td>
+                    <td>Wounds:1<br>Bleeding: 2<br>Burning: 1</td>
+                    <td>Unwavering</td>
+                    <td>Agility: +1</td>
+                </tr>
+                <tr>
+                    <td>Soveantium Gloves</td>
+                    <td>Not For Sale, go out and find it, champ!</td>
+                    <td>Artificial</td>
+                    <td>Burning: 20</td>
+                    <td>Unwavering</td>
+                    <td>Recover from one point of Wounds at the start of each of your turns.</td>
+                </tr>
+                <tr>
+                    <td>Wooden Shield</td>
+                    <td>20 D</td>
+                    <td>Artificial</td>
+                    <td>Wounds: 2</td>
+                    <td>Daily Mending</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Serenity Icon</td>
+                    <td>427 D</td>
+                    <td>Warded</td>
+                    <td>Stress: 4<br>Dazed: 4</td>
+                    <td>Daily Recovery</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Brick Shield</td>
+                    <td>50 D</td>
+                    <td>Artificial</td>
+                    <td>Wounds: 5</td>
+                    <td>Daily Mending</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Ornate Shield</td>
+                    <td>480 D</td>
+                    <td>Warded</td>
+                    <td>Blisters: 2<br>Bleeding: 2<br>Burning: 2<br>Dazed: 2<br>Staggered: 2<br>Stasis: 2</td>
+                    <td>Daily Recovery</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="Example Weapons" class="handbook-section">
+        <h1>Example Weapons</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Weapon Type</th>
+                    <th>Description</th>
+                    <th>Cost</th>
+                    <th>Quality</th>
+                    <th>Range</th>
+                    <th>Rare Trait</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Knife</strong></td>
+                    <td>A short bit of sharp metal with a sturdy handle.</td>
+                    <td></td>
+                    <td>3</td>
+                    <td>Adjacent</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>Spear</strong></td>
+                    <td>A long bladed staff.</td>
+                    <td></td>
+                    <td>3</td>
+                    <td>Reach: 2 meters</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>Crossbow</strong></td>
+                    <td>A mechanical device that flings sharp bolts at dangerously high velocities.</td>
+                    <td></td>
+                    <td>4</td>
+                    <td>Ranged</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>Loyal Sword</strong></td>
+                    <td>A sword charmed to return to the wielder after throwing.</td>
+                    <td></td>
+                    <td>4</td>
+                    <td>Ranged</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>Fire Eye</strong></td>
+                    <td>A small stone eye that gazes withering heat when activated</td>
+                    <td></td>
+                    <td>3</td>
+                    <td>Ranged</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>Scorpion's Sting</strong></td>
+                    <td>The long and flexible stinger of a overlarge scorpion</td>
+                    <td></td>
+                    <td>2</td>
+                    <td>Reach: 4 Meters</td>
+                    <td>Applies X points of whatever poison it is loaded with on hit.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
