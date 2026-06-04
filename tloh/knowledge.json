@@ -33,13 +33,6 @@
       "isKey": true
     },
     {
-      "id": 7,
-      "label": "Prince Musa?",
-      "image": null,
-      "text": "???",
-      "isKey": false
-    },
-    {
       "id": 8,
       "label": "I'm An Air Conditioner For Crying Out Loud!",
       "image": null,
@@ -163,13 +156,16 @@
       "image": null,
       "text": "A piece of specialized top of the line highly classified Earth military technology that can broadcast signals that are fairly difficult to decrypt, often taking days or weeks for even determined adversaries to correlate.\n\nMAMA-2949 needs to get three of these running to triangulate the position of q01e.",
       "isKey": false
+    },
+    {
+      "id": 25,
+      "label": "Grey Microbes",
+      "image": null,
+      "text": "First discovered on the wreck of MAMA-8592, these usual microbes seem to be everywhere in orbit.\n\nThey seem to be able to survive in vacuum and be drawn to sources of carbon(?) and energy(?), but their origin and true nature are unclear. What is clear is that pretty much any craft that they get onto, they rot to pieces over the course of hours, maybe days.",
+      "isKey": true
     }
   ],
   "links": [
-    {
-      "from": 2,
-      "to": 7
-    },
     {
       "from": 9,
       "to": 1
@@ -241,6 +237,18 @@
     {
       "from": 19,
       "to": 24
+    },
+    {
+      "from": 14,
+      "to": 25
+    },
+    {
+      "from": 25,
+      "to": 13
+    },
+    {
+      "from": 25,
+      "to": 19
     }
   ]
 }
