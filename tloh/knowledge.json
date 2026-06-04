@@ -109,13 +109,6 @@
       "timestamp": 10024179824
     },
     {
-      "id": 18,
-      "label": "@barf.teh.man",
-      "image": null,
-      "text": "???",
-      "isKey": false
-    },
-    {
       "id": 19,
       "label": "DE-273082 - Defense Emplacement",
       "image": null,
@@ -201,10 +194,6 @@
     {
       "from": 9,
       "to": 16
-    },
-    {
-      "from": 17,
-      "to": 18
     },
     {
       "from": 17,
