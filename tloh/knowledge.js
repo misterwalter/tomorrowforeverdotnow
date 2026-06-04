@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Calculate fixed positions for key nodes in a circle
         const centerX = container.clientWidth / 2;
         const centerY = container.clientHeight / 2;
-        const radius = Math.min(centerX, centerY) * 0.8;
+        const radius = Math.min(centerX, centerY) * 1.8;
         
         const keyPositions = {};
         keyNodes.forEach((node, index) => {
