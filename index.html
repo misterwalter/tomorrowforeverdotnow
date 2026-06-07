@@ -79,6 +79,13 @@
                         </a>
                     `;
                 }
+                if ("twitch_url" in gameData) {
+                    widget.innerHTML += `
+                        <a href="${gameData.twitch_url}" class="store-button" aria-label="Watch on Twitch.tv">
+                            <img src="/images/twitch_wordmark_extruded_purple.png" alt="Twitch.tv">
+                        </a>
+                    `;
+                }
                 if ("web_url" in gameData) {
                     widget.innerHTML += `
                         <a href="${gameData.web_url}" class="store-button" aria-label="View on The World Wide Web">
