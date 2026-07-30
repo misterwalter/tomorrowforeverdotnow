@@ -1,539 +1,1168 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
     <title>Lore Tracker Editor</title>
+
+    <!-- Google Font: matches knowledge.html so the editor looks like the thing it edits -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
     <style>
+        /* ==========================================================
+           TOKENS
+           ========================================================== */
+        :root {
+            --neon-orange: #ff9900;
+            --neon-red: #ff3333;
+            --neon-green: #33ff77;
+            --bg-black: #050505;
+            --bg-raised: #0c0c0c;
+            --panel-bg: rgba(0, 0, 0, 0.85);
+            --dim: #b0771a;
+            --mono: 'VT323', 'Courier New', ui-monospace, monospace;
+
+            /* One spacing scale. Every gap in the UI is one of these four. */
+            --s1: 6px;
+            --s2: 10px;
+            --s3: 16px;
+            --s4: 24px;
+
+            /* Dark native widgets: fixes the invisible date-picker icon */
+            color-scheme: dark;
+        }
+
         * { box-sizing: border-box; }
-        body { font-family: 'VT323', monospace; background: #050505; color: #ff9900; padding: 20px; margin: 0; }
-        h1, h2, h3 { margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 2px; }
-        h1 { border-bottom: 2px solid #ff9900; padding-bottom: 10px; }
-        
-        .container { display: flex; gap: 20px; flex-wrap: wrap; }
-        .panel { flex: 1; min-width: 400px; background: rgba(0,0,0,0.85); border: 2px solid #ff9900; padding: 15px; }
-        
-        table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
-        th, td { border: 1px solid #ff9900; padding: 8px; text-align: left; }
-        th { background: rgba(255,153,0,0.15); }
-        tr:hover { background: rgba(255,153,0,0.1); }
-        
-        input, textarea, select { 
-            background: #000; color: #ff9900; border: 1px solid #ff9900; 
-            font-family: 'VT323', monospace; font-size: 1rem; padding: 8px; width: 100%;
-            margin-bottom: 10px;
+
+        /* Standard scrollbar props: Firefox only honours these, not the
+           ::-webkit-scrollbar rules further down. */
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: var(--neon-orange) #000;
         }
-        textarea { height: 120px; resize: vertical; }
-        
-        button { 
-            background: #ff9900; color: #000; border: none; 
-            padding: 8px 16px; cursor: pointer; font-family: 'VT323', monospace;
-            font-size: 1rem; text-transform: uppercase; margin-right: 5px; margin-bottom: 5px;
+        .table-scroll, .links-list, pre, .modal, .modal-body, textarea {
+            scrollbar-width: thin;
+            scrollbar-color: var(--dim) #000;
         }
-        button:hover { background: #fff; }
-        button.danger { background: #ff3333; }
-        button.danger:hover { background: #fff; }
-        button.secondary { background: #555; color: #fff; }
-        button.secondary:hover { background: #777; }
-        
-        .actions { margin-top: 20px; padding: 15px; background: rgba(255,153,0,0.1); border: 1px solid #ff9900; display: flex; gap: 10px; }
-        .preview { margin-top: 20px; padding: 15px; background: #000; border: 1px solid #ff9900; max-height: 300px; overflow: auto; }
-        pre { margin: 0; font-size: 0.85rem; white-space: pre-wrap; word-break: break-all; }
-        
-        .editor-section { display: none; margin-top: 15px; padding: 15px; border: 1px dashed #ff9900; }
-        .editor-section.active { display: block; }
-        
-        .link-item { display: flex; justify-content: space-between; align-items: center; padding: 5px; border-bottom: 1px solid #ff9900; }
+
+        /* ==========================================================
+           BASE
+           ========================================================== */
+        body {
+            font-family: var(--mono);
+            font-size: 18px;
+            background: var(--bg-black);
+            color: var(--neon-orange);
+            margin: 0;
+            padding: clamp(12px, 2vw, 24px);
+            line-height: 1.4;
+        }
+
+        .wrap { max-width: 1600px; margin: 0 auto; }
+
+        h1, h2, h3 {
+            margin: 0;
+            font-weight: normal;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        h1 { font-size: 2rem; line-height: 1.1; }
+        h2 { font-size: 1.4rem; }
+        h3 { font-size: 1.1rem; }
+
+        h1::after {
+            content: '_';
+            animation: blink 1.1s steps(1) infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        :focus-visible {
+            outline: 2px solid #fff;
+            outline-offset: 2px;
+        }
+
+        /* ==========================================================
+           TOP BAR
+           ========================================================== */
+        .topbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: var(--s3);
+            padding-bottom: var(--s2);
+            margin-bottom: var(--s3);
+            border-bottom: 2px solid var(--neon-orange);
+            /* Scanline texture, kept off the form areas so data entry stays legible */
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 153, 0, 0.06) 0 2px,
+                transparent 2px 4px
+            );
+        }
+        .brand-sub {
+            margin: var(--s1) 0 0;
+            font-size: 0.95rem;
+            color: var(--dim);
+            letter-spacing: 1px;
+        }
+
+        /* ==========================================================
+           BUTTONS
+           No margins on buttons anywhere: rows own the spacing via `gap`.
+           ========================================================== */
+        button {
+            font-family: var(--mono);
+            font-size: 1rem;
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: var(--neon-orange);
+            color: #000;
+            border: 1px solid var(--neon-orange);
+            padding: 9px 16px;
+            min-height: 36px;
+            margin: 0;
+            cursor: pointer;
+        }
+        button:hover { background: #fff; border-color: #fff; }
+
+        button.ghost {
+            background: transparent;
+            color: var(--neon-orange);
+        }
+        button.ghost:hover { background: var(--neon-orange); color: #000; }
+
+        button.danger {
+            background: transparent;
+            color: var(--neon-red);
+            border-color: var(--neon-red);
+        }
+        button.danger:hover { background: var(--neon-red); color: #000; }
+
+        button.sm {
+            padding: 4px 10px;
+            min-height: 28px;
+            font-size: 0.9rem;
+        }
+
+        button:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+        button:disabled:hover { background: transparent; color: var(--dim); border-color: var(--dim); }
+
+        .btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--s2);
+        }
+
+        /* ==========================================================
+           STATS STRIP
+           ========================================================== */
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: var(--s2);
+            margin-bottom: var(--s3);
+        }
+        .stat {
+            display: flex;
+            align-items: baseline;
+            gap: var(--s1);
+            padding: var(--s1) var(--s2);
+            border: 1px solid var(--dim);
+            background: var(--bg-raised);
+        }
+        .stat-num { font-size: 1.3rem; }
+        .stat-label {
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--dim);
+        }
+        .dirty-flag {
+            margin-left: auto;
+            padding: var(--s1) var(--s2);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            color: var(--neon-red);
+            border: 1px dashed var(--neon-red);
+        }
+        .dirty-flag[hidden] { display: none; }
+
+        /* ==========================================================
+           PANELS
+           flex-basis + min-width:0 lets panels shrink on narrow screens
+           instead of forcing the whole page to scroll sideways.
+           ========================================================== */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--s3);
+        }
+        .panel {
+            /* Column layout so both panels match height and their scroll
+               areas absorb the difference instead of leaving ragged borders. */
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 440px;
+            min-width: 0;
+            /* Capping the panel (not the scroll areas) means both panels are
+               exactly this tall and each list flexes to fill it, so neither
+               ends up with dead space under its buttons. */
+            max-height: 74vh;
+            background: var(--panel-bg);
+            border: 2px solid var(--neon-orange);
+            padding: var(--s3);
+        }
+        .panel-head {
+            display: flex;
+            flex: none;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--s2);
+            margin-bottom: var(--s3);
+        }
+        .panel > .btn-row, .panel > .field { flex: none; }
+        .count {
+            font-size: 0.95rem;
+            color: var(--dim);
+            letter-spacing: 1px;
+        }
+
+        /* ==========================================================
+           TABLE
+           ========================================================== */
+        .table-scroll {
+            flex: 1 1 auto;
+            min-height: 120px; /* min-height is required for overflow inside a flex column */
+            overflow: auto;
+            border: 1px solid var(--dim);
+            margin-bottom: var(--s3);
+        }
+        table {
+            width: 100%;
+            min-width: 520px;
+            border-collapse: collapse;
+        }
+        th, td {
+            border-bottom: 1px solid var(--dim);
+            padding: var(--s1) var(--s2);
+            text-align: left;
+            vertical-align: middle;
+        }
+        th {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background: #131313;
+            font-weight: normal;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--neon-orange);
+        }
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover { background: rgba(255, 153, 0, 0.08); }
+
+        td.col-id { color: var(--dim); text-align: right; width: 1%; }
+        td.col-label { min-width: 12ch; }
+        td.col-date { white-space: nowrap; font-size: 0.9rem; color: var(--dim); }
+        td.col-actions { width: 1%; white-space: nowrap; }
+
+        .empty {
+            padding: var(--s4) var(--s3);
+            text-align: center;
+            color: var(--dim);
+        }
+
+        /* ==========================================================
+           BADGES
+           ========================================================== */
+        .badge {
+            display: inline-block;
+            min-width: 2.5ch;
+            padding: 1px 7px;
+            text-align: center;
+            font-size: 0.85rem;
+            background: rgba(255, 153, 0, 0.15);
+            border: 1px solid var(--dim);
+        }
+        .badge-key {
+            background: var(--neon-red);
+            border-color: var(--neon-red);
+            color: #000;
+        }
+        .badge-zero { color: var(--dim); }
+
+        /* ==========================================================
+           FORM FIELDS
+           Labels are block-level and own their own bottom margin; inputs
+           carry no margin at all. `.field` is the only vertical rhythm.
+           ========================================================== */
+        .field { margin-bottom: var(--s3); }
+        .field:last-child { margin-bottom: 0; }
+
+        .field > label,
+        .field-label {
+            display: block;
+            margin-bottom: var(--s1);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--dim);
+        }
+
+        input, textarea, select {
+            font-family: var(--mono);
+            font-size: 1rem;
+            background: #000;
+            color: var(--neon-orange);
+            border: 1px solid var(--neon-orange);
+            padding: 8px;
+            width: 100%;
+            margin: 0;
+        }
+        textarea {
+            min-height: 160px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+        input::placeholder { color: var(--dim); }
+
+        .checkbox-field {
+            display: flex;
+            align-items: center;
+            gap: var(--s2);
+            margin-bottom: var(--s3);
+        }
+        .checkbox-field input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            flex: none;
+            accent-color: var(--neon-orange);
+        }
+        .checkbox-field label {
+            margin: 0;
+            font-size: 1rem;
+            text-transform: none;
+            letter-spacing: 0;
+            color: var(--neon-orange);
+            cursor: pointer;
+        }
+
+        /* Timestamp block */
+        .ts-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--s2);
+            margin-bottom: var(--s2);
+        }
+        .ts-col { flex: 1 1 180px; min-width: 0; }
+
+        .ts-preview {
+            padding: var(--s1) var(--s2);
+            font-size: 0.9rem;
+            color: var(--dim);
+            background: var(--bg-raised);
+            border: 1px solid var(--dim);
+            margin-top: var(--s2);
+            overflow-wrap: anywhere;
+        }
+
+        /* ==========================================================
+           LINK BUILDER + LIST
+           Flex row instead of two 48% inline-blocks that overflowed
+           and wrapped unpredictably.
+           ========================================================== */
+        .link-builder {
+            display: flex;
+            align-items: center;
+            gap: var(--s2);
+            margin-bottom: var(--s2);
+        }
+        .link-builder select { flex: 1 1 0; min-width: 0; }
+        .arrow { flex: none; color: var(--neon-red); }
+
+        .links-list {
+            flex: 1 1 auto;
+            min-height: 160px;
+            overflow-y: auto;
+            border: 1px solid var(--dim);
+        }
+        .link-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--s2);
+            padding: var(--s1) var(--s2);
+            border-bottom: 1px solid var(--dim);
+        }
         .link-item:last-child { border-bottom: none; }
-        
-        .badge { display: inline-block; padding: 2px 8px; background: #ff9900; color: #000; font-size: 0.8rem; }
-        .badge-key { background: #ff3333; font-weight: bold; }
-        
-        .status { padding: 10px; margin-bottom: 15px; }
-        .status.success { background: rgba(0,255,0,0.1); border: 1px solid #0f0; }
-        .status.error { background: rgba(255,0,0,0.1); border: 1px solid #f00; }
-        
-        .checkbox-wrapper { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-        .checkbox-wrapper input[type="checkbox"] { width: auto; margin: 0; }
-        
-        .timestamp-display { font-size: 0.9rem; color: #aaa; margin-top: 5px; }
-        .ts-row { display: flex; gap: 10px; margin-bottom: 10px; }
-        .ts-col { flex: 1; }
-        .ts-label { font-size: 0.8rem; color: #ff9900; margin-bottom: 4px; display: block; }
-        .ts-actions { display: flex; gap: 5px; margin-top: 5px; }
+        .link-item:hover { background: rgba(255, 153, 0, 0.08); }
+        .link-text { overflow-wrap: anywhere; }
+
+        /* ==========================================================
+           JSON PREVIEW
+           ========================================================== */
+        .preview { margin-top: var(--s3); }
+        .preview summary {
+            cursor: pointer;
+            list-style: none;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .preview summary::-webkit-details-marker { display: none; }
+        .preview summary::before { content: '[+] '; }
+        .preview[open] summary::before { content: '[-] '; }
+
+        pre {
+            margin: var(--s3) 0 0;
+            padding: var(--s2);
+            font-size: 0.9rem;
+            line-height: 1.35;
+            /* `word-break: break-all` used to snap JSON mid-token. */
+            white-space: pre;
+            overflow: auto;
+            max-height: 340px;
+            background: #000;
+            border: 1px solid var(--dim);
+        }
+
+        /* ==========================================================
+           MODAL (node editor)
+           Was an inline block that appeared below the panels and shoved
+           the page around. Now an overlay, styled like knowledge.css.
+           ========================================================== */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            padding: var(--s3);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(2px);
+            overflow-y: auto;
+        }
+        .modal.active {
+            display: grid;
+            place-items: center;
+        }
+        .modal-panel {
+            position: relative;
+            width: min(660px, 100%);
+            max-height: min(88vh, 900px);
+            display: flex;
+            flex-direction: column;
+            background: var(--panel-bg);
+            border: 2px solid var(--neon-orange);
+            box-shadow: 0 0 20px rgba(255, 153, 0, 0.45);
+        }
+
+        .corner {
+            position: absolute;
+            width: 10px; height: 10px;
+            border: 2px solid var(--neon-orange);
+        }
+        .tl { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+        .tr { top: -2px; right: -2px; border-left: none; border-bottom: none; }
+        .bl { bottom: -2px; left: -2px; border-right: none; border-top: none; }
+        .br { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--s2);
+            flex: none;
+            padding: var(--s3);
+            background: rgba(255, 153, 0, 0.1);
+            border-bottom: 1px solid var(--neon-orange);
+        }
+        .modal-body {
+            padding: var(--s3);
+            overflow-y: auto;
+            flex: 1 1 auto;
+        }
+        .modal-footer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--s2);
+            flex: none;
+            padding: var(--s3);
+            background: rgba(255, 153, 0, 0.1);
+            border-top: 1px solid var(--neon-orange);
+        }
+        .modal-footer .push { margin-left: auto; }
+
+        /* ==========================================================
+           TOAST
+           Status used to sit in normal flow and toggle `display`, so the
+           whole page jumped ~50px on every save. Now it floats.
+           ========================================================== */
+        .toast {
+            position: fixed;
+            top: var(--s3);
+            right: var(--s3);
+            z-index: 300;
+            max-width: min(360px, calc(100vw - 2 * var(--s3)));
+            padding: var(--s2) var(--s3);
+            background: var(--bg-raised);
+            border: 1px solid var(--neon-orange);
+            box-shadow: 0 0 16px rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            transform: translateX(calc(100% + var(--s3)));
+            transition: transform 0.22s ease-out, opacity 0.22s ease-out;
+            pointer-events: none;
+        }
+        .toast.show { opacity: 1; transform: none; }
+        .toast.success { border-color: var(--neon-green); color: var(--neon-green); }
+        .toast.error { border-color: var(--neon-red); color: var(--neon-red); }
+
+        @media (prefers-reduced-motion: reduce) {
+            .toast { transition: none; }
+            h1::after { animation: none; }
+        }
+
+        /* ==========================================================
+           NARROW SCREENS
+           ========================================================== */
+        @media (max-width: 560px) {
+            body { font-size: 17px; }
+            h1 { font-size: 1.6rem; }
+            .topbar { align-items: flex-start; }
+            .toolbar, .toolbar button { width: 100%; }
+            /* Let the page scroll instead of nesting scroll areas on a phone */
+            .panel { max-height: none; }
+            .table-scroll, .links-list { max-height: 70vh; }
+        }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: var(--neon-orange); }
     </style>
 </head>
 <body>
-    <h1>📡 Lore Tracker Editor</h1>
-    
-    <div id="status" class="status" style="display:none;"></div>
-    
+<div class="wrap">
+
+    <header class="topbar">
+        <div>
+            <h1>Lore Tracker Editor</h1>
+            <p class="brand-sub">TLOH // knowledge.json</p>
+        </div>
+        <div class="toolbar btn-row">
+            <button onclick="copyToClipboard()">Copy JSON</button>
+            <button onclick="downloadJson()">Download</button>
+            <button class="ghost" onclick="document.getElementById('file-input').click()">Load File</button>
+            <button class="ghost" onclick="loadData()">Reload</button>
+            <input type="file" id="file-input" accept=".json,application/json" hidden onchange="loadFromFile(this)">
+        </div>
+    </header>
+
+    <div class="stats">
+        <div class="stat"><span class="stat-num" id="stat-nodes">0</span><span class="stat-label">Nodes</span></div>
+        <div class="stat"><span class="stat-num" id="stat-links">0</span><span class="stat-label">Links</span></div>
+        <div class="stat"><span class="stat-num" id="stat-keys">0</span><span class="stat-label">Key</span></div>
+        <div class="stat"><span class="stat-num" id="stat-dated">0</span><span class="stat-label">Dated</span></div>
+        <span class="dirty-flag" id="dirty-flag" hidden>Unsaved &mdash; copy or download</span>
+    </div>
+
     <div class="container">
         <!-- LEFT PANEL: NODES -->
         <div class="panel">
-            <h2>Nodes</h2>
-            <table>
-                <thead><tr><th>ID</th><th>Label</th><th>Key?</th><th>Date</th><th>Links</th><th>Actions</th></tr></thead>
-                <tbody id="node-table"></tbody>
-            </table>
-            <button onclick="addNode()">+ Add Node</button>
+            <div class="panel-head">
+                <h2>Nodes</h2>
+                <span class="count"><span id="node-count">0</span> total</span>
+            </div>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Label</th>
+                            <th>Key</th>
+                            <th>Date (UTC)</th>
+                            <th>Links</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="node-table">
+                        <tr><td colspan="6" class="empty">Loading knowledge.json...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="btn-row">
+                <button onclick="addNode()">Add Node</button>
+            </div>
         </div>
-        
+
         <!-- RIGHT PANEL: LINKS -->
         <div class="panel">
-            <h2>Links</h2>
-            <div style="margin-bottom: 15px;">
-                <select id="link-from" style="width:48%; display:inline-block;"></select>
-                <span style="margin:0 5px;">→</span>
-                <select id="link-to" style="width:48%; display:inline-block;"></select>
+            <div class="panel-head">
+                <h2>Links</h2>
+                <span class="count"><span id="link-count">0</span> total</span>
             </div>
-            <button onclick="addLink()">Create Link</button>
-            <button onclick="clearAllLinks()" class="danger">Clear All Links</button>
-            
-            <h3 style="margin-top: 20px;">Existing Links (<span id="link-count">0</span>)</h3>
-            <div id="links-list" style="max-height: 400px; overflow-y: auto;"></div>
+
+            <div class="field">
+                <span class="field-label">New Link</span>
+                <div class="link-builder">
+                    <select id="link-from" aria-label="Link from node"></select>
+                    <span class="arrow">-&gt;</span>
+                    <select id="link-to" aria-label="Link to node"></select>
+                </div>
+                <div class="btn-row">
+                    <button id="create-link-btn" onclick="addLink()">Create Link</button>
+                    <button class="danger" onclick="clearAllLinks()">Clear All</button>
+                </div>
+            </div>
+
+            <div class="links-list" id="links-list">
+                <div class="empty">Loading knowledge.json...</div>
+            </div>
         </div>
     </div>
-    
-    <!-- NODE EDITOR MODAL -->
-    <div id="node-editor" class="editor-section">
-        <h2>Edit Node</h2>
-        <input type="hidden" id="edit-id">
-        <label>Label:</label>
-        <input type="text" id="edit-label">
-        
-        <div class="checkbox-wrapper">
-            <input type="checkbox" id="edit-isKey">
-            <label for="edit-isKey">Mark as Key Entry (fixed circular position)</label>
-        </div>
-        
-        <label>Timestamp (Seconds):</label>
-        <div class="ts-row">
-            <div class="ts-col">
-                <span class="ts-label">Calendar Picker</span>
-                <input type="datetime-local" id="edit-timestamp-picker">
-            </div>
-            <div class="ts-col">
-                <span class="ts-label">Unix Timestamp (s)</span>
-                <input type="number" id="edit-timestamp-num" placeholder="Paste Unix s here">
-            </div>
-        </div>
-        <div class="ts-actions">
-            <button type="button" class="secondary" onclick="clearTimestamp()">Clear Timestamp</button>
-        </div>
-        <div id="timestamp-preview" class="timestamp-display">No date set</div>
-        
-        <label>Image Path:</label>
-        <input type="text" id="edit-image">
-        <label>Text/Description:</label>
-        <textarea id="edit-text"></textarea>
-        <button onclick="saveNode()">Save Node</button>
-        <button onclick="cancelNodeEdit()">Cancel</button>
-        <button onclick="deleteNode()" class="danger">Delete Node</button>
-    </div>
-    
+
     <!-- JSON PREVIEW -->
-    <div class="preview">
-        <h3>JSON Preview</h3>
+    <details class="panel preview">
+        <summary>JSON Preview</summary>
         <pre id="json-preview"></pre>
+    </details>
+
+</div>
+
+<!-- NODE EDITOR MODAL -->
+<div class="modal" id="node-editor" role="dialog" aria-modal="true" aria-labelledby="editor-title">
+    <div class="modal-panel">
+        <div class="corner tl"></div><div class="corner tr"></div>
+        <div class="corner bl"></div><div class="corner br"></div>
+
+        <div class="modal-header">
+            <h2 id="editor-title">Edit Node</h2>
+            <button class="ghost sm" onclick="cancelNodeEdit()">Close</button>
+        </div>
+
+        <div class="modal-body">
+            <input type="hidden" id="edit-id">
+
+            <div class="field">
+                <label for="edit-label">Label</label>
+                <input type="text" id="edit-label" autocomplete="off">
+            </div>
+
+            <div class="checkbox-field">
+                <input type="checkbox" id="edit-isKey">
+                <label for="edit-isKey">Key entry (fixed circular position)</label>
+            </div>
+
+            <div class="field">
+                <span class="field-label">Timestamp</span>
+                <div class="ts-grid">
+                    <div class="ts-col">
+                        <label class="field-label" for="edit-timestamp-picker">Calendar (UTC)</label>
+                        <input type="datetime-local" id="edit-timestamp-picker" step="1">
+                    </div>
+                    <div class="ts-col">
+                        <label class="field-label" for="edit-timestamp-num">Unix seconds</label>
+                        <input type="number" id="edit-timestamp-num" placeholder="Paste unix seconds">
+                    </div>
+                </div>
+                <div class="btn-row">
+                    <button type="button" class="ghost sm" onclick="clearTimestamp()">Clear</button>
+                    <button type="button" class="ghost sm" onclick="setStoryStart()">Story Start</button>
+                </div>
+                <div class="ts-preview" id="timestamp-preview">No date set</div>
+            </div>
+
+            <div class="field">
+                <label for="edit-image">Image Path</label>
+                <input type="text" id="edit-image" placeholder="images/example.png" autocomplete="off">
+            </div>
+
+            <div class="field">
+                <label for="edit-text">Text / Description</label>
+                <textarea id="edit-text"></textarea>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button onclick="saveNode()">Save Node</button>
+            <button class="ghost" onclick="cancelNodeEdit()">Cancel</button>
+            <button class="danger push" onclick="deleteNode()">Delete Node</button>
+        </div>
     </div>
+</div>
 
-    <div class="actions">
-        <button onclick="copyToClipboard()">📋 Copy JSON to Clipboard</button>
-        <button onclick="document.getElementById('file-input').click()">📂 Load JSON from File</button>
-        <input type="file" id="file-input" style="display:none" onchange="loadFromFile(this)">
-    </div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    <script>
-        let data = { nodes: [], links: [] };
-        let editingNodeId = null;
-        // Default Story Time: Nov 20, 2286 17:46:40 UTC = 10000000000 SECONDS
-        const DEFAULT_STORY_TIME_S = 10000000000; 
+<script>
+    let data = { nodes: [], links: [] };
+    let editingNodeId = null;
+    let dirty = false;
 
-        // ========== DATA LOADING ==========
-        function loadData() {
-            fetch('knowledge.json?t=' + Date.now())
-                .then(r => {
-                    if (!r.ok) throw new Error('HTTP ' + r.status);
-                    return r.json();
-                })
-                .then(d => {
-                    if (Array.isArray(d)) {
-                        data = { nodes: d.map(n => ({...n, isKey: n.isKey || false})), links: [] };
-                        showStatus('Loaded legacy format. Added isKey field.', 'success');
-                    } else {
-                        data = {
-                            nodes: (d.nodes || []).map(n => ({...n, isKey: n.isKey || false})),
-                            links: d.links || []
-                        };
-                    }
-                    render();
+    // Default Story Time: Nov 20, 2286 17:46:40 UTC = 10000000000 SECONDS
+    const DEFAULT_STORY_TIME_S = 10000000000;
+
+    // ========== DATA LOADING ==========
+    function loadData() {
+        fetch('knowledge.json?t=' + Date.now())
+            .then(r => {
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                return r.json();
+            })
+            .then(d => {
+                if (Array.isArray(d)) {
+                    data = { nodes: d.map(normalizeNode), links: [] };
+                    showStatus('Loaded legacy format. Added isKey field.', 'success');
+                } else {
+                    data = {
+                        nodes: (d.nodes || []).map(normalizeNode),
+                        links: d.links || []
+                    };
                     showStatus('Loaded ' + data.nodes.length + ' nodes, ' + data.links.length + ' links', 'success');
-                })
-                .catch(err => {
-                    showStatus('Error loading knowledge.json: ' + err.message, 'error');
-                });
-        }
-        
-        // ========== RENDERING ==========
-        function render() {
-            renderNodes();
-            renderLinks();
-            renderLinkSelects();
-            updatePreview();
-            document.getElementById('link-count').textContent = data.links.length;
-        }
-        
-        function renderNodes() {
-            const tbody = document.getElementById('node-table');
-            tbody.innerHTML = '';
-            data.nodes.forEach(node => {
-                const linkCount = countNodeLinks(node.id);
-                const dateStr = node.timestamp ? formatDateShort(node.timestamp) : '-';
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${node.id}</td>
-                    <td>${escapeHtml(node.label)}</td>
-                    <td>${node.isKey ? '<span class="badge badge-key">KEY</span>' : '-'}</td>
-                    <td>${dateStr}</td>
-                    <td><span class="badge">${linkCount}</span></td>
-                    <td>
-                        <button onclick="openNodeEditor(${node.id})">Edit</button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-        
-        function renderLinks() {
-            const container = document.getElementById('links-list');
-            container.innerHTML = '';
-            
-            if (data.links.length === 0) {
-                container.innerHTML = '<div style="padding:20px; text-align:center; opacity:0.5;">No links defined.</div>';
-                return;
-            }
-            
-            data.links.forEach((link, idx) => {
-                const fromNode = data.nodes.find(n => n.id === link.from);
-                const toNode = data.nodes.find(n => n.id === link.to);
-                const div = document.createElement('div');
-                div.className = 'link-item';
-                div.innerHTML = `
-                    <span>
-                        <strong>${fromNode ? fromNode.label : '???'}</strong> 
-                        <span style="color:#ff3333">→</span> 
-                        <strong>${toNode ? toNode.label : '???'}</strong>
-                    </span>
-                    <button onclick="deleteLink(${idx})" class="danger" style="padding:4px 8px;">×</button>
-                `;
-                container.appendChild(div);
-            });
-        }
-        
-        function renderLinkSelects() {
-            const fromSel = document.getElementById('link-from');
-            const toSel = document.getElementById('link-to');
-            fromSel.innerHTML = '';
-            toSel.innerHTML = '';
-            
-            data.nodes.forEach(node => {
-                const opt1 = document.createElement('option');
-                opt1.value = node.id;
-                opt1.textContent = `${node.id}: ${node.label}${node.isKey ? ' (KEY)' : ''}`;
-                fromSel.appendChild(opt1);
-                
-                const opt2 = document.createElement('option');
-                opt2.value = node.id;
-                opt2.textContent = `${node.id}: ${node.label}${node.isKey ? ' (KEY)' : ''}`;
-                toSel.appendChild(opt2);
-            });
-        }
-        
-        function updatePreview() {
-            document.getElementById('json-preview').textContent = JSON.stringify(data, null, 2);
-        }
-        
-        function countNodeLinks(nodeId) {
-            return data.links.filter(l => l.from === nodeId || l.to === nodeId).length;
-        }
-        
-        // ========== DATE HELPERS ==========
-        function formatDateShort(ts) {
-            if (!ts || isNaN(ts)) return '-';
-            // Ensure we treat it as seconds
-            const ms = ts * 1000;
-            const d = new Date(ms);
-            if (isNaN(d.getTime())) return '-';
-            return d.toISOString().slice(0, 19).replace('T', ' ');
-        }
-
-        function formatFullDate(ts) {
-            if (!ts || isNaN(ts)) return 'No timestamp set.';
-            const ms = ts * 1000;
-            const d = new Date(ms);
-            if (isNaN(d.getTime())) return 'Invalid Date';
-            
-            const year = d.getUTCFullYear();
-            const month = String(d.getUTCMonth() + 1).padStart(2, '0');
-            const day = String(d.getUTCDate()).padStart(2, '0');
-            const hours = String(d.getUTCHours()).padStart(2, '0');
-            const mins = String(d.getUTCMinutes()).padStart(2, '0');
-            const secs = String(d.getUTCSeconds()).padStart(2, '0');
-            const utcStr = `${year}-${month}-${day} ${hours}:${mins}:${secs} UTC`;
-            return `UTC: ${utcStr} | Epoch (s): ${ts}`;
-        }
-
-        function updateTimestampPreview() {
-            const numInput = document.getElementById('edit-timestamp-num');
-            const preview = document.getElementById('timestamp-preview');
-            const val = parseFloat(numInput.value);
-            
-            if (!isNaN(val) && val > 0) {
-                const ms = val * 1000;
-                const d = new Date(ms);
-                if (isNaN(d.getTime())) {
-                    preview.textContent = 'Invalid Date';
-                    return;
                 }
-                const year = d.getUTCFullYear();
-                const month = String(d.getUTCMonth() + 1).padStart(2, '0');
-                const day = String(d.getUTCDate()).padStart(2, '0');
-                const hours = String(d.getUTCHours()).padStart(2, '0');
-                const mins = String(d.getUTCMinutes()).padStart(2, '0');
-                const secs = String(d.getUTCSeconds()).padStart(2, '0');
-                const utcStr = `${year}-${month}-${day} ${hours}:${mins}:${secs} UTC`;
-                preview.textContent = `Epoch (s): ${val} | ${utcStr}`;
-            } else {
-                preview.textContent = 'No date set';
-            }
-        }
-
-        // Sync functions
-        function pickerToNum() {
-            const picker = document.getElementById('edit-timestamp-picker');
-            const numInput = document.getElementById('edit-timestamp-num');
-            if (picker.value) {
-                const d = new Date(picker.value);
-                if (isNaN(d.getTime())) return;
-                // Convert ms to s
-                numInput.value = Math.floor(d.getTime() / 1000);
-                updateTimestampPreview();
-            }
-        }
-
-        function numToPicker() {
-            const numInput = document.getElementById('edit-timestamp-num');
-            const picker = document.getElementById('edit-timestamp-picker');
-            const val = parseFloat(numInput.value);
-            if (!isNaN(val) && val > 0) {
-                const ms = val * 1000;
-                const d = new Date(ms);
-                if (isNaN(d.getTime())) return;
-                const iso = d.toISOString().slice(0, 16);
-                picker.value = iso;
-                updateTimestampPreview();
-            }
-        }
-
-        // ========== NODE OPERATIONS ==========
-        function openNodeEditor(id) {
-            const node = data.nodes.find(n => n.id === id);
-            if (!node) return;
-            
-            editingNodeId = id;
-            document.getElementById('edit-id').value = id;
-            document.getElementById('edit-label').value = node.label;
-            document.getElementById('edit-isKey').checked = node.isKey || false;
-            document.getElementById('edit-image').value = node.image || '';
-            document.getElementById('edit-text').value = node.text || '';
-            
-            // Handle Timestamp
-            const picker = document.getElementById('edit-timestamp-picker');
-            const numInput = document.getElementById('edit-timestamp-num');
-            
-            if (node.timestamp && !isNaN(node.timestamp)) {
-                const ms = node.timestamp * 1000;
-                const d = new Date(ms);
-                if (!isNaN(d.getTime())) {
-                    picker.value = d.toISOString().slice(0, 16);
-                    numInput.value = node.timestamp;
-                } else {
-                    // Fallback if timestamp is invalid
-                    const defD = new Date(DEFAULT_STORY_TIME_S * 1000);
-                    picker.value = defD.toISOString().slice(0, 16);
-                    numInput.value = DEFAULT_STORY_TIME_S;
-                }
-            } else {
-                // Default to story start time if empty
-                const d = new Date(DEFAULT_STORY_TIME_S * 1000);
-                picker.value = d.toISOString().slice(0, 16);
-                numInput.value = DEFAULT_STORY_TIME_S;
-            }
-            updateTimestampPreview();
-
-            document.getElementById('node-editor').classList.add('active');
-            document.getElementById('node-editor').scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        function saveNode() {
-            const id = parseInt(document.getElementById('edit-id').value);
-            const node = data.nodes.find(n => n.id === id);
-            if (node) {
-                node.label = document.getElementById('edit-label').value;
-                node.isKey = document.getElementById('edit-isKey').checked;
-                node.image = document.getElementById('edit-image').value || null;
-                node.text = document.getElementById('edit-text').value;
-                
-                const numInput = document.getElementById('edit-timestamp-num');
-                const val = parseFloat(numInput.value);
-                if (!isNaN(val) && val > 0) {
-                    node.timestamp = val;
-                } else {
-                    delete node.timestamp;
-                }
-                
+                setDirty(false);
                 render();
-                showStatus('Node #' + id + ' saved', 'success');
-            }
-            cancelNodeEdit();
+            })
+            .catch(err => {
+                const hint = location.protocol === 'file:'
+                    ? ' (open this page over http, not file://)'
+                    : '';
+                showStatus('Error loading knowledge.json: ' + err.message + hint, 'error');
+                render();
+            });
+    }
+
+    // Preserves any extra fields already in the file (e.g. "group").
+    function normalizeNode(n) {
+        return { ...n, isKey: n.isKey || false };
+    }
+
+    // ========== RENDERING ==========
+    function render() {
+        renderNodes();
+        renderLinks();
+        renderLinkSelects();
+        renderStats();
+        updatePreview();
+    }
+
+    function renderStats() {
+        document.getElementById('stat-nodes').textContent = data.nodes.length;
+        document.getElementById('stat-links').textContent = data.links.length;
+        document.getElementById('stat-keys').textContent = data.nodes.filter(n => n.isKey).length;
+        document.getElementById('stat-dated').textContent = data.nodes.filter(n => n.timestamp).length;
+        document.getElementById('node-count').textContent = data.nodes.length;
+        document.getElementById('link-count').textContent = data.links.length;
+        document.getElementById('create-link-btn').disabled = data.nodes.length < 2;
+    }
+
+    function renderNodes() {
+        const tbody = document.getElementById('node-table');
+        tbody.innerHTML = '';
+
+        if (data.nodes.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" class="empty">No nodes yet.</td></tr>';
+            return;
         }
 
-        function clearTimestamp() {
-            const numInput = document.getElementById('edit-timestamp-num');
-            const picker = document.getElementById('edit-timestamp-picker');
-            numInput.value = '';
-            picker.value = '';
-            updateTimestampPreview();
-            showStatus('Timestamp cleared. Save to apply.', 'success');
+        data.nodes.forEach(node => {
+            const linkCount = countNodeLinks(node.id);
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="col-id">${node.id}</td>
+                <td class="col-label">${escapeHtml(node.label)}</td>
+                <td>${node.isKey ? '<span class="badge badge-key">KEY</span>' : ''}</td>
+                <td class="col-date">${node.timestamp ? formatUtcShort(node.timestamp) : '&mdash;'}</td>
+                <td><span class="badge${linkCount === 0 ? ' badge-zero' : ''}">${linkCount}</span></td>
+                <td class="col-actions">
+                    <button class="ghost sm" onclick="openNodeEditor(${node.id})">Edit</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function renderLinks() {
+        const container = document.getElementById('links-list');
+        container.innerHTML = '';
+
+        if (data.links.length === 0) {
+            container.innerHTML = '<div class="empty">No links defined.</div>';
+            return;
         }
-        
-        function cancelNodeEdit() {
-            editingNodeId = null;
-            document.getElementById('node-editor').classList.remove('active');
-        }
-        
-        function addNode() {
-            const newId = Math.max(...data.nodes.map(n => n.id), 0) + 1;
-            data.nodes.push({ 
-                id: newId, 
-                label: "NEW NODE", 
-                image: null, 
-                text: "",
-                isKey: false,
-                timestamp: DEFAULT_STORY_TIME_S // Default to story start (seconds)
+
+        data.links.forEach((link, idx) => {
+            const fromNode = data.nodes.find(n => n.id === link.from);
+            const toNode = data.nodes.find(n => n.id === link.to);
+            const div = document.createElement('div');
+            div.className = 'link-item';
+            div.innerHTML = `
+                <span class="link-text">
+                    ${escapeHtml(fromNode ? fromNode.label : '[missing #' + link.from + ']')}
+                    <span class="arrow">-&gt;</span>
+                    ${escapeHtml(toNode ? toNode.label : '[missing #' + link.to + ']')}
+                </span>
+                <button class="danger sm" title="Delete link" onclick="deleteLink(${idx})">X</button>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function renderLinkSelects() {
+        const fromSel = document.getElementById('link-from');
+        const toSel = document.getElementById('link-to');
+
+        // Keep the operator's current pick across re-renders instead of
+        // silently resetting both dropdowns after every edit.
+        const prevFrom = fromSel.value;
+        const prevTo = toSel.value;
+
+        [fromSel, toSel].forEach(sel => {
+            sel.innerHTML = '';
+            if (data.nodes.length === 0) {
+                const opt = document.createElement('option');
+                opt.textContent = 'No nodes';
+                opt.value = '';
+                sel.appendChild(opt);
+                return;
+            }
+            data.nodes.forEach(node => {
+                const opt = document.createElement('option');
+                opt.value = node.id;
+                opt.textContent = `${node.id}: ${node.label}${node.isKey ? ' (KEY)' : ''}`;
+                sel.appendChild(opt);
             });
-            render();
-            openNodeEditor(newId);
-            showStatus('Created node #' + newId, 'success');
+        });
+
+        restoreSelect(fromSel, prevFrom);
+        restoreSelect(toSel, prevTo);
+    }
+
+    function restoreSelect(sel, value) {
+        if (!value) return;
+        if ([...sel.options].some(o => o.value === value)) sel.value = value;
+    }
+
+    function updatePreview() {
+        document.getElementById('json-preview').textContent = JSON.stringify(data, null, 2);
+    }
+
+    function countNodeLinks(nodeId) {
+        return data.links.filter(l => l.from === nodeId || l.to === nodeId).length;
+    }
+
+    function setDirty(state) {
+        dirty = state;
+        document.getElementById('dirty-flag').hidden = !state;
+    }
+
+    // ========== DATE HELPERS ==========
+    // Everything here is UTC in both directions. The old picker read back as
+    // local time, so touching it shifted the timestamp by your tz offset.
+    function toUtcParts(ts) {
+        if (ts === '' || ts === null || ts === undefined || isNaN(ts)) return null;
+        const d = new Date(Number(ts) * 1000);
+        if (isNaN(d.getTime())) return null;
+        return d;
+    }
+
+    function formatUtcShort(ts) {
+        const d = toUtcParts(ts);
+        if (!d) return '&mdash;';
+        return d.toISOString().slice(0, 19).replace('T', ' ');
+    }
+
+    function formatUtcLong(ts) {
+        const d = toUtcParts(ts);
+        if (!d) return null;
+        return d.toISOString().slice(0, 19).replace('T', ' ') + ' UTC';
+    }
+
+    // "YYYY-MM-DDTHH:MM" -> unix seconds, read as UTC
+    function pickerValueToSeconds(value) {
+        if (!value) return NaN;
+        const iso = value.length === 16 ? value + ':00Z' : value + 'Z';
+        const ms = Date.parse(iso);
+        return isNaN(ms) ? NaN : Math.floor(ms / 1000);
+    }
+
+    // slice(0,19) keeps seconds, which the step="1" picker can display and
+    // hand back intact. slice(0,16) silently rounded them off.
+    function secondsToPickerValue(ts) {
+        const d = toUtcParts(ts);
+        return d ? d.toISOString().slice(0, 19) : '';
+    }
+
+    function updateTimestampPreview() {
+        const val = parseFloat(document.getElementById('edit-timestamp-num').value);
+        const preview = document.getElementById('timestamp-preview');
+
+        if (isNaN(val) || val <= 0) {
+            preview.textContent = 'No date set';
+            return;
         }
-        
-        function deleteNode() {
-            const id = parseInt(document.getElementById('edit-id').value);
-            if (!confirm(`Delete node #${id} and all its links?`)) return;
-            
-            data.nodes = data.nodes.filter(n => n.id !== id);
-            data.links = data.links.filter(l => l.from !== id && l.to !== id);
-            render();
+        const long = formatUtcLong(val);
+        preview.textContent = long ? `${long}  |  epoch ${val}s` : 'Invalid date';
+    }
+
+    function pickerToNum() {
+        const seconds = pickerValueToSeconds(document.getElementById('edit-timestamp-picker').value);
+        if (isNaN(seconds)) return;
+        document.getElementById('edit-timestamp-num').value = seconds;
+        updateTimestampPreview();
+    }
+
+    function numToPicker() {
+        const val = parseFloat(document.getElementById('edit-timestamp-num').value);
+        if (isNaN(val) || val <= 0) {
+            updateTimestampPreview();
+            return;
+        }
+        const picked = secondsToPickerValue(val);
+        if (picked) document.getElementById('edit-timestamp-picker').value = picked;
+        updateTimestampPreview();
+    }
+
+    function setTimestampFields(seconds) {
+        document.getElementById('edit-timestamp-num').value = seconds === null ? '' : seconds;
+        document.getElementById('edit-timestamp-picker').value = seconds === null ? '' : secondsToPickerValue(seconds);
+        updateTimestampPreview();
+    }
+
+    function clearTimestamp() {
+        setTimestampFields(null);
+        showStatus('Timestamp cleared. Save to apply.', 'success');
+    }
+
+    function setStoryStart() {
+        setTimestampFields(DEFAULT_STORY_TIME_S);
+    }
+
+    // ========== NODE OPERATIONS ==========
+    function openNodeEditor(id) {
+        const node = data.nodes.find(n => n.id === id);
+        if (!node) return;
+
+        editingNodeId = id;
+        document.getElementById('editor-title').textContent = 'Edit Node #' + id;
+        document.getElementById('edit-id').value = id;
+        document.getElementById('edit-label').value = node.label || '';
+        document.getElementById('edit-isKey').checked = node.isKey || false;
+        document.getElementById('edit-image').value = node.image || '';
+        document.getElementById('edit-text').value = node.text || '';
+
+        const valid = toUtcParts(node.timestamp) !== null && node.timestamp > 0;
+        setTimestampFields(valid ? node.timestamp : DEFAULT_STORY_TIME_S);
+
+        document.getElementById('node-editor').classList.add('active');
+        document.getElementById('edit-label').focus();
+    }
+
+    function saveNode() {
+        const id = parseInt(document.getElementById('edit-id').value);
+        const node = data.nodes.find(n => n.id === id);
+
+        if (!node) {
+            showStatus('Node #' + id + ' no longer exists', 'error');
             cancelNodeEdit();
-            showStatus('Deleted node #' + id, 'success');
+            return;
         }
-        
-        // ========== LINK OPERATIONS ==========
-        function addLink() {
-            const from = parseInt(document.getElementById('link-from').value);
-            const to = parseInt(document.getElementById('link-to').value);
-            
-            if (from === to) {
-                showStatus('Cannot link a node to itself', 'error');
-                return;
-            }
-            
-            const exists = data.links.some(l => 
-                (l.from === from && l.to === to) || (l.from === to && l.to === from)
-            );
-            
-            if (exists) {
-                showStatus('Link already exists', 'error');
-                return;
-            }
-            
-            data.links.push({ from, to });
-            render();
-            showStatus('Created link: ' + from + ' → ' + to, 'success');
+
+        node.label = document.getElementById('edit-label').value;
+        node.isKey = document.getElementById('edit-isKey').checked;
+        node.image = document.getElementById('edit-image').value || null;
+        node.text = document.getElementById('edit-text').value;
+
+        const val = parseFloat(document.getElementById('edit-timestamp-num').value);
+        if (!isNaN(val) && val > 0) {
+            node.timestamp = val;
+        } else {
+            delete node.timestamp;
         }
-        
-        function deleteLink(idx) {
-            const link = data.links[idx];
-            if (!confirm(`Delete link: ${link.from} → ${link.to}?`)) return;
-            
-            data.links.splice(idx, 1);
-            render();
-            showStatus('Deleted link', 'success');
+
+        setDirty(true);
+        render();
+        showStatus('Node #' + id + ' saved', 'success');
+        cancelNodeEdit();
+    }
+
+    function cancelNodeEdit() {
+        editingNodeId = null;
+        document.getElementById('node-editor').classList.remove('active');
+    }
+
+    function addNode() {
+        const newId = Math.max(...data.nodes.map(n => n.id), 0) + 1;
+        data.nodes.push({
+            id: newId,
+            label: 'NEW NODE',
+            image: null,
+            text: '',
+            isKey: false,
+            timestamp: DEFAULT_STORY_TIME_S // Default to story start (seconds)
+        });
+        setDirty(true);
+        render();
+        openNodeEditor(newId);
+        showStatus('Created node #' + newId, 'success');
+    }
+
+    function deleteNode() {
+        const id = parseInt(document.getElementById('edit-id').value);
+        const lost = countNodeLinks(id);
+        const warning = lost > 0 ? ` and its ${lost} link${lost === 1 ? '' : 's'}` : '';
+        if (!confirm(`Delete node #${id}${warning}?`)) return;
+
+        data.nodes = data.nodes.filter(n => n.id !== id);
+        data.links = data.links.filter(l => l.from !== id && l.to !== id);
+        setDirty(true);
+        render();
+        cancelNodeEdit();
+        showStatus('Deleted node #' + id, 'success');
+    }
+
+    // ========== LINK OPERATIONS ==========
+    function addLink() {
+        const from = parseInt(document.getElementById('link-from').value);
+        const to = parseInt(document.getElementById('link-to').value);
+
+        if (isNaN(from) || isNaN(to)) {
+            showStatus('Pick two nodes first', 'error');
+            return;
         }
-        
-        function clearAllLinks() {
-            if (!confirm('Delete ALL links?')) return;
-            data.links = [];
-            render();
-            showStatus('All links cleared', 'success');
+        if (from === to) {
+            showStatus('Cannot link a node to itself', 'error');
+            return;
         }
-        
-        // ========== IMPORT/EXPORT ==========
-        function copyToClipboard() {
-            navigator.clipboard.writeText(JSON.stringify(data, null, 2))
-                .then(() => showStatus('✅ JSON copied to clipboard!', 'success'))
-                .catch(err => showStatus('❌ Failed to copy: ' + err.message, 'error'));
+
+        const exists = data.links.some(l =>
+            (l.from === from && l.to === to) || (l.from === to && l.to === from)
+        );
+
+        if (exists) {
+            showStatus('Link already exists', 'error');
+            return;
         }
-        
-        function loadFromFile(input) {
-            const file = input.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = e => {
-                try {
-                    const parsed = JSON.parse(e.target.result);
-                    if (Array.isArray(parsed)) {
-                        data = { 
-                            nodes: parsed.map(n => ({...n, isKey: n.isKey || false})), 
-                            links: [] 
-                        };
-                        showStatus('Loaded legacy format', 'success');
-                    } else if (parsed.nodes && Array.isArray(parsed.nodes)) {
-                        data = {
-                            nodes: parsed.nodes.map(n => ({...n, isKey: n.isKey || false})),
-                            links: parsed.links || []
-                        };
-                        showStatus('Loaded ' + data.nodes.length + ' nodes, ' + (data.links?.length || 0) + ' links', 'success');
-                    } else {
-                        throw new Error('Invalid format');
-                    }
-                    render();
-                } catch(err) {
-                    showStatus('Invalid JSON: ' + err.message, 'error');
+
+        data.links.push({ from, to });
+        setDirty(true);
+        render();
+        showStatus('Created link: ' + from + ' -> ' + to, 'success');
+    }
+
+    function deleteLink(idx) {
+        const link = data.links[idx];
+        if (!link) return;
+        if (!confirm(`Delete link: ${link.from} -> ${link.to}?`)) return;
+
+        data.links.splice(idx, 1);
+        setDirty(true);
+        render();
+        showStatus('Deleted link', 'success');
+    }
+
+    function clearAllLinks() {
+        if (data.links.length === 0) {
+            showStatus('No links to clear', 'error');
+            return;
+        }
+        if (!confirm(`Delete ALL ${data.links.length} links?`)) return;
+        data.links = [];
+        setDirty(true);
+        render();
+        showStatus('All links cleared', 'success');
+    }
+
+    // ========== IMPORT/EXPORT ==========
+    function copyToClipboard() {
+        navigator.clipboard.writeText(JSON.stringify(data, null, 2))
+            .then(() => {
+                setDirty(false);
+                showStatus('JSON copied to clipboard', 'success');
+            })
+            .catch(err => showStatus('Failed to copy: ' + err.message, 'error'));
+    }
+
+    function downloadJson() {
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'knowledge.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        setDirty(false);
+        showStatus('Downloaded knowledge.json', 'success');
+    }
+
+    function loadFromFile(input) {
+        const file = input.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = e => {
+            try {
+                const parsed = JSON.parse(e.target.result);
+                if (Array.isArray(parsed)) {
+                    data = { nodes: parsed.map(normalizeNode), links: [] };
+                    showStatus('Loaded legacy format', 'success');
+                } else if (parsed.nodes && Array.isArray(parsed.nodes)) {
+                    data = {
+                        nodes: parsed.nodes.map(normalizeNode),
+                        links: parsed.links || []
+                    };
+                    showStatus('Loaded ' + data.nodes.length + ' nodes, ' + data.links.length + ' links', 'success');
+                } else {
+                    throw new Error('Invalid format');
                 }
-            };
-            reader.readAsText(file);
-            input.value = '';
-        }
-        
-        // ========== UTILITIES ==========
-        function showStatus(msg, type) {
-            const el = document.getElementById('status');
-            el.textContent = msg;
-            el.className = 'status ' + type;
-            el.style.display = 'block';
-            setTimeout(() => { el.style.display = 'none'; }, 3000);
-        }
-        
-        function escapeHtml(str) {
-            if (!str) return '';
-            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        }
-        
-        // Listeners
-        document.getElementById('edit-timestamp-picker').addEventListener('change', pickerToNum);
-        document.getElementById('edit-timestamp-num').addEventListener('input', numToPicker);
-        
-        loadData();
-    </script>
+                setDirty(false);
+                render();
+            } catch (err) {
+                showStatus('Invalid JSON: ' + err.message, 'error');
+            }
+        };
+        reader.readAsText(file);
+        input.value = '';
+    }
+
+    // ========== UTILITIES ==========
+    let toastTimer = null;
+    function showStatus(msg, type) {
+        const el = document.getElementById('toast');
+        el.textContent = msg;
+        el.className = 'toast show ' + type;
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => { el.classList.remove('show'); }, 3200);
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+    }
+
+    // ========== LISTENERS ==========
+    document.getElementById('edit-timestamp-picker').addEventListener('change', pickerToNum);
+    document.getElementById('edit-timestamp-num').addEventListener('input', numToPicker);
+
+    // Esc closes the editor, click on the backdrop closes it too.
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && editingNodeId !== null) cancelNodeEdit();
+    });
+    document.getElementById('node-editor').addEventListener('click', e => {
+        if (e.target.id === 'node-editor') cancelNodeEdit();
+    });
+
+    loadData();
+</script>
 </body>
 </html>
