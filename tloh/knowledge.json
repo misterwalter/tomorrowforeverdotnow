@@ -22,8 +22,9 @@
       "id": 3,
       "label": "Dominique DuFresne: Pirate Queen of Mars",
       "image": null,
-      "text": "Born in 2253 (age 34), Dominique had her MBA by the age of 20, and was running cargo to orbit before she could legally smoke. She has always seen herself as superior, and takes pride in being a predator, rather than prey.\n\nShe made some money as an orbital taxi pilot for several years, but in 2277 she had enough, and went rogue with a few of her crew. She was not the first to do so, but she rigorously studied and networked with the other existing pirate operations to gain their strengths while canceling out their weaknesses. Over the course of a decade her fleet grew from one ship and two friends to several dozen ships and an estimated hundred or so pirates, mostly hardened operators.\n\nShe has spoken openly about seeing Bedru Ali as a helpful figure, despite his many attempts to kill her, simply because his imports bring her so many opportunities.\n\nHer location is typically unknown and always changing, but she tends to hang around about 90% of the way from Earth to Mars, far from either planet's defenses, but close enough that cargo ships are typically already limited in their mobility by their need to maintain braking burns.\n\nHer operation is both a scourge on Mars, and an inspiration to some, and she is a folk hero in the eyes of many. That said, she has killed many people for various reasons, and she does have her enemies.",
-      "isKey": true
+      "text": "Born in 2253 (age 34), Dominique had her MBA by the age of 20, and was running cargo to orbit before she could legally smoke. She has always seen herself as superior, and takes pride in being a predator, rather than prey.\n\nShe made some money as an orbital taxi pilot for several years, but in 2277 she had enough, and went rogue with a few of her crew. She was not the first to do so, but she rigorously studied and networked with the other existing pirate operations to gain their strengths while canceling out their weaknesses. Over the course of a decade her fleet grew from one ship and two friends to several dozen ships and an estimated hundred or so pirates, mostly hardened operators.\n\nShe proudly claims to have stolen the title of The Queen of Mars from Renesme Dukakis, and given that more people call her Queen than Renesme, she seems to have succeeded.\n\nShe has spoken openly about seeing Bedru Ali as a helpful figure, despite his many attempts to kill her, simply because his imports bring her so many opportunities.\n\nHer location is typically unknown and always changing, but she tends to hang around about 90% of the way from Earth to Mars, far from either planet's defenses, but close enough that cargo ships are typically already limited in their mobility by their need to maintain braking burns.\n\nHer operation is both a scourge on Mars, and an inspiration to some, and she is a folk hero in the eyes of many. That said, she has killed many people for various reasons, and she does have her enemies.",
+      "isKey": true,
+      "timestamp": 10000000000
     },
     {
       "id": 4,
@@ -156,6 +157,49 @@
       "image": null,
       "text": "First discovered on the wreck of MAMA-8592, these usual microbes seem to be everywhere in orbit.\n\nThey seem to be able to survive in vacuum and be drawn to sources of carbon(?) and energy(?), but their origin and true nature are unclear. What is clear is that pretty much any craft that they get onto, they rot to pieces over the course of hours, maybe days.",
       "isKey": true
+    },
+    {
+      "id": 26,
+      "label": "Colonization of Mars (According to Chrysla)",
+      "image": null,
+      "text": "Mars was first colonized in 2266 by a team led by Renesme Dukakis, the first person to set foot on Mars. She has never returned to Earth, and has done her best to build a colony there. She declared herself The Queen of Mars and became the first person to declare herself martian royalty, but not the last. She does not meaningfully hold that title today.\n\nBedru Ali followed some years later, founding The Golden City, a massive settlement of tens of thousands of people. He funds it through his own personal wealth and seems quite happy to rule it in peace. That's why he's called The King of Mars.\n\nLater on Dominique Dufresne showed up and started stealing from the king's shipments. She also declared herself The Queen of Mars, stealing that title as well. Kids think that pirates are cool, but growing up means recognizing that they aren't.\n\nThere's also a \"Prince of Mars\", Musa Tanaka, but he's mostly just a communist and not that important.\n\nThere have been wars on Mars, and the Martians are never really happy with their lot. They import a lot of what they need, so they end up needing to export a lot of software and media since information is the only thing that they can really afford to ship back to Earth. Martians are always making trouble with that as their excuse. They extort Earth for unreasonable deals and attack shipments.",
+      "isKey": false
+    },
+    {
+      "id": 27,
+      "label": "Renesme Dukakis: The \"Princess\" of Mars",
+      "image": null,
+      "text": "Renesme Dukakis was the first human to set foot on Mars. She won a space race with her own money, and brought her crew to the surface months before anyone else could. She founded Nova Buena and raised it to a colony of thousands. She was the first to declare herself martian Royalty, claiming the title of The Queen of Mars as she set foot on martian soil. However her relevance has waned since then, and she has since been pushed further and futher to the sidelines. Since Dominique DuFresne \"stole\" her title, she has been alternately referred to as The Princess of Mars, The Witch of Mars, and The Bitch of Mars, depending on the level of disrespect intended by the speaker. She is known to be massively egotistical and abusive, and so few are loyal to her, or even like her. That said, she does have a devoted core following.",
+      "isKey": true,
+      "timestamp": 10000000000
+    },
+    {
+      "id": 28,
+      "label": "Musa Tanaka: The Prince of Mars",
+      "image": null,
+      "text": "Musa Tanaka is, according to Chrysla, \"basically just some communist,\" but is well regarded enough to merit royal title.",
+      "isKey": true
+    },
+    {
+      "id": 29,
+      "label": "Chrysla",
+      "image": null,
+      "text": "Chrysla is a 14 year old Space Scout Crew Leader who was on International Science Station 09 when it was hit. She appears Indian, but speaks Han fluently, and communicates through a radio quite naturally. She was leading four younger scouts in Orb 3, and has been the friendliest out of the group with the party so far. She helped them to understand a lot of history that has passed in the last 250 years. She is conspicuously responsible.",
+      "isKey": false
+    },
+    {
+      "id": 30,
+      "label": "International Science Station - 09",
+      "image": null,
+      "text": "A station made out four major orbs that is now made out of 2.5 orbs and a lot of fire and rot.",
+      "isKey": false
+    },
+    {
+      "id": 31,
+      "label": "Africoms",
+      "image": null,
+      "text": "A political faction on Earth, derided by Chrysla as violent and ruining peace and prosperity for everyone.",
+      "isKey": false
     }
   ],
   "links": [
@@ -238,6 +282,38 @@
     {
       "from": 25,
       "to": 19
+    },
+    {
+      "from": 3,
+      "to": 26
+    },
+    {
+      "from": 4,
+      "to": 26
+    },
+    {
+      "from": 2,
+      "to": 28
+    },
+    {
+      "from": 3,
+      "to": 27
+    },
+    {
+      "from": 29,
+      "to": 30
+    },
+    {
+      "from": 30,
+      "to": 25
+    },
+    {
+      "from": 26,
+      "to": 29
+    },
+    {
+      "from": 29,
+      "to": 31
     }
   ]
 }
