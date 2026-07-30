@@ -249,7 +249,9 @@
         }
         table {
             width: 100%;
-            min-width: 520px;
+            /* Low enough that the actions column still fits once the Key Ring
+               panel takes its share of a ~1500px window. */
+            min-width: 470px;
             border-collapse: collapse;
         }
         th, td {
@@ -291,6 +293,7 @@
             min-width: 2.5ch;
             padding: 1px 7px;
             text-align: center;
+            white-space: nowrap; /* keeps "KEY 3" on one line in a narrow column */
             font-size: 0.85rem;
             background: rgba(255, 153, 0, 0.15);
             border: 1px solid var(--dim);
@@ -408,6 +411,50 @@
         .link-item:last-child { border-bottom: none; }
         .link-item:hover { background: rgba(255, 153, 0, 0.08); }
         .link-text { overflow-wrap: anywhere; }
+
+        /* ==========================================================
+           KEY RING (drag to reorder)
+           ========================================================== */
+        /* flex-grow 0: the ring list is short, so let Nodes and Links take the
+           slack instead of stretching this one. */
+        .panel-narrow { flex: 0 1 320px; }
+
+        .hint {
+            font-size: 0.85rem;
+            line-height: 1.35;
+            color: var(--dim);
+            margin-bottom: var(--s2);
+        }
+
+        .ring-list {
+            flex: 1 1 auto;
+            min-height: 140px;
+            overflow-y: auto;
+            border: 1px solid var(--dim);
+        }
+        .ring-item {
+            display: flex;
+            align-items: center;
+            gap: var(--s2);
+            padding: var(--s1) var(--s2);
+            border-bottom: 1px solid var(--dim);
+            background: var(--bg-raised);
+            cursor: grab;
+        }
+        .ring-item:last-child { border-bottom: none; }
+        .ring-item:hover { background: rgba(255, 153, 0, 0.08); }
+        .ring-item:active { cursor: grabbing; }
+        .ring-item.dragging { opacity: 0.35; }
+
+        /* Inset shadow rather than a border, so rows do not shift by 2px as the
+           drop indicator moves between them. */
+        .ring-item.drop-before { box-shadow: inset 0 2px 0 0 var(--neon-orange); }
+        .ring-item.drop-after { box-shadow: inset 0 -2px 0 0 var(--neon-orange); }
+
+        .ring-grip { flex: none; color: var(--dim); letter-spacing: 2px; }
+        .ring-slot { flex: none; min-width: 2ch; text-align: right; }
+        .ring-label { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+        .ring-angle { flex: none; font-size: 0.8rem; color: var(--dim); white-space: nowrap; }
 
         /* ==========================================================
            JSON PREVIEW
@@ -628,6 +675,21 @@
                 <div class="empty">Loading knowledge.json...</div>
             </div>
         </div>
+
+        <!-- THIRD PANEL: KEY RING ORDER -->
+        <div class="panel panel-narrow">
+            <div class="panel-head">
+                <h2>Key Ring</h2>
+                <span class="count"><span id="ring-count">0</span> keys</span>
+            </div>
+            <p class="hint">
+                Drag to reorder. Slot 1 sits at the top of the ring, the rest
+                follow clockwise. Alt + Up/Down moves the focused row.
+            </p>
+            <div class="ring-list" id="ring-list">
+                <div class="empty">Loading knowledge.json...</div>
+            </div>
+        </div>
     </div>
 
     <!-- JSON PREVIEW -->
@@ -695,6 +757,7 @@
         <div class="modal-footer">
             <button onclick="saveNode()">Save Node</button>
             <button class="ghost" onclick="cancelNodeEdit()">Cancel</button>
+            <button class="ghost" onclick="copyNodeLink()" title="Copy a knowledge.html#Label deep link">Copy Link</button>
             <button class="danger push" onclick="deleteNode()">Delete Node</button>
         </div>
     </div>
@@ -750,6 +813,7 @@
         renderNodes();
         renderLinks();
         renderLinkSelects();
+        renderRing();
         renderStats();
         updatePreview();
     }
@@ -779,7 +843,7 @@
             tr.innerHTML = `
                 <td class="col-id">${node.id}</td>
                 <td class="col-label">${escapeHtml(node.label)}</td>
-                <td>${node.isKey ? '<span class="badge badge-key">KEY</span>' : ''}</td>
+                <td>${node.isKey ? '<span class="badge badge-key">KEY ' + ringSlotOf(node.id) + '</span>' : ''}</td>
                 <td class="col-date">${node.timestamp ? formatUtcShort(node.timestamp) : '&mdash;'}</td>
                 <td><span class="badge${linkCount === 0 ? ' badge-zero' : ''}">${linkCount}</span></td>
                 <td class="col-actions">
@@ -814,6 +878,105 @@
             `;
             container.appendChild(div);
         });
+    }
+
+    // ========== KEY RING ==========
+    // knowledge.js builds the ring from `nodes.filter(n => n.isKey)` in array
+    // order, mapping index -> angle with slot 0 pinned to the top. So the ring
+    // IS the array order of the key entries, and that is what we permute here.
+    function keyNodes() {
+        return data.nodes.filter(n => n.isKey);
+    }
+
+    function ringSlotOf(nodeId) {
+        const i = keyNodes().findIndex(n => n.id === nodeId);
+        return i === -1 ? null : i + 1;
+    }
+
+    // Degrees clockwise from the top, matching knowledge.js's
+    // (index / total) * 2PI - PI/2.
+    function ringAngleLabel(index, total) {
+        if (!total) return '';
+        return Math.round((index / total) * 360) + 'deg';
+    }
+
+    function renderRing() {
+        const list = document.getElementById('ring-list');
+        const keys = keyNodes();
+        document.getElementById('ring-count').textContent = keys.length;
+        list.innerHTML = '';
+
+        if (keys.length === 0) {
+            list.innerHTML = '<div class="empty">No key entries yet. Tick "Key entry" on a node to put it in the ring.</div>';
+            return;
+        }
+
+        keys.forEach((node, i) => {
+            const row = document.createElement('div');
+            row.className = 'ring-item';
+            row.draggable = true;
+            row.tabIndex = 0;
+            row.dataset.index = i;
+            row.title = 'Drag to reorder, or Alt + Up/Down';
+            row.innerHTML = `
+                <span class="ring-grip" aria-hidden="true">::</span>
+                <span class="ring-slot">${i + 1}</span>
+                <span class="ring-label">${escapeHtml(node.label)}</span>
+                <span class="ring-angle">${ringAngleLabel(i, keys.length)}</span>
+            `;
+            list.appendChild(row);
+        });
+    }
+
+    // Writes a new key order back into data.nodes by permuting ONLY the array
+    // positions key nodes already occupy. Every non-key entry keeps its exact
+    // index, so reordering the ring never reshuffles the rest of the document.
+    function writeKeyOrder(orderedKeys) {
+        const slots = [];
+        data.nodes.forEach((n, i) => { if (n.isKey) slots.push(i); });
+        if (slots.length !== orderedKeys.length) return false;
+        slots.forEach((slot, k) => { data.nodes[slot] = orderedKeys[k]; });
+        return true;
+    }
+
+    // `to` is an insertion index measured BEFORE the dragged row is removed.
+    function moveKeyNode(from, to) {
+        const keys = keyNodes();
+        if (from < 0 || from >= keys.length) return;
+
+        if (to > from) to--; // the removal shifts everything after `from` down one
+        if (to === from || to < 0 || to >= keys.length) return; // no-op drop
+
+        const reordered = keys.slice();
+        const [moved] = reordered.splice(from, 1);
+        reordered.splice(to, 0, moved);
+
+        if (!writeKeyOrder(reordered)) {
+            showStatus('Could not reorder ring', 'error');
+            return;
+        }
+        setDirty(true);
+        render();
+        showStatus(`Ring slot ${to + 1}: ${moved.label}`, 'success');
+    }
+
+    function focusRingRow(index) {
+        const rows = document.querySelectorAll('#ring-list .ring-item');
+        if (rows[index]) rows[index].focus();
+    }
+
+    function clearDropMarkers() {
+        document.querySelectorAll('#ring-list .drop-before, #ring-list .drop-after')
+            .forEach(el => el.classList.remove('drop-before', 'drop-after'));
+    }
+
+    // Which half of the row the pointer is in decides before/after.
+    function dropTargetOf(event) {
+        const row = event.target.closest('.ring-item');
+        if (!row) return null;
+        const rect = row.getBoundingClientRect();
+        const after = (event.clientY - rect.top) > rect.height / 2;
+        return { row: row, index: Number(row.dataset.index), after: after };
     }
 
     function renderLinkSelects() {
@@ -1091,6 +1254,21 @@
             .catch(err => showStatus('Failed to copy: ' + err.message, 'error'));
     }
 
+    // Deep link into the knowledge base, matching the "#Section Name"
+    // convention story.html uses. knowledge.js matching ignores case, spaces
+    // and punctuation, so the label can be pasted verbatim.
+    function copyNodeLink() {
+        const label = document.getElementById('edit-label').value.trim();
+        if (!label) {
+            showStatus('Give the node a label first', 'error');
+            return;
+        }
+        const link = 'knowledge.html#' + label;
+        navigator.clipboard.writeText(link)
+            .then(() => showStatus('Copied: ' + link, 'success'))
+            .catch(err => showStatus('Failed to copy: ' + err.message, 'error'));
+    }
+
     function downloadJson() {
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
@@ -1153,6 +1331,66 @@
     // ========== LISTENERS ==========
     document.getElementById('edit-timestamp-picker').addEventListener('change', pickerToNum);
     document.getElementById('edit-timestamp-num').addEventListener('input', numToPicker);
+
+    // Key ring drag and drop. Delegated to the list, since renderRing() rebuilds
+    // the rows on every change.
+    const ringList = document.getElementById('ring-list');
+    let ringDragFrom = null;
+
+    ringList.addEventListener('dragstart', e => {
+        const row = e.target.closest('.ring-item');
+        if (!row) return;
+        ringDragFrom = Number(row.dataset.index);
+        row.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        // Firefox will not start a drag unless some data is set.
+        e.dataTransfer.setData('text/plain', String(ringDragFrom));
+    });
+
+    ringList.addEventListener('dragover', e => {
+        if (ringDragFrom === null) return;
+        const target = dropTargetOf(e);
+        if (!target) return;
+        e.preventDefault(); // required, or the drop event never fires
+        e.dataTransfer.dropEffect = 'move';
+        clearDropMarkers();
+        target.row.classList.add(target.after ? 'drop-after' : 'drop-before');
+    });
+
+    ringList.addEventListener('drop', e => {
+        if (ringDragFrom === null) return;
+        const target = dropTargetOf(e);
+        if (!target) return;
+        e.preventDefault();
+        const from = ringDragFrom;
+        ringDragFrom = null;
+        clearDropMarkers();
+        moveKeyNode(from, target.index + (target.after ? 1 : 0));
+    });
+
+    ringList.addEventListener('dragend', () => {
+        ringDragFrom = null;
+        clearDropMarkers();
+        document.querySelectorAll('#ring-list .dragging')
+            .forEach(el => el.classList.remove('dragging'));
+    });
+
+    // Keyboard equivalent, since HTML5 drag and drop is mouse-only.
+    ringList.addEventListener('keydown', e => {
+        const row = e.target.closest('.ring-item');
+        if (!row || !e.altKey) return;
+        const i = Number(row.dataset.index);
+        const total = keyNodes().length;
+        if (e.key === 'ArrowUp' && i > 0) {
+            e.preventDefault();
+            moveKeyNode(i, i - 1);
+            focusRingRow(i - 1);
+        } else if (e.key === 'ArrowDown' && i < total - 1) {
+            e.preventDefault();
+            moveKeyNode(i, i + 2);
+            focusRingRow(i + 1);
+        }
+    });
 
     // Esc closes the editor, click on the backdrop closes it too.
     document.addEventListener('keydown', e => {

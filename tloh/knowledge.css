@@ -21,10 +21,21 @@ body, html {
     width: 100vw;
     height: 100vh;
     position: relative;
-    background-image: url('background.jpg');
+    /* Same backdrop story.html uses (via the_tangle/style.css). Root-absolute
+       so it resolves the same from any page depth.
+       story.html can use the art at full brightness because its text sits in
+       opaque panels; here the node labels sit directly on it, so a flat scrim
+       knocks the planets back far enough to keep orange-on-dark readable. */
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+        url('/images/TLOH.png');
+    background-color: #000;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    /* story.html adds background-attachment: fixed, but this container is
+       already exactly 100vw x 100vh and cannot scroll, so it would change
+       nothing here while inviting the iOS cover+fixed scaling bug. */
 }
 
 .scanlines {
@@ -139,12 +150,11 @@ body, html {
 
 
 .modal-text {
-    font-family: 'VT323', monospace; /* Revert to retro font */
+    font-family: 'VT323', monospace;
     font-size: 1.2rem;
     line-height: 1.5;
-    color: var(--neon-orange); /* Match title color */
+    color: var(--neon-orange);
     white-space: pre-wrap;
-    text-shadow: 0 0 5px var(--neon-orange); /* Add glow */
     text-shadow: 0 0 8px rgba(255, 153, 0, 0.6); /* Softer glow */
 }
 

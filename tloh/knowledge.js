@@ -14,19 +14,44 @@ document.addEventListener('DOMContentLoaded', () => {
         { angle: 43, color: '#ccdd55', width: 1.5 }, // Layer 1: 45 deg, Greenish
         { angle: 11, color: '#c11d55', width: 1.0 }, // Layer 2: 15 deg, Reddish
         { angle: 31, color: '#44aaff', width: 1.0 }, // Layer 3: 33 deg, Blueish
-        { angle: 121, color: '#44aa21', width: 1.0 }, // Layer 3: 33 deg, Blueish
+        { angle: 121, color: '#44aa21', width: 1.0 }, // Layer 4: 121 deg, Greenish
         // Add more layers here as needed
     ];
 
-    fetch('knowledge.json?t=' + Date.now())
-        .then(response => {
+    // ==========================================
+    // LABEL FONT
+    // ==========================================
+    // vis measures each label once with ctx.measureText and caches the result to
+    // size the label's background plate. VT323 is roughly a third narrower than
+    // the generic monospace fallback ("Dominique DuFresne: Pirate Queen of Mars"
+    // is 320px vs 481px at 20px), so if the webfont is still downloading when the
+    // graph initialises, every plate gets drawn badly oversized and only snaps to
+    // the right shape when a hover forces a re-measure. Loading the font before
+    // the first draw removes the race.
+    const LABEL_FONT = 'VT323';
+    const LABEL_FONT_SPEC = '20px "' + LABEL_FONT + '"';
+    const FONT_WAIT_MS = 3000;
+
+    function whenLabelFontReady() {
+        if (!document.fonts || !document.fonts.load) return Promise.resolve();
+        const loaded = document.fonts.load(LABEL_FONT_SPEC).then(() => document.fonts.ready);
+        // Never let a slow or blocked font host hold the loading screen hostage:
+        // worst case we lay out in the fallback, which is at least self-consistent.
+        const cap = new Promise(resolve => setTimeout(resolve, FONT_WAIT_MS));
+        return Promise.race([loaded, cap]).catch(() => {});
+    }
+
+    Promise.all([
+        fetch('knowledge.json?t=' + Date.now()).then(response => {
             if (!response.ok) throw new Error('Failed to load data');
             return response.json();
-        })
-        .then(rawData => {
+        }),
+        whenLabelFontReady()
+    ])
+        .then(([rawData]) => {
             const nodesData = Array.isArray(rawData) ? rawData : rawData.nodes;
             const linksData = Array.isArray(rawData) ? [] : (rawData.links || []);
-            
+
             initGraph(nodesData, linksData);
             loadingScreen.style.display = 'none';
         })
@@ -68,8 +93,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 font: {
                     color: '#ff9900',
-                    face: 'VT323',
+                    face: LABEL_FONT,
                     size: 20,
+                    // Labels can land on the lit planets in the backdrop, so each
+                    // gets its own dark plate. Kept just short of opaque so it
+                    // reads as a terminal readout rather than a solid block.
+                    // vis draws the plate tight to the glyphs with no padding
+                    // option, so a light halo still earns its keep at the edges.
+                    background: 'rgba(0, 0, 0, 0.85)',
                     strokeColor: '#000000',
                     strokeWidth: 2
                 },
@@ -148,9 +179,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         network.on("beforeDrawing", function(ctx) {
-            const edges = network.body.edges;
-            const nodes = network.body.nodes;
-            
+            // Named to avoid shadowing the `nodes`/`edges` DataSets above.
+            const bodyEdges = network.body.edges;
+            const bodyNodes = network.body.nodes;
+
             // We iterate through each configured layer
             LINE_CONFIG.forEach(layer => {
                 ctx.save();
@@ -158,10 +190,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 ctx.lineWidth = layer.width;
                 ctx.lineCap = 'round';
 
-                for (let edgeId in edges) {
-                    const edge = edges[edgeId];
-                    const startNode = nodes[edge.fromId];
-                    const endNode = nodes[edge.toId];
+                for (let edgeId in bodyEdges) {
+                    const edge = bodyEdges[edgeId];
+                    const startNode = bodyNodes[edge.fromId];
+                    const endNode = bodyNodes[edge.toId];
                     
                     if (startNode && endNode) {
                         const x1 = startNode.x;
@@ -212,32 +244,41 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        window.openModal = function(data) {
-            mTitle.innerText = data.label;
-            
-            if (data.timestamp) {
-                const d = new Date(data.timestamp*1000);
-                const utcStr = d.toUTCString();
+        window.openModal = function(node) {
+            mTitle.innerText = node.label;
+
+            if (node.timestamp) {
+                // Timestamps are stored in SECONDS, not ms - hence the *1000 below.
+                const utcStr = new Date(node.timestamp * 1000).toUTCString();
                 mTimestamp.style.display = 'block';
-                mTimestamp.innerText = `TIMESTAMP: ${data.timestamp} ms | ${utcStr}`;
+                mTimestamp.innerText = `TIMESTAMP: ${node.timestamp}s | ${utcStr}`;
             } else {
                 mTimestamp.style.display = 'none';
             }
-            
-            mText.innerText = data.text || "";
-            
-            if (data.image) {
-                mImage.src = data.image;
+
+            mText.innerText = node.text || "";
+
+            if (node.image) {
+                mImage.src = node.image;
                 mImage.style.display = 'block';
             } else {
                 mImage.style.display = 'none';
             }
             modal.style.display = 'flex';
+
+            // Keep the address bar pointing at whatever is open, so the URL is
+            // always copy-pasteable as a link to this node.
+            setHash(node);
         };
 
         window.closeModal = function() {
             modal.style.display = 'none';
+            clearHash();
         };
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.style.display === 'flex') closeModal();
+        });
 
         modal.addEventListener('click', function(e) {
             if (e.target === modal) closeModal();
@@ -248,43 +289,119 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // ==========================================
-        // AUTO-OPEN NODE FROM URL HASH (BY NAME)
+        // DEEP LINKING
         // ==========================================
-        
+        // Link to any node as knowledge.html#Node Name - the same
+        // "#Section Name" convention story.html already uses in its sidenav.
+        // Matching is deliberately forgiving: case, spaces, hyphens and
+        // punctuation are all ignored, so every one of these reaches node 3:
+        //
+        //   #Dominique DuFresne: Pirate Queen of Mars
+        //   #dominique-dufresne-pirate-queen-of-mars
+        //   #DominiqueDufresnePirateQueenOfMars
+        //   #3                                   (bare node id)
+
         function normalizeString(str) {
-            return str.toLowerCase().replace(/[^a-z0-9]/g, '');
+            return String(str).toLowerCase().replace(/[^a-z0-9]/g, '');
         }
 
-        function handleUrlHash() {
-            const hash = window.location.hash;
-            if (!hash) return;
+        // location.hash percent-encodes spaces, so "#Node Name" arrives here as
+        // "#Node%20Name". Without decoding first, the %20 collapses to a stray
+        // "20" in the slug and nothing ever matches.
+        function readHash() {
+            const raw = window.location.hash.slice(1);
+            if (!raw) return '';
+            try {
+                return decodeURIComponent(raw);
+            } catch (err) {
+                return raw; // malformed escape sequence, use it as typed
+            }
+        }
 
-            const rawQuery = hash.substring(1);
-            if (!rawQuery) return;
+        function findNodeByHash(query) {
+            const slug = normalizeString(query);
+            if (!slug) return null;
 
-            const targetSlug = normalizeString(rawQuery);
-            let targetNode = null;
+            // 1. Exact label match.
+            const exact = nodesData.find(n => normalizeString(n.label) === slug);
+            if (exact) return exact;
 
-            targetNode = nodesData.find(n => normalizeString(n.label) === targetSlug);
-            if (!targetNode) {
-                targetNode = nodesData.find(n => normalizeString(n.label).includes(targetSlug));
+            // 2. Bare node id, e.g. "#12".
+            if (/^\d+$/.test(query.trim())) {
+                const byId = nodesData.find(n => n.id === parseInt(query, 10));
+                if (byId) return byId;
             }
 
-            if (targetNode) {
-                setTimeout(() => {
-                    openModal(targetNode);
-                    network.focus(targetNode.id, {
-                        scale: 1.2,
-                        animation: { duration: 1000, easingFunction: 'easeInOutQuad' }
-                    });
-                    window.history.replaceState(null, document.title, window.location.pathname);
-                }, 1500);
+            // 3. Partial match, shortest label first. Sorting matters: it stops
+            //    "#Chrysla" being swallowed by "Colonization of Mars (According
+            //    to Chrysla)" just because that node comes first in the file.
+            const byLength = (a, b) => a.label.length - b.label.length;
+            const starts = nodesData.filter(n => normalizeString(n.label).startsWith(slug)).sort(byLength);
+            if (starts.length) return starts[0];
+
+            const contains = nodesData.filter(n => normalizeString(n.label).includes(slug)).sort(byLength);
+            return contains[0] || null;
+        }
+
+        // replaceState (rather than assigning location.hash) keeps this out of
+        // the back-button history AND does not fire a hashchange event, so
+        // these two helpers can never loop with the listener below.
+        function setHash(node) {
+            if (normalizeString(readHash()) === normalizeString(node.label)) return;
+            history.replaceState(null, '', '#' + node.label);
+        }
+
+        function clearHash() {
+            if (!window.location.hash) return;
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+
+        function revealNode(node) {
+            openModal(node);
+            network.selectNodes([node.id]);
+            network.focus(node.id, {
+                scale: 1.2,
+                animation: { duration: 1000, easingFunction: 'easeInOutQuad' }
+            });
+        }
+
+        // Fires when someone edits the hash, or follows a second #link from
+        // inside an already-open page.
+        window.addEventListener('hashchange', function() {
+            const query = readHash();
+            if (!query) {
+                closeModal();
+                return;
+            }
+            const node = findNodeByHash(query);
+            if (node) {
+                revealNode(node);
             } else {
-                console.warn(`Node with name "${rawQuery}" not found.`);
+                console.warn(`No node matches "${query}".`);
+            }
+        });
+
+        // Wait for the physics layout to settle before focusing, otherwise the
+        // camera chases a node that is still drifting. The old code guessed with
+        // a pair of overlapping 500ms/1500ms timers; this uses the real event
+        // and keeps one timer purely as a fallback.
+        let initialHashHandled = false;
+        function handleInitialHash() {
+            if (initialHashHandled) return;
+            initialHashHandled = true;
+
+            const query = readHash();
+            if (!query) return;
+
+            const node = findNodeByHash(query);
+            if (node) {
+                revealNode(node);
+            } else {
+                console.warn(`No node matches "${query}".`);
             }
         }
 
-        setTimeout(handleUrlHash, 500);
-        setTimeout(handleUrlHash, 1500);
+        network.once('stabilizationIterationsDone', handleInitialHash);
+        setTimeout(handleInitialHash, 2500);
     }
 });
