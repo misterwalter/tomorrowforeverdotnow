@@ -15,6 +15,13 @@
         "_itch_url": "https://tomorrowforevernow.itch.io/you-are-not-a-dentist"
     },
     {
+        "title": "Walterpedia",
+        "description": "Sometimes I stream myself reading wikipedia articles on twitch.tv. It's been surprisingly fun!",
+        "status": "Occasional",
+        "header_image_url": "images/wikiorb.png",
+        "twitch_url": "https://www.twitch.tv/walterpedia"
+    },
+    {
         "title": "DitherDream",
         "description": "A trippy little puzzle exploration game. Let the world guide you through a strange and uniquely beautiful archipelago.",
         "status": "Complete",
