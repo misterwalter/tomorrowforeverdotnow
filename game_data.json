@@ -8,11 +8,11 @@
     },
     {
         "title": "You Are ¿Not? A Dentist",
-        "description": "Travel the world and brush the teeth of thousands to save your uncle and attain your destiny!",
-        "status": "Formal Announcement Soon!",
-        "header_image_url": "images/you_are_not_a_dentist_header.png",
-        "_steam_url": "https://store.steampowered.com/app/4491650",
-        "_itch_url": "https://tomorrowforevernow.itch.io/you-are-not-a-dentist"
+        "description": "Travel the world and brush the teeth of thousands to save your uncle and hopefully make rent!",
+        "status": "Coming Soon!",
+        "header_image_url": "images/you_are_not_a_dentist_itch_capsule.png",
+        "steam_url": "https://store.steampowered.com/app/4491650",
+        "itch_url": "https://tomorrowforevernow.itch.io/you-are-not-a-dentist"
     },
     {
         "title": "DitherDream",
