@@ -200,6 +200,14 @@
       "image": null,
       "text": "A political faction on Earth, derided by Chrysla as violent and ruining peace and prosperity for everyone.",
       "isKey": false
+    },
+    {
+      "id": 32,
+      "label": "It's Not Like Him",
+      "image": null,
+      "text": "[LOCRYPT]\n[CIV1]\n[WIDERELAY]\n\n- I just don’t think that he would do someone like that, it’s not like him.\n- Maybe he thought he was helping her?",
+      "isKey": false,
+      "timestamp": 10012809814
     }
   ],
   "links": [
@@ -314,6 +322,10 @@
     {
       "from": 29,
       "to": 31
+    },
+    {
+      "from": 32,
+      "to": 13
     }
   ]
 }
